@@ -1,0 +1,4 @@
+# Local-only artifacts: never upload to Vercel.
+.playwright-mcp/
+dist/
+node_modules/
