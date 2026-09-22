@@ -23,6 +23,10 @@ export function Contact() {
             <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL} →</a>
           </li>
           <li>
+            <span className="contact-label">Discord</span>
+            <span>thegamer3559</span>
+          </li>
+          <li>
             <span className="contact-label">School</span>
             <span>Velammal Academy Nolambur</span>
           </li>
