@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useScroll } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import type { MouseEvent } from "react";
 import { GITHUB_URL, NAV_LINKS } from "../data/content";
 import { EASE } from "../lib/motion";
 
@@ -8,6 +9,12 @@ export function Navbar() {
   const [activeHref, setActiveHref] = useState<string | null>(null);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
   const { scrollYProgress } = useScroll();
+
+  const scrollToTop = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  };
 
   useEffect(() => {
     const sections = NAV_LINKS.map((link) => document.querySelector(link.href)).filter(
@@ -43,7 +50,7 @@ export function Navbar() {
   return (
     <header className="nav" id="top">
       <div className="nav-inner">
-        <a className="brand" href="#top" aria-label="Raghav Krishna home">
+        <a className="brand" href="#top" aria-label="Raghav Krishna home" onClick={scrollToTop}>
           <span className="brand-text">Raghav Krishna</span>
         </a>
         <nav className="nav-links" aria-label="Primary">
