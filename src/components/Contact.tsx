@@ -24,7 +24,13 @@ export function Contact() {
           </li>
           <li>
             <span className="contact-label">Discord</span>
-            <span>thegamer3559</span>
+            <a
+              href="https://discord.com/users/980399356148609045"
+              target="_blank"
+              rel="noopener"
+            >
+              thegamer3559 →
+            </a>
           </li>
           <li>
             <span className="contact-label">School</span>
