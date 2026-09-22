@@ -242,10 +242,30 @@ export const TIMELINE: TimelineItem[] = [
   },
 ];
 
-export const CURRENTLY: string[] = [
-  "Robotics and ESP32 projects",
-  "Hardware/software integration",
-  "Web development",
-  "AI-assisted development",
-  "Experimental projects",
+export interface CurrentlyItem {
+  title: string;
+  sub: string;
+}
+
+export const CURRENTLY: CurrentlyItem[] = [
+  {
+    title: "Robotics and ESP32 projects",
+    sub: "Sensors, servos, solenoids and microcontrollers.",
+  },
+  {
+    title: "Hardware/software integration",
+    sub: "Connecting code to the physical world.",
+  },
+  {
+    title: "Web development",
+    sub: "React, TypeScript — including this portfolio.",
+  },
+  {
+    title: "AI-assisted development",
+    sub: "Claude Code and OpenAI Codex in the loop.",
+  },
+  {
+    title: "Experimental projects",
+    sub: "Small builds and new ideas.",
+  },
 ];
