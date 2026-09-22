@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap: add "Sitemap: https://<your-domain>/sitemap.xml" here
+# once the Vercel host is live.
