@@ -106,7 +106,7 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    name: "Road Accident Safety Hub",
+    name: "CRASH (Chennai Road Accident Safety Hub)",
     badge: "Zonal Robotics Championship · SRM Chennai",
     result: "Qualified for NRC Technoxian through the zonal championship",
     description:
@@ -225,7 +225,7 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: "2026",
     title: "Zonal Robotics Championship",
-    sub: "SRM Chennai · Road Accident Safety Hub",
+    sub: "SRM Chennai · CRASH",
     result: "Qualified for NRC Technoxian",
   },
   {
