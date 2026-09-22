@@ -1,5 +1,5 @@
 // Shared motion language (motion/react v13).
-// One calm ease-out, one 8px rise, 50ms staggers — transform/opacity only.
+// One calm ease-out, one 8px rise, 50ms staggers. Transform/opacity only.
 // Reveals trigger 20% BEFORE entry (viewport margin) and finish fast, so
 // even flick-scrolls land on settled content instead of chasing animation.
 // Reduced motion is handled globally via MotionConfig reducedMotion="user"
@@ -15,8 +15,8 @@ export const SCROLL_VIEWPORT: ViewportOptions = { once: true, amount: 0.1, margi
 
 /**
  * Parent variant for row-lists (achievements, robotics, timeline).
- * Children using `itemVariants` cascade with one shared stagger —
- * no per-item delay math in components.
+ * Children using `itemVariants` cascade with one shared stagger.
+ * No per-item delay math in components.
  */
 export const listVariants: Variants = {
   hidden: {},

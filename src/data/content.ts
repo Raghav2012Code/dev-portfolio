@@ -158,7 +158,7 @@ export const PROJECTS: Project[] = [
     result: "Participated · 2026",
     resultMuted: true,
     description:
-      "A transparent, tamper-evident ledger for peer-to-peer rooftop solar energy trading — neighbours trading surplus at a community rate, every trade sealed into a SHA-256 hash chain computed in the browser. All data simulated.",
+      "A transparent, tamper-evident ledger for peer-to-peer rooftop solar energy trading. Neighbours trade surplus at a community rate, and every trade is sealed into a SHA-256 hash chain computed in the browser. All data simulated.",
     contrib: "Frontend development and the competition pitch.",
     techline: [
       { label: "React" },
@@ -218,12 +218,12 @@ export interface RoboItem {
 
 export const ROBOTICS_ITEMS: RoboItem[] = [
   { title: "ESP32 & Arduino", text: "Microcontrollers at the centre of every hardware build." },
-  { title: "Sensors", text: "IR, laser, temperature — reading the physical world." },
-  { title: "Actuators", text: "Servos, solenoids, displays — acting on the physical world." },
+  { title: "Sensors", text: "IR, laser, temperature: reading the physical world." },
+  { title: "Actuators", text: "Servos, solenoids, displays: acting on the physical world." },
   { title: "Electronics", text: "Circuits, wiring, and making it all actually work together." },
   {
     title: "Hardware / software integration",
-    text: "Connecting physical hardware to software — the whole point.",
+    text: "Connecting physical hardware to software. That's the whole point.",
   },
   { title: "Physical computing", text: "Building things that interact with the physical world." },
 ];
@@ -286,7 +286,7 @@ export const CURRENTLY: CurrentlyItem[] = [
   },
   {
     title: "Web development",
-    sub: "React, TypeScript — including this portfolio.",
+    sub: "React, TypeScript, including this portfolio.",
   },
   {
     title: "AI-assisted development",

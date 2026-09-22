@@ -8,9 +8,9 @@ export function Robotics() {
     <section className="section" id="robotics">
       <div className="container robotics-grid">
         <div>
-          <SectionHead eyebrow="04 — Robotics" title="Builds that touch the real world." />
+          <SectionHead eyebrow="04 · Robotics" title="Builds that touch the real world." />
           <motion.p {...reveal(2)} className="section-lead">
-            Software is great — but my favourite moment is when code moves something physical: a
+            Software is great, but my favourite moment is when code moves something physical: a
             servo turns, a sensor fires, a mechanism responds.
           </motion.p>
         </div>

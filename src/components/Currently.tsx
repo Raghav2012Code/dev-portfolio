@@ -7,7 +7,7 @@ export function Currently() {
   return (
     <section className="section" id="currently">
       <div className="container narrow">
-        <SectionHead eyebrow="06 — Currently" title="Building / exploring now" />
+        <SectionHead eyebrow="06 · Currently" title="Building / exploring now" />
         <motion.ul {...reveal(2)} className="currently-list">
           {CURRENTLY.map((item, i) => (
             <li key={item.title}>

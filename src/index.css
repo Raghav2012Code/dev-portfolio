@@ -1,5 +1,5 @@
 /* ============================================================
-   Raghav Krishna — ultra-minimal editorial portfolio
+   Raghav Krishna: ultra-minimal editorial portfolio
    React 19 + TypeScript (Vite). One width, one font, one quiet accent.
    Hierarchy from type + whitespace + hairlines only.
    No gradients, no glow, no glass, no shadows, no cards.
@@ -7,7 +7,7 @@
    Watermelon UI primitives, ported natively: WM Button (.btn),
    WM Badge (.badge), WM Navigation (nav + aria-current), and
    WM Tooltip (.tip). Intentionally NOT used: cards, tabs,
-   dialogs — the editorial layout already solves those better.
+   dialogs. The editorial layout already solves those cases with less UI.
    Motion (motion/react): hero entrance, grouped scroll reveals,
    project hover lift, button press feedback. One ease, one rise,
    short staggers; transform/opacity only. Reduced motion is

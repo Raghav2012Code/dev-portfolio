@@ -7,7 +7,7 @@ export function Contact() {
   return (
     <section className="section" id="contact">
       <div className="container narrow">
-        <SectionHead eyebrow="07 — Contact" title="Say hello." />
+        <SectionHead eyebrow="07 · Contact" title="Say hello." />
         <motion.p {...reveal(2)} className="section-lead">
           Always happy to talk robotics, hardware, or builds in progress.
         </motion.p>

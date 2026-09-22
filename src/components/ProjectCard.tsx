@@ -20,7 +20,7 @@ function SignalLine({ steps, small = false }: { steps: SignalStep[]; small?: boo
       {steps.map((step, i) => (
         <span key={`${step.text.label}-${i}`}>
           {step.strong ? <strong>{step.strong}</strong> : null}
-          {step.strong ? " — " : null}
+          {step.strong ? ": " : null}
           <Tip label={step.text.label} tip={step.text.tip} />
           {i < steps.length - 1 ? (
             <span className="sys-arrow" aria-hidden="true">
@@ -79,7 +79,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       {project.sysline ? <SignalLine steps={project.sysline} small={project.syslineSmall} /> : null}
       {project.contrib ? (
         <p className="contrib">
-          <span>Contribution</span> — {project.contrib}
+          <span>Contribution</span>: {project.contrib}
         </p>
       ) : null}
       {project.techline ? <TechLine items={project.techline} /> : null}

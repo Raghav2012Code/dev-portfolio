@@ -8,7 +8,7 @@ export function About() {
     <section className="section" id="about">
       <div className="container about-grid">
         <div>
-          <SectionHead eyebrow="01 — About" title="I learn by building things." />
+          <SectionHead eyebrow="01 · About" title="I learn by building things." />
         </div>
         <motion.div {...reveal(2)} className="about-copy">
           <p>
@@ -17,7 +17,7 @@ export function About() {
           </p>
           <p>
             I know the fundamentals of programming, but most of what I’ve learned has come from
-            actually building things. I especially enjoy hardware projects — working with ESP32s,
+            actually building things. I especially enjoy hardware projects, working with ESP32s,
             sensors and actuators, and figuring out how software can interact with the physical
             world.
           </p>

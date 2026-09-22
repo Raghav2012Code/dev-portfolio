@@ -9,7 +9,7 @@ export function Projects() {
   return (
     <section className="section" id="projects">
       <div className="container">
-        <SectionHead eyebrow="02 — Projects" title="Selected work" />
+        <SectionHead eyebrow="02 · Projects" title="Selected work" />
         <motion.p {...reveal(2)} className="section-lead">
           Hardware-first projects, built for real competitions.
         </motion.p>

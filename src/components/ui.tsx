@@ -9,7 +9,7 @@ interface BadgeProps {
   accent?: boolean;
 }
 
-/** Plain label — the parent card/section owns the reveal animation. */
+/** Plain label. The parent card/section owns the reveal animation. */
 export function Badge({ children, accent = false }: BadgeProps) {
   return <p className={accent ? "badge badge-accent" : "badge"}>{children}</p>;
 }

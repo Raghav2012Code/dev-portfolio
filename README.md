@@ -1,6 +1,6 @@
-# Raghav Krishna — Portfolio
+# Raghav Krishna's Portfolio
 
-Personal portfolio of Raghav Krishna — 14-year-old student, developer and
+Personal portfolio of Raghav Krishna, 14-year-old student, developer and
 robotics builder from Chennai.
 
 **Live:** https://dev-portfolio-azure-nine.vercel.app
@@ -19,8 +19,8 @@ single-column editorial design: one width, one font, one quiet accent.
 - No proficiency percentages or expertise claims
 - No C++ in skills; no generic AI/ML skill category (XGBoost appears only in the CRASH + EPL cards)
 - No LinkedIn (not provided)
-- EPL Predictor is a technical project card only — no football-interest section
-- Urbania is a personal experimental 2D city simulation — no stack focus
+- EPL Predictor is a technical project card only. No football-interest section.
+- Urbania is a personal experimental 2D city simulation. No stack focus.
 - Reduced motion is respected globally (`MotionConfig reducedMotion="user"` + CSS media query)
 
 ## Photos

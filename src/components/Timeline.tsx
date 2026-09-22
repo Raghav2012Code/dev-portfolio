@@ -7,7 +7,7 @@ export function Timeline() {
   return (
     <section className="section" id="timeline">
       <div className="container narrow">
-        <SectionHead eyebrow="05 — Competitions" title="Competition timeline" />
+        <SectionHead eyebrow="05 · Competitions" title="Competition timeline" />
         <motion.ol
           className="timeline"
           variants={listVariants}
