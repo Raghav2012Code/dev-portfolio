@@ -1,4 +1,4 @@
-// Watermelon UI primitives, ported natively (see styles.css header).
+// Watermelon UI primitives, ported natively (see src/index.css header).
 // Tiny typed wrappers so badges, tooltips and section headings stay consistent.
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
