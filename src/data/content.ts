@@ -138,6 +138,7 @@ export const PROJECTS: Project[] = [
     syslineSmall: true,
     contrib:
       "Complete full-stack software implementation, including hardware/software integration.",
+    link: { label: "View on GitHub →", href: "https://github.com/abivan100-stack/vault" },
     techline: [
       { label: "Arduino" },
       { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" },
