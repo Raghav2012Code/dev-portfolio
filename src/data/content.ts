@@ -118,6 +118,7 @@ export const PROJECTS: Project[] = [
       { label: "Python" },
       { label: "Public accident data" },
     ],
+    link: { label: "View on GitHub →", href: "https://github.com/abivan100-stack/C.R.A.S.H" },
   },
   {
     name: "Vaccine Cold Chain Ledger",
@@ -170,6 +171,7 @@ export const PROJECTS: Project[] = [
     resultMuted: true,
     description:
       "A personal experimental project: a 2D city simulation I’m building to explore how simulated systems behave.",
+    link: { label: "View on GitHub →", href: "https://github.com/Raghav2012Code/urbania" },
   },
 ];
 
