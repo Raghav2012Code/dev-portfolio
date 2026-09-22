@@ -161,7 +161,7 @@ export const PROJECTS: Project[] = [
       { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
       { label: "Historical match data" },
     ],
-    link: { label: "View on GitHub →", href: GITHUB_URL },
+    link: { label: "View on GitHub →", href: "https://github.com/Raghav2012Code/epl-predictor" },
   },
   {
     name: "Urbania",
