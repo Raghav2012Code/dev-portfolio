@@ -88,6 +88,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           {project.link.label}
         </a>
       ) : null}
+      {project.demo ? (
+        <a className="card-link" href={project.demo.href} target="_blank" rel="noopener">
+          {project.demo.label}
+        </a>
+      ) : null}
     </motion.article>
   );
 }

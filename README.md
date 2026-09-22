@@ -25,11 +25,12 @@ npm run typecheck
 
 ## Project content rules (keep them)
 
-- Projects, in order: Door Hinge Safety System, Road Accident Safety Hub, Vaccine Cold Chain Ledger, EPL Predictor, Urbania
+- Projects, in order: Door Hinge Safety System, CRASH, Vaccine Cold Chain Ledger, Volt Ledger, EPL Predictor, Urbania
+- Participated-only entries (Technoviz, Shark Tank) stay muted in the timeline; they never enter the achievements strip
 - No Habit Tracker anywhere
 - No invented awards, jobs, stats, testimonials, or technical details
 - No proficiency percentages or expertise claims
-- No C++ in skills; no generic AI/ML skill category (XGBoost appears only in the Road Accident + EPL cards)
+- No C++ in skills; no generic AI/ML skill category (XGBoost appears only in the CRASH + EPL cards)
 - No LinkedIn (not provided)
 - EPL Predictor is a technical project card only — no football-interest section
 - Urbania is a personal experimental 2D city simulation — no stack focus, no link

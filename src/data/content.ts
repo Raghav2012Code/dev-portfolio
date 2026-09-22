@@ -81,6 +81,7 @@ export interface Project {
   contrib?: string;
   techline?: TechMention[];
   link?: ProjectLink;
+  demo?: ProjectLink;
 }
 
 export const PROJECTS: Project[] = [
@@ -149,6 +150,23 @@ export const PROJECTS: Project[] = [
       { label: "REST API" },
       { label: "SHA-256", tip: "Cryptographic hash for tamper-evident records" },
     ],
+  },
+  {
+    name: "Volt Ledger",
+    badge: "Shark Tank Challenge · Velammal",
+    result: "Participated · 2026",
+    resultMuted: true,
+    description:
+      "A transparent, tamper-evident ledger for peer-to-peer rooftop solar energy trading — neighbours trading surplus at a community rate, every trade sealed into a SHA-256 hash chain computed in the browser. All data simulated.",
+    contrib: "Frontend development and the competition pitch.",
+    techline: [
+      { label: "React" },
+      { label: "TypeScript" },
+      { label: "Tailwind CSS" },
+      { label: "SHA-256", tip: "Cryptographic hash for tamper-evident records" },
+    ],
+    link: { label: "View on GitHub →", href: "https://github.com/abivan100-stack/volt-ledger" },
+    demo: { label: "View live site →", href: "https://volt-ledger.vercel.app" },
   },
   {
     name: "EPL Predictor",
@@ -235,6 +253,13 @@ export const TIMELINE: TimelineItem[] = [
     title: "PEC Hacks 4.0",
     sub: "Panimalar Engineering College · High School Track · Vaccine Cold Chain Ledger",
     result: "Consolation Prize",
+  },
+  {
+    year: "2026",
+    title: "Shark Tank Challenge",
+    sub: "Velammal · Volt Ledger",
+    result: "Participated",
+    minor: true,
   },
   {
     year: "2025",

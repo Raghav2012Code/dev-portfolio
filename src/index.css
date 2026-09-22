@@ -239,6 +239,7 @@ a:focus-visible, button:focus-visible {
   transition: var(--t);
 }
 .card-link:hover { text-decoration-color: var(--accent); transform: translateX(2px); }
+.card-link + .card-link { margin-left: 18px; }
 
 .project-grid { margin-top: 8px; display: block; }
 .project { padding: 36px 0; border-bottom: 1px solid var(--line); }
