@@ -81,12 +81,14 @@ a:focus-visible, button:focus-visible {
 /* ---------- WM Button, adapted: quiet variants, one height, one radius ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px;
   min-height: 42px; padding: 0 22px;
   font-weight: 600; font-size: 14px; line-height: 1;
   border-radius: var(--radius); border: 1px solid transparent;
   text-decoration: none; cursor: pointer; white-space: nowrap;
   transition: var(--t);
 }
+.btn svg { width: 16px; height: 16px; flex: none; }
 .btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--text); color: #09090b; }
 .btn-primary:hover { background: #e4e4e7; }
