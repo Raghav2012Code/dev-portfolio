@@ -1,2 +1,7 @@
 # Playwright test artifacts (local only, never commit)
 .playwright-mcp/
+
+# Dependencies + build output
+node_modules/
+dist/
+*.local

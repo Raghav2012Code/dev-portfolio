@@ -1,0 +1,359 @@
+/* ============================================================
+   Raghav Krishna — ultra-minimal editorial portfolio
+   React 19 + TypeScript (Vite). One width, one font, one quiet accent.
+   Hierarchy from type + whitespace + hairlines only.
+   No gradients, no glow, no glass, no shadows, no cards.
+   ---
+   Watermelon UI primitives, ported natively: WM Button (.btn),
+   WM Badge (.badge), WM Navigation (nav + aria-current), and
+   WM Tooltip (.tip). Intentionally NOT used: cards, tabs,
+   dialogs — the editorial layout already solves those better.
+   Motion (motion/react): hero entrance, grouped scroll reveals,
+   project hover lift, button press feedback. One ease, one rise,
+   short staggers; transform/opacity only. Reduced motion is
+   disabled globally via MotionConfig reducedMotion="user".
+   ============================================================ */
+:root {
+  --bg: #0a0a0b;
+  --text: #f4f4f5;
+  --text-dim: #a1a1aa;
+  --text-faint: #71717a;
+  --accent: #c9a227;
+  --accent-text: #d9b845;
+  --line: #1b1b1e;
+  --line-strong: #2a2a2e;
+  --line-faint: #3f3f46;
+  --radius: 4px;
+  --dur: 0.15s;
+  --ease: ease;
+  --t: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease, text-decoration-color 0.15s ease;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --max: 720px;
+  --section-pad: 88px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+::selection { background: rgba(201, 162, 39, 0.3); }
+
+a:focus-visible, button:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+.narrow { max-width: var(--max); }
+
+.skip-link {
+  position: absolute; left: 16px; top: -48px; z-index: 200;
+  background: var(--text); color: #09090b; font-weight: 600; font-size: 14px;
+  padding: 8px 14px; border-radius: var(--radius); text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+/* ---------- type ---------- */
+.section-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint); margin-bottom: 12px;
+}
+.section h2 {
+  font-size: clamp(26px, 3.4vw, 32px);
+  font-weight: 700; letter-spacing: -0.025em; line-height: 1.2;
+  text-wrap: balance;
+}
+.section-lead { color: var(--text-dim); margin-top: 10px; font-size: 16px; line-height: 1.65; max-width: 36rem; text-wrap: pretty; }
+.about-copy p, .project-desc, #workflow p { text-wrap: pretty; }
+
+/* ---------- WM Button, adapted: quiet variants, one height, one radius ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 42px; padding: 0 22px;
+  font-weight: 600; font-size: 14px; line-height: 1;
+  border-radius: var(--radius); border: 1px solid transparent;
+  text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: var(--t);
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--text); color: #09090b; }
+.btn-primary:hover { background: #e4e4e7; }
+.btn-primary:active { background: #d4d4d8; }
+.btn-secondary { border-color: var(--line-strong); color: var(--text); }
+.btn-secondary:hover { border-color: var(--text-faint); }
+.btn-secondary:active { border-color: var(--text-dim); }
+
+/* ---------- nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 60px;
+}
+.brand { text-decoration: none; }
+.brand-text { font-size: 14px; font-weight: 650; letter-spacing: -0.01em; }
+.nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-links a { color: var(--text-dim); text-decoration: none; font-size: 13.5px; font-weight: 500; text-underline-offset: 4px; transition: var(--t); }
+.nav-links a:hover { color: var(--text); text-decoration: underline; text-decoration-color: var(--line-faint); }
+.nav-links a[aria-current="true"] { color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); }
+.nav-cta { display: flex; align-items: center; gap: 12px; }
+.nav-github { color: var(--text-dim); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: var(--t); }
+.nav-github:hover { color: var(--text); }
+.nav-toggle {
+  display: none; background: none; color: var(--text);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 9px 10px; cursor: pointer; line-height: 0;
+}
+.nav-toggle span { display: block; width: 16px; height: 1.5px; background: currentColor; margin: 4px 0; }
+.nav-toggle span:first-child { margin-top: 0; }
+.nav-toggle span:last-child { margin-bottom: 0; }
+.mobile-menu {
+  display: flex; flex-direction: column; overflow: hidden;
+  max-height: 0; opacity: 0; visibility: hidden;
+  padding: 0 24px; border-top: 1px solid transparent;
+  transition: max-height 0.25s ease, opacity 0.2s ease, visibility 0.25s, padding 0.25s ease, border-color 0.2s ease;
+}
+.mobile-menu a { color: var(--text-dim); text-decoration: none; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14px; transition: var(--t); }
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: var(--text); }
+.mobile-menu.open { max-height: 480px; opacity: 1; visibility: visible; padding: 4px 24px 12px; border-top-color: var(--line); }
+@media (min-width: 641px) { .mobile-menu { display: none; } }
+
+/* ---------- scroll progress: 2px orientation hairline ---------- */
+.scroll-progress { height: 2px; background: transparent; }
+.scroll-progress span { display: block; height: 100%; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* ---------- hero: single column, type-led ---------- */
+.hero { padding: 96px 0 80px; }
+.hero-inner { max-width: var(--max); }
+.profile-img {
+  width: 68px; height: 68px; object-fit: cover;
+  border-radius: 50%; border: 1px solid var(--line-strong);
+  margin-bottom: 28px;
+}
+.eyebrow {
+  font-size: 12.5px; font-weight: 500; letter-spacing: 0.08em;
+  color: var(--text-faint); margin-bottom: 14px; text-transform: uppercase;
+}
+.hero h1 {
+  font-size: clamp(44px, 7vw, 68px);
+  font-weight: 750; letter-spacing: -0.04em; line-height: 1.02;
+  text-wrap: balance;
+}
+.hero-role { margin-top: 14px; font-size: 16px; font-weight: 500; color: var(--text-dim); }
+.hero-desc { margin-top: 14px; color: var(--text-dim); font-size: 16.5px; line-height: 1.7; max-width: 34rem; }
+.hero-actions { display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
+
+/* ---------- sections ---------- */
+.section { padding: var(--section-pad) 0; border-top: 1px solid var(--line); }
+
+/* ---------- achievements: compact rows ---------- */
+.achievements { padding: 0; border-top: none; }
+.achieve-list { list-style: none; }
+.achieve-list li {
+  display: flex; gap: 20px; align-items: baseline;
+  padding: 18px 0; border-top: 1px solid var(--line);
+}
+.achieve-list li:last-child { border-bottom: none; padding-bottom: 24px; }
+.achieve-index { font-family: var(--mono); font-size: 12px; color: var(--text-faint); min-width: 24px; }
+.achieve-title { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+.achieve-sub { color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-top: 1px; }
+
+/* ---------- about: stacked editorial ---------- */
+.about-grid { display: block; }
+.about-copy { margin-top: 28px; }
+.about-copy p { color: var(--text-dim); margin-bottom: 16px; font-size: 16px; max-width: 38rem; }
+.about-copy p:last-of-type { margin-bottom: 0; }
+.about-facts { margin-top: 32px; border-top: 1px solid var(--line); list-style: none; }
+.about-facts div {
+  display: grid; grid-template-columns: 120px 1fr; gap: 16px;
+  padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14.5px;
+}
+.about-facts dt { color: var(--text-faint); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 3px; }
+
+/* ---------- projects: single-column editorial blocks ---------- */
+.featured { margin-top: 44px; padding: 32px 0 40px 24px; border-left: 2px solid var(--accent); }
+/* ---------- WM Badge, adapted: hairline pill, mono, one radius. Labels only. ---------- */
+.badge {
+  display: inline-flex; align-items: center; max-width: 100%;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-dim);
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: 5px 10px; margin-bottom: 14px;
+}
+.badge-accent { color: var(--accent-text); border-color: rgba(201, 162, 39, 0.35); }
+.featured h3 {
+  font-size: clamp(26px, 3.4vw, 34px);
+  font-weight: 700; letter-spacing: -0.025em; line-height: 1.15;
+  text-wrap: balance;
+}
+.project h3 {
+  font-size: clamp(21px, 2.6vw, 25px);
+  font-weight: 650; letter-spacing: -0.02em; line-height: 1.25;
+}
+.project-meta { color: var(--text-faint); font-size: 13.5px; line-height: 1.6; margin-top: 6px; }
+.project-result { color: var(--text); font-weight: 600; font-size: 14px; line-height: 1.55; margin-top: 8px; }
+.featured .project-result { color: var(--accent-text); }
+.project-result.muted { color: var(--text-faint); font-weight: 500; }
+.project-desc { color: var(--text-dim); margin-top: 12px; max-width: 40rem; font-size: 15.5px; }
+.sysline {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px;
+  margin-top: 18px; font-size: 14px; line-height: 1.6; color: var(--text-faint);
+}
+.sysline strong { color: var(--text-dim); font-weight: 600; }
+.sys-arrow { color: var(--line-faint); }
+.sysline-small { font-size: 13.5px; }
+/* featured signal strip: hairline-framed sense → process → actuate flow */
+.featured .sysline {
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.01em;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+}
+.featured .sysline strong { color: var(--text); }
+.techline {
+  margin-top: 14px; font-family: var(--mono);
+  font-size: 12.5px; letter-spacing: 0.01em; color: var(--text-faint);
+}
+.contrib { margin-top: 12px; font-size: 14px; color: var(--text-faint); max-width: 40rem; }
+.contrib span { color: var(--text-dim); font-weight: 600; }
+.card-link {
+  display: inline-block; margin-top: 14px;
+  color: var(--text); font-weight: 600; font-size: 14px; text-decoration: underline;
+  text-decoration-color: var(--line-faint); text-underline-offset: 4px;
+  transition: var(--t);
+}
+.card-link:hover { text-decoration-color: var(--accent); transform: translateX(2px); }
+
+.project-grid { margin-top: 8px; display: block; }
+.project { padding: 36px 0; border-bottom: 1px solid var(--line); }
+.project:last-child { border-bottom: none; padding-bottom: 0; }
+
+/* ---------- stack ---------- */
+.stack-list { margin-top: 36px; border-top: 1px solid var(--line); }
+.stack-row {
+  display: grid; grid-template-columns: 160px 1fr; gap: 20px;
+  padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 14.5px;
+}
+.stack-row p:last-child { color: var(--text-dim); line-height: 1.7; }
+.stack-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); padding-top: 3px; }
+
+/* ---------- workflow ---------- */
+#workflow p { color: var(--text-dim); font-size: 16px; margin-top: 18px; max-width: 38rem; }
+#workflow .note {
+  margin-top: 20px; padding-left: 18px;
+  border-left: 1px solid var(--line-faint); color: var(--text-dim); font-size: 15px; line-height: 1.65;
+}
+#workflow .note strong { color: var(--text); font-weight: 600; }
+
+/* ---------- robotics ---------- */
+.robotics-grid { display: block; }
+.robo-list { list-style: none; margin-top: 32px; border-top: 1px solid var(--line); }
+.robo-list li { display: flex; gap: 20px; padding: 15px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.robo-code { font-family: var(--mono); font-size: 12px; color: var(--text-faint); min-width: 24px; }
+.robo-list strong { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.robo-list p { color: var(--text-dim); font-size: 13.5px; margin-top: 1px; }
+
+/* ---------- timeline ---------- */
+.timeline { list-style: none; margin-top: 36px; border-top: 1px solid var(--line); }
+.timeline li {
+  display: grid; grid-template-columns: 56px 1fr; gap: 20px;
+  padding: 18px 0; border-bottom: 1px solid var(--line); align-items: baseline;
+}
+.tl-year { font-family: var(--mono); font-size: 12.5px; color: var(--text-faint); }
+.tl-title { font-weight: 600; font-size: 15.5px; letter-spacing: -0.01em; }
+.tl-sub { color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-top: 2px; }
+.tl-sub strong { color: var(--text); font-weight: 600; }
+.timeline li:first-child .tl-sub strong { color: var(--accent-text); }
+.tl-minor { opacity: 0.65; }
+
+/* ---------- currently ---------- */
+.currently-list { list-style: none; margin-top: 32px; border-top: 1px solid var(--line); }
+.currently-list li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; color: var(--text-dim); }
+
+/* ---------- contact ---------- */
+.contact-list { list-style: none; margin-top: 36px; border-top: 1px solid var(--line); }
+.contact-list li {
+  display: grid; grid-template-columns: 100px 1fr; gap: 16px;
+  padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 15px; align-items: baseline;
+}
+.contact-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); font-weight: 600; }
+.contact-list a { color: var(--text); font-weight: 550; text-decoration: underline; text-decoration-color: var(--line-faint); text-underline-offset: 4px; overflow-wrap: anywhere; transition: var(--t); }
+.contact-list a:hover { text-decoration-color: var(--accent); }
+
+/* ---------- footer ---------- */
+.footer { border-top: 1px solid var(--line); padding: 32px 0 40px; }
+.footer-inner { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; }
+.footer-name { font-weight: 650; font-size: 14px; }
+.footer-meta { font-size: 12.5px; line-height: 1.6; color: var(--text-faint); }
+.footer-top { color: var(--text-dim); text-decoration: none; transition: var(--t); }
+.footer-top:hover { color: var(--text); }
+
+/* ---------- WM Tooltip, adapted: dotted affordance, solid bubble, hover-gated ---------- */
+.tip {
+  position: relative; cursor: help;
+  text-decoration: underline dotted; text-decoration-color: var(--line-faint); text-underline-offset: 3px;
+}
+@media (hover: hover) {
+  .tip::after {
+    content: attr(data-tip);
+    position: absolute; left: 50%; bottom: calc(100% + 8px);
+    transform: translateX(-50%) translateY(2px);
+    min-width: 160px; max-width: 230px; padding: 8px 10px;
+    font-family: var(--font); font-size: 12.5px; font-weight: 500; line-height: 1.5;
+    letter-spacing: normal; text-transform: none; white-space: normal;
+    color: var(--text); background: #131316;
+    border: 1px solid var(--line-strong); border-radius: var(--radius);
+    opacity: 0; visibility: hidden; pointer-events: none; z-index: 50;
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
+  }
+  .tip:hover::after, .tip:focus-visible::after {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ---------- entrance: owned by motion/react (initial/whileInView) ---------- */
+
+/* ---------- Motion layer (motion/react): WAAPI owns reveals ---------- */
+/* Motion sets initial/animate inline; no CSS-hidden pre-state is needed
+   because React renders nothing until JS runs. */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:active { transform: none; }
+  .card-link:hover { transform: none; }
+  .mobile-menu { transition: none; }
+  .scroll-progress { display: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 640px) {
+  :root { --section-pad: 64px; }
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .hero { padding: 64px 0 60px; }
+  .profile-img { width: 60px; height: 60px; margin-bottom: 24px; }
+  .hero-actions .btn { flex: 1 1 0; padding: 0 12px; }
+  .featured { padding: 24px 0 32px 18px; }
+  .about-facts div { grid-template-columns: 1fr; gap: 2px; }
+  .stack-row { grid-template-columns: 1fr; gap: 4px; }
+  .timeline li { grid-template-columns: 1fr; gap: 2px; }
+  .contact-list li { grid-template-columns: 1fr; gap: 2px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
