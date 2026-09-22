@@ -26,7 +26,7 @@ export interface Achievement {
 
 export const ACHIEVEMENTS: Achievement[] = [
   {
-    title: "Robowunder International Robotics Championship 2025",
+    title: "Robowunder International Robotics Championship 2026",
     sub: "Overall Winner · Malaysia",
   },
   {
@@ -89,7 +89,7 @@ export const PROJECTS: Project[] = [
     badge: "Featured · Overall Winner · Gold",
     badgeAccent: true,
     featured: true,
-    meta: "Robowunder International Robotics Championship 2025 · Malaysia",
+    meta: "Robowunder International Robotics Championship 2026 · Malaysia",
     description:
       "A hardware safety system designed to help prevent finger injuries around door hinges. Laser and IR sensors watch the hinge danger zone, and when something is detected inside it, the servo and solenoid actuators respond.",
     sysline: [
@@ -217,19 +217,19 @@ export interface TimelineItem {
 
 export const TIMELINE: TimelineItem[] = [
   {
-    year: "2025",
+    year: "2026",
     title: "Robowunder International Robotics Championship",
     sub: "Malaysia · Door Hinge Safety System",
     result: "Overall Winner",
   },
   {
-    year: "2025",
+    year: "2026",
     title: "Zonal Robotics Championship",
     sub: "SRM Chennai · Road Accident Safety Hub",
     result: "Qualified for NRC Technoxian",
   },
   {
-    year: "2025",
+    year: "2026",
     title: "PEC Hacks 4.0",
     sub: "Panimalar Engineering College · High School Track · Vaccine Cold Chain Ledger",
     result: "Consolation Prize",
