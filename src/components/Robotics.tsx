@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { ROBOTICS_ITEMS } from "../data/content";
-import { reveal } from "../lib/motion";
+import { itemVariants, listVariants, reveal, SCROLL_VIEWPORT } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 export function Robotics() {
@@ -14,9 +14,15 @@ export function Robotics() {
             servo turns, a sensor fires, a mechanism responds.
           </motion.p>
         </div>
-        <ul className="robo-list">
+        <motion.ul
+          className="robo-list"
+          variants={listVariants}
+          initial="hidden"
+          whileInView="shown"
+          viewport={SCROLL_VIEWPORT}
+        >
           {ROBOTICS_ITEMS.map((item, i) => (
-            <motion.li key={item.title} {...reveal(3 + i)}>
+            <motion.li key={item.title} variants={itemVariants}>
               <span className="robo-code" aria-hidden="true">
                 {String(i + 1).padStart(2, "0")}
               </span>
@@ -26,7 +32,7 @@ export function Robotics() {
               </div>
             </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </div>
     </section>
   );

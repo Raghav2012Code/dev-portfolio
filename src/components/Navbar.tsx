@@ -1,10 +1,12 @@
-import { motion, useScroll } from "motion/react";
-import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useScroll } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { GITHUB_URL, NAV_LINKS } from "../data/content";
+import { EASE } from "../lib/motion";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string | null>(null);
+  const toggleRef = useRef<HTMLButtonElement | null>(null);
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
@@ -29,7 +31,10 @@ export function Navbar() {
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
@@ -59,6 +64,7 @@ export function Navbar() {
           <button
             className="nav-toggle"
             id="navToggle"
+            ref={toggleRef}
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
@@ -71,13 +77,26 @@ export function Navbar() {
           </button>
         </div>
       </div>
-      <nav className={open ? "mobile-menu open" : "mobile-menu"} id="mobileMenu" aria-label="Mobile">
-        {NAV_LINKS.map((link) => (
-          <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
-            {link.label}
-          </a>
-        ))}
-      </nav>
+      <AnimatePresence initial={false}>
+        {open ? (
+          <motion.nav
+            key="mobile-menu"
+            className="mobile-menu"
+            id="mobileMenu"
+            aria-label="Mobile"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: EASE }}
+          >
+            {NAV_LINKS.map((link) => (
+              <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
+                {link.label}
+              </a>
+            ))}
+          </motion.nav>
+        ) : null}
+      </AnimatePresence>
       <div className="scroll-progress" aria-hidden="true">
         <motion.span id="scrollProgress" style={{ scaleX: scrollYProgress }} />
       </div>

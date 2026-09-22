@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { TIMELINE } from "../data/content";
-import { reveal } from "../lib/motion";
+import { itemVariants, listVariants, SCROLL_VIEWPORT } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 export function Timeline() {
@@ -8,9 +8,19 @@ export function Timeline() {
     <section className="section" id="timeline">
       <div className="container narrow">
         <SectionHead eyebrow="06 — Competitions" title="Competition timeline" />
-        <ol className="timeline">
+        <motion.ol
+          className="timeline"
+          variants={listVariants}
+          initial="hidden"
+          whileInView="shown"
+          viewport={SCROLL_VIEWPORT}
+        >
           {TIMELINE.map((item, i) => (
-            <motion.li key={`${item.title}-${i}`} {...reveal(2 + i)} className={item.minor ? "tl-minor" : undefined}>
+            <motion.li
+              key={`${item.title}-${i}`}
+              variants={itemVariants}
+              className={item.minor ? "tl-minor" : undefined}
+            >
               <span className="tl-year">{item.year}</span>
               <div>
                 <p className="tl-title">{item.title}</p>
@@ -26,7 +36,7 @@ export function Timeline() {
               </div>
             </motion.li>
           ))}
-        </ol>
+        </motion.ol>
       </div>
     </section>
   );
