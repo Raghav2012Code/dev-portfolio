@@ -30,6 +30,19 @@ All content lives in **`index.html`** — every section is commented. Quick refe
 
 Theme values (colours, radii, fonts) live in `:root` at the top of **`styles.css`**.
 
+## Design system (Watermelon UI)
+
+Watermelon UI (`ui.watermelon.sh`) is a React 18/19 + Tailwind CSS v4 + shadcn
+registry (Radix + Motion), installed per-component via
+`npx shadcn@latest add https://registry.watermelon.sh/<name>.json`.
+This site is dependency-free static HTML/CSS/JS, so installing it would require
+a full framework migration. Instead its primitives are ported natively in
+`styles.css` (see the header comment): WM Button (`.btn`), WM Badge (`.badge`,
+`.badge-accent`), WM Navigation (nav + `aria-current` scrollspy in `script.js`),
+WM Tooltip (`.tip`, hover-gated, keyboard-focusable). Cards, tabs and dialogs
+were evaluated and deliberately not used — the single-column editorial layout
+already solves those cases with less UI.
+
 ## Adding real photos
 
 Search `index.html` for `PHOTO PLACEHOLDER`. Replace any `.photo-placeholder` block with:

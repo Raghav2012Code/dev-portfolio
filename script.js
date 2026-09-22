@@ -16,6 +16,38 @@
         toggle.setAttribute("aria-expanded", "false");
       });
     });
+    // Escape closes the menu and returns focus to the toggle.
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape" && menu.classList.contains("open")) {
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
+        toggle.focus();
+      }
+    });
+  }
+
+  // Scrollspy — marks the current section's nav link with aria-current.
+  var spyLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  var spySections = [];
+  spyLinks.forEach(function (a) {
+    var s = document.querySelector(a.getAttribute("href"));
+    if (s) spySections.push(s);
+  });
+  if ("IntersectionObserver" in window && spyLinks.length && spySections.length) {
+    var spy = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            spyLinks.forEach(function (a) { a.removeAttribute("aria-current"); });
+            var link = document.querySelector('.nav-links a[href="#' + entry.target.id + '"]');
+            if (link) link.setAttribute("aria-current", "true");
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
+    spySections.forEach(function (s) { spy.observe(s); });
   }
 
   // Reveal on scroll — single IntersectionObserver, subtle by design.

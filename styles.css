@@ -3,6 +3,14 @@
    One width, one font, one quiet accent.
    Hierarchy from type + whitespace + hairlines only.
    No gradients, no glow, no glass, no shadows, no cards.
+   ---
+   Watermelon UI (React 18/19 + Tailwind v4 + shadcn registry,
+   Radix + Motion) cannot be npm-installed into this dependency-
+   free static stack without a full framework migration, so its
+   primitives are ported natively below: WM Button (.btn),
+   WM Badge (.badge), WM Navigation (nav + aria-current), and
+   WM Tooltip (.tip). Intentionally NOT used: cards, tabs,
+   dialogs — the editorial layout already solves those better.
    ============================================================ */
 :root {
   --bg: #0a0a0b;
@@ -15,6 +23,9 @@
   --line-strong: #2a2a2e;
   --line-faint: #3f3f46;
   --radius: 4px;
+  --dur: 0.15s;
+  --ease: ease;
+  --t: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease, text-decoration-color 0.15s ease;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --max: 720px;
@@ -66,19 +77,22 @@ a:focus-visible, button:focus-visible {
 .section-lead { color: var(--text-dim); margin-top: 10px; font-size: 16px; line-height: 1.65; max-width: 36rem; text-wrap: pretty; }
 .about-copy p, .project-desc, #workflow p { text-wrap: pretty; }
 
-/* ---------- buttons: quiet, same height ---------- */
+/* ---------- WM Button, adapted: quiet variants, one height, one radius ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 42px; padding: 0 22px;
   font-weight: 600; font-size: 14px; line-height: 1;
   border-radius: var(--radius); border: 1px solid transparent;
   text-decoration: none; cursor: pointer; white-space: nowrap;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: var(--t);
 }
+.btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--text); color: #09090b; }
 .btn-primary:hover { background: #e4e4e7; }
+.btn-primary:active { background: #d4d4d8; }
 .btn-secondary { border-color: var(--line-strong); color: var(--text); }
 .btn-secondary:hover { border-color: var(--text-faint); }
+.btn-secondary:active { border-color: var(--text-dim); }
 
 /* ---------- nav ---------- */
 .nav {
@@ -94,10 +108,11 @@ a:focus-visible, button:focus-visible {
 .brand { text-decoration: none; }
 .brand-text { font-size: 14px; font-weight: 650; letter-spacing: -0.01em; }
 .nav-links { display: flex; align-items: center; gap: 24px; }
-.nav-links a { color: var(--text-dim); text-decoration: none; font-size: 13.5px; font-weight: 500; text-underline-offset: 4px; transition: color 0.15s ease; }
+.nav-links a { color: var(--text-dim); text-decoration: none; font-size: 13.5px; font-weight: 500; text-underline-offset: 4px; transition: var(--t); }
 .nav-links a:hover { color: var(--text); text-decoration: underline; text-decoration-color: var(--line-faint); }
+.nav-links a[aria-current="true"] { color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); }
 .nav-cta { display: flex; align-items: center; gap: 12px; }
-.nav-github { color: var(--text-dim); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: color 0.15s ease; }
+.nav-github { color: var(--text-dim); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: var(--t); }
 .nav-github:hover { color: var(--text); }
 .nav-toggle {
   display: none; background: none; color: var(--text);
@@ -107,10 +122,17 @@ a:focus-visible, button:focus-visible {
 .nav-toggle span { display: block; width: 16px; height: 1.5px; background: currentColor; margin: 4px 0; }
 .nav-toggle span:first-child { margin-top: 0; }
 .nav-toggle span:last-child { margin-bottom: 0; }
-.mobile-menu { display: none; flex-direction: column; padding: 4px 24px 12px; border-top: 1px solid var(--line); }
-.mobile-menu a { color: var(--text-dim); text-decoration: none; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.mobile-menu {
+  display: flex; flex-direction: column; overflow: hidden;
+  max-height: 0; opacity: 0; visibility: hidden;
+  padding: 0 24px; border-top: 1px solid transparent;
+  transition: max-height 0.25s ease, opacity 0.2s ease, visibility 0.25s, padding 0.25s ease, border-color 0.2s ease;
+}
+.mobile-menu a { color: var(--text-dim); text-decoration: none; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14px; transition: var(--t); }
 .mobile-menu a:last-child { border-bottom: none; }
-.mobile-menu.open { display: flex; }
+.mobile-menu a:hover { color: var(--text); }
+.mobile-menu.open { max-height: 480px; opacity: 1; visibility: visible; padding: 4px 24px 12px; border-top-color: var(--line); }
+@media (min-width: 641px) { .mobile-menu { display: none; } }
 
 /* ---------- scroll progress: 2px orientation hairline ---------- */
 .scroll-progress { height: 2px; background: transparent; }
@@ -166,11 +188,16 @@ a:focus-visible, button:focus-visible {
 
 /* ---------- projects: single-column editorial blocks ---------- */
 .featured { margin-top: 44px; padding: 32px 0 40px 24px; border-left: 2px solid var(--accent); }
-.project-label {
-  font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--text-faint); margin-bottom: 10px;
+/* ---------- WM Badge, adapted: hairline pill, mono, one radius. Labels only. ---------- */
+.badge {
+  display: inline-flex; align-items: center; max-width: 100%;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-dim);
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: 5px 10px; margin-bottom: 14px;
 }
-.featured .project-label { color: var(--accent-text); }
+.badge-accent { color: var(--accent-text); border-color: rgba(201, 162, 39, 0.35); }
 .featured h3 {
   font-size: clamp(26px, 3.4vw, 34px);
   font-weight: 700; letter-spacing: -0.025em; line-height: 1.15;
@@ -209,9 +236,9 @@ a:focus-visible, button:focus-visible {
   display: inline-block; margin-top: 14px;
   color: var(--text); font-weight: 600; font-size: 14px; text-decoration: underline;
   text-decoration-color: var(--line-faint); text-underline-offset: 4px;
-  transition: text-decoration-color 0.15s ease;
+  transition: var(--t);
 }
-.card-link:hover { text-decoration-color: var(--accent); }
+.card-link:hover { text-decoration-color: var(--accent); transform: translateX(2px); }
 
 .project-grid { margin-top: 8px; display: block; }
 .project { padding: 36px 0; border-bottom: 1px solid var(--line); }
@@ -266,7 +293,7 @@ a:focus-visible, button:focus-visible {
   padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 15px; align-items: baseline;
 }
 .contact-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); font-weight: 600; }
-.contact-list a { color: var(--text); font-weight: 550; text-decoration: underline; text-decoration-color: var(--line-faint); text-underline-offset: 4px; overflow-wrap: anywhere; }
+.contact-list a { color: var(--text); font-weight: 550; text-decoration: underline; text-decoration-color: var(--line-faint); text-underline-offset: 4px; overflow-wrap: anywhere; transition: var(--t); }
 .contact-list a:hover { text-decoration-color: var(--accent); }
 
 /* ---------- footer ---------- */
@@ -274,15 +301,47 @@ a:focus-visible, button:focus-visible {
 .footer-inner { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; }
 .footer-name { font-weight: 650; font-size: 14px; }
 .footer-meta { font-size: 12.5px; line-height: 1.6; color: var(--text-faint); }
-.footer-top { color: var(--text-dim); text-decoration: none; }
+.footer-top { color: var(--text-dim); text-decoration: none; transition: var(--t); }
 .footer-top:hover { color: var(--text); }
+
+/* ---------- WM Tooltip, adapted: dotted affordance, solid bubble, hover-gated ---------- */
+.tip {
+  position: relative; cursor: help;
+  text-decoration: underline dotted; text-decoration-color: var(--line-faint); text-underline-offset: 3px;
+}
+@media (hover: hover) {
+  .tip::after {
+    content: attr(data-tip);
+    position: absolute; left: 50%; bottom: calc(100% + 8px);
+    transform: translateX(-50%) translateY(2px);
+    min-width: 160px; max-width: 230px; padding: 8px 10px;
+    font-family: var(--font); font-size: 12.5px; font-weight: 500; line-height: 1.5;
+    letter-spacing: normal; text-transform: none; white-space: normal;
+    color: var(--text); background: #131316;
+    border: 1px solid var(--line-strong); border-radius: var(--radius);
+    opacity: 0; visibility: hidden; pointer-events: none; z-index: 50;
+    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
+  }
+  .tip:hover::after, .tip:focus-visible::after {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  }
+}
 
 /* ---------- entrance: opacity + 6px rise, visible without JS ---------- */
 .reveal { opacity: 1; }
 .js .reveal { opacity: 0; transform: translateY(6px); transition: opacity 0.45s ease, transform 0.45s ease; }
 .js .reveal.visible { opacity: 1; transform: none; }
+/* hero stagger: gentle top-down entrance, 50ms steps */
+.js .hero .reveal:nth-child(2) { transition-delay: 0.05s; }
+.js .hero .reveal:nth-child(3) { transition-delay: 0.1s; }
+.js .hero .reveal:nth-child(4) { transition-delay: 0.15s; }
+.js .hero .reveal:nth-child(5) { transition-delay: 0.2s; }
+.js .hero .reveal:nth-child(6) { transition-delay: 0.25s; }
 @media (prefers-reduced-motion: reduce) {
   .js .reveal { opacity: 1; transform: none; transition: none; }
+  .js .hero .reveal { transition-delay: 0s; }
+  .btn:active, .card-link:hover { transform: none; }
+  .mobile-menu { transition: none; }
   .scroll-progress { display: none; }
   html { scroll-behavior: auto; }
 }

@@ -32,7 +32,7 @@
     </nav>
     <div class="nav-cta">
       <a class="nav-github" href="https://github.com/Raghav2012Code" target="_blank" rel="noopener">GitHub ↗</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -129,14 +129,14 @@
 
     <!-- ===== FEATURED: Door Hinge Safety System ===== -->
     <article class="featured reveal">
-      <p class="project-label">Featured · Overall Winner</p>
+      <p class="badge badge-accent">Featured · Overall Winner</p>
       <h3>Door Hinge Safety System</h3>
       <p class="project-meta">Robowunder International Robotics Championship 2025 · Malaysia</p>
       <p class="project-desc">A child-safety system designed to help prevent finger injuries around door hinges. The system uses sensors to detect when a hand is present near the hinge and actuates the mechanism to prevent the dangerous situation.</p>
       <p class="sysline">
-        <span><strong>Sense</strong> — Laser + IR sensor</span>
+        <span><strong>Sense</strong> — <span class="tip" tabindex="0" data-tip="Detects a hand near the hinge">Laser + IR sensor</span></span>
         <span class="sys-arrow" aria-hidden="true">→</span>
-        <span><strong>Process</strong> — ESP32</span>
+        <span><strong>Process</strong> — <span class="tip" tabindex="0" data-tip="Wi-Fi + Bluetooth microcontroller">ESP32</span></span>
         <span class="sys-arrow" aria-hidden="true">→</span>
         <span><strong>Actuate</strong> — Servo + Solenoid</span>
       </p>
@@ -146,16 +146,16 @@
     <div class="project-grid">
 
       <article class="project reveal">
-        <p class="project-label">Zonal Robotics Championship · SRM Chennai</p>
+        <p class="badge">Zonal Robotics Championship · SRM Chennai</p>
         <h3>Road Accident Safety Hub</h3>
         <p class="project-result">Qualified for NRC Technoxian</p>
         <p class="project-desc">A data-driven road safety project designed to identify patterns in accident occurrence and predict where accidents could occur. Built with XGBoost and Python, trained on public accident data — including time, day, junction characteristics, and other relevant parameters from public datasets.</p>
         <p class="contrib"><span>Contribution</span> — AI-assisted development and backend integration. The team handled frontend development and testing.</p>
-        <p class="techline">XGBoost · Python · Public accident data</p>
+        <p class="techline"><span class="tip" tabindex="0" data-tip="Gradient-boosted trees library for tabular data">XGBoost</span> · Python · Public accident data</p>
       </article>
 
       <article class="project reveal">
-        <p class="project-label">PEC Hacks 4.0 · Panimalar Engineering College · High School Track</p>
+        <p class="badge">PEC Hacks 4.0 · Panimalar Engineering College · High School Track</p>
         <h3>Vaccine Cold Chain Ledger</h3>
         <p class="project-result">Consolation Prize</p>
         <p class="project-desc">A hardware-integrated cold-chain monitoring system that records real-time vaccine storage temperature and makes the information available through a web application. The system uses a DHT22 to record real-time temperature and displays the information through the web application.</p>
@@ -167,11 +167,11 @@
           <span>Web app</span>
         </p>
         <p class="contrib"><span>Contribution</span> — Complete full-stack software implementation, including hardware/software integration.</p>
-        <p class="techline">Arduino · ESP32 · DHT22 · LCD · React · Next.js · TypeScript · Supabase · REST API · SHA-256</p>
+        <p class="techline">Arduino · <span class="tip" tabindex="0" data-tip="Wi-Fi + Bluetooth microcontroller">ESP32</span> · <span class="tip" tabindex="0" data-tip="Digital temperature + humidity sensor">DHT22</span> · LCD · React · Next.js · TypeScript · Supabase · REST API · <span class="tip" tabindex="0" data-tip="Cryptographic hash for tamper-evident records">SHA-256</span></p>
       </article>
 
       <article class="project reveal">
-        <p class="project-label">Personal project</p>
+        <p class="badge">Personal project</p>
         <h3>EPL Predictor</h3>
         <p class="project-result muted">Work in progress · personal exploration</p>
         <p class="project-desc">A personal project exploring historical English football data and match-outcome prediction. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn&rsquo;t).</p>
