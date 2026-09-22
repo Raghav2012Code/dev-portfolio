@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Raghav Krishna — Student • Developer • Robotics Builder</title>
+<meta name="description" content="Portfolio of Raghav Krishna, 14-year-old student, developer and robotics builder from Chennai. ESP32, Arduino, sensors, AI-assisted development." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b0e14'/><circle cx='50' cy='42' r='16' fill='none' stroke='%23fbbf24' stroke-width='6'/><rect x='32' y='62' width='36' height='8' rx='4' fill='%23fbbf24'/></svg>" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="Raghav Krishna home">
+      <span class="brand-mark" aria-hidden="true"><span class="brand-dot"></span></span>
+      <span class="brand-text">RAGHAV<span class="brand-sep">.</span>KRISHNA</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#technologies">Stack</a>
+      <a href="#robotics">Robotics</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-small btn-ghost" href="https://github.com/Raghav2012Code" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12v3.15c0 .3.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+        GitHub
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#technologies">Stack</a>
+    <a href="#robotics">Robotics</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <!-- subtle technical backdrop: schematic grid + traces -->
+  <svg class="hero-schematic" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+        <path d="M48 0H0v48" fill="none" stroke="rgba(148,163,184,.09)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="1200" height="600" fill="url(#grid)"/>
+    <g fill="none" stroke="rgba(251,191,36,.16)" stroke-width="1.5">
+      <path d="M120 480 H340 V380 H520"/>
+      <path d="M1080 120 H860 V220 H700"/>
+      <path d="M150 120 V240 H300"/>
+    </g>
+    <g fill="none" stroke="rgba(148,163,184,.22)" stroke-width="1.5">
+      <circle cx="120" cy="480" r="5"/><circle cx="520" cy="380" r="5"/>
+      <circle cx="1080" cy="120" r="5"/><circle cx="700" cy="220" r="5"/>
+      <circle cx="150" cy="120" r="5"/><circle cx="300" cy="240" r="5"/>
+    </g>
+    <g fill="rgba(251,191,36,.5)">
+      <circle cx="520" cy="380" r="2.5"><animate attributeName="opacity" values="1;.2;1" dur="2.4s" repeatCount="indefinite"/></circle>
+      <circle cx="700" cy="220" r="2.5"><animate attributeName="opacity" values=".2;1;.2" dur="2.4s" repeatCount="indefinite"/></circle>
+    </g>
+  </svg>
+  <div class="hero-fade" aria-hidden="true"></div>
+
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> CHENNAI, IN &nbsp;·&nbsp; GRADE 9 &nbsp;·&nbsp; VELAMMAL ACADEMY NOLAMBUR</p>
+      <h1>Raghav<br/>Krishna<span class="accent-dot">.</span></h1>
+      <p class="hero-role">Student <span aria-hidden="true">•</span> Developer <span aria-hidden="true">•</span> Robotics Builder</p>
+      <p class="hero-desc">14-year-old builder exploring software, AI-assisted development, and hardware projects with ESP32, Arduino, sensors, and more.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">View Projects
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/Raghav2012Code" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12v3.15c0 .3.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          GitHub
+        </a>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><span class="mono-label">FOCUS</span><span>Hardware × Software</span></div>
+        <div class="hero-meta-item"><span class="mono-label">SINCE</span><span>Following AI since 2022</span></div>
+        <div class="hero-meta-item"><span class="mono-label">BUILDS WITH</span><span>ESP32 · Arduino · Sensors</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="profile-card">
+        <div class="profile-top">
+          <span class="mono-label">PROFILE // BUILDER_01</span>
+          <span class="status"><span class="status-dot" aria-hidden="true"></span>ACTIVE</span>
+        </div>
+        <!-- ============================================================
+             PROFILE PHOTO — easy to replace:
+             Option A: keep the GitHub avatar URL below (auto-updates).
+             Option B: save a real photo as  assets/profile.jpg  and
+                      change the src to "assets/profile.jpg".
+             ============================================================ -->
+        <img class="profile-img"
+             src="https://github.com/Raghav2012Code.png"
+             alt="Profile photo of Raghav Krishna"
+             width="400" height="400" loading="eager" />
+        <div class="profile-bottom">
+          <div>
+            <p class="profile-name">Raghav Krishna</p>
+            <p class="profile-sub mono">age_14 // grade_9 // chennai</p>
+          </div>
+          <div class="profile-pins" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <!-- corner screws for a subtle hardware feel -->
+        <span class="screw tl" aria-hidden="true"></span>
+        <span class="screw tr" aria-hidden="true"></span>
+        <span class="screw bl" aria-hidden="true"></span>
+        <span class="screw br" aria-hidden="true"></span>
+      </div>
+      <div class="hero-readout mono" aria-hidden="true">
+        <span>SENSE → PROCESS → ACTUATE</span>
+        <span class="readout-blink">▮</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACHIEVEMENTS ============ -->
+<section class="achievements" aria-label="Featured achievements">
+  <div class="container">
+    <div class="achieve-row reveal">
+      <div class="achieve-item">
+        <span class="achieve-medal" aria-hidden="true">🥇</span>
+        <div>
+          <p class="achieve-title">Robowunder International Robotics Championship 2025</p>
+          <p class="achieve-sub"><strong>Overall Winner</strong> · Malaysia</p>
+        </div>
+      </div>
+      <div class="achieve-item">
+        <span class="achieve-medal" aria-hidden="true">🏆</span>
+        <div>
+          <p class="achieve-title">PEC Hacks 4.0</p>
+          <p class="achieve-sub"><strong>Consolation Prize</strong> · High School Track · Panimalar Engineering College</p>
+        </div>
+      </div>
+      <div class="achieve-item">
+        <span class="achieve-medal" aria-hidden="true">🎯</span>
+        <div>
+          <p class="achieve-title">NRC Technoxian</p>
+          <p class="achieve-sub"><strong>Qualified</strong> through Zonal Robotics Championship · SRM Chennai</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <div class="container about-grid">
+    <div>
+      <p class="section-eyebrow mono reveal">01 // ABOUT</p>
+      <h2 class="reveal">I learn by<br/>building things.</h2>
+    </div>
+    <div class="about-copy reveal">
+      <p>I&rsquo;m Raghav, a 14-year-old student at Velammal Academy Nolambur who got interested in AI in 2022 and has been following the space ever since.</p>
+      <p>I know the fundamentals of programming, but most of what I&rsquo;ve learned has come from actually building things. I especially enjoy hardware projects &mdash; working with ESP32s, sensors and actuators, and figuring out how software can interact with the physical world.</p>
+      <p>I also use AI coding tools like Claude Code and OpenAI Codex as part of my development workflow for prototyping, implementation, debugging, and exploring ideas.</p>
+      <ul class="about-facts mono">
+        <li><span>AGE</span>14</li>
+        <li><span>SCHOOL</span>Velammal Academy Nolambur</li>
+        <li><span>CITY</span>Chennai, India</li>
+        <li><span>INTO</span>Robotics · Hardware · Web</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="section section-alt" id="projects">
+  <div class="container">
+    <p class="section-eyebrow mono reveal">02 // PROJECTS</p>
+    <h2 class="reveal">Selected work</h2>
+    <p class="section-lead reveal">Hardware-first projects, built for real competitions. Each one senses, processes, or actuates something in the real world.</p>
+
+    <!-- ===== FEATURED: Door Hinge Safety System ===== -->
+    <article class="featured reveal">
+      <div class="featured-head">
+        <div>
+          <p class="mono chip-label">★ FEATURED PROJECT</p>
+          <h3>Door Hinge Safety System</h3>
+          <p class="featured-comp">Robowunder International Robotics Championship 2025 · Malaysia · <strong class="gold">🥇 Overall Winner</strong></p>
+        </div>
+        <div class="featured-badge" aria-label="Overall winner">
+          <span class="featured-badge-medal" aria-hidden="true">🥇</span>
+          <span class="mono">WINNER</span>
+        </div>
+      </div>
+      <p class="featured-desc">A child-safety system designed to help prevent finger injuries around door hinges. The system uses sensors to detect when a hand is present near the hinge and actuates the mechanism to prevent the dangerous situation.</p>
+
+      <!-- Sense → Process → Actuate diagram -->
+      <div class="pipeline" role="img" aria-label="System flow: Laser and IR sensors detect a hand near the hinge, the ESP32 processes the signal, and the servo and solenoid actuate the safety mechanism.">
+        <div class="pipe-node">
+          <p class="mono pipe-kicker">01 · SENSE</p>
+          <div class="pipe-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></svg>
+          </div>
+          <p class="pipe-title">Laser + IR sensor</p>
+          <p class="pipe-sub">Detects a hand near the hinge</p>
+        </div>
+        <div class="pipe-link" aria-hidden="true"><span></span></div>
+        <div class="pipe-node pipe-node-core">
+          <p class="mono pipe-kicker">02 · PROCESS</p>
+          <div class="pipe-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1.5v3M15 1.5v3M9 19.5v3M15 19.5v3M1.5 9h3M1.5 15h3M19.5 9h3M19.5 15h3"/></svg>
+          </div>
+          <p class="pipe-title">ESP32</p>
+          <p class="pipe-sub">Reads sensors, decides response</p>
+        </div>
+        <div class="pipe-link" aria-hidden="true"><span></span></div>
+        <div class="pipe-node">
+          <p class="mono pipe-kicker">03 · ACTUATE</p>
+          <div class="pipe-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a4 4 0 0 0-5.6 5L3 17.4V21h3.6l5.9-5.9a4 4 0 0 0 5-5.6l-2.8 2.8-2.5-.7-.7-2.5 3-2.6Z"/></svg>
+          </div>
+          <p class="pipe-title">Servo + Solenoid</p>
+          <p class="pipe-sub">Actuates the safety mechanism</p>
+        </div>
+      </div>
+
+      <div class="featured-foot">
+        <div class="hw-list" aria-label="Hardware used">
+          <span class="mono hw-label">HARDWARE</span>
+          <ul>
+            <li>ESP32</li><li>Laser</li><li>IR sensor</li><li>Servo</li><li>Solenoid</li>
+          </ul>
+        </div>
+        <!-- PHOTO PLACEHOLDER: replace with competition / robot photos later. No stock photos. -->
+        <div class="photo-placeholder" aria-label="Placeholder for Door Hinge Safety System photos">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4.5-4.5L6 21"/></svg>
+          <p class="mono">PROJECT PHOTOS → DROP IN ASSETS/</p>
+          <p>Robot build &amp; Malaysia competition photos go here.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== Secondary projects ===== -->
+    <div class="project-grid">
+
+      <article class="card reveal">
+        <p class="mono card-kicker">ZONAL ROBOTICS CHAMPIONSHIP · SRM CHENNAI</p>
+        <h3>Road Accident Safety Hub</h3>
+        <p class="card-result">🎯 Qualified for NRC Technoxian</p>
+        <p class="card-desc">A data-driven road safety project designed to identify patterns in accident occurrence and predict where accidents could occur.</p>
+        <ul class="card-points">
+          <li>Built with <strong>XGBoost</strong> and <strong>Python</strong>, trained on public accident data</li>
+          <li>Parameters included time, day, junction characteristics, and other relevant parameters from public datasets</li>
+        </ul>
+        <div class="contrib">
+          <span class="mono contrib-label">MY CONTRIBUTION</span>
+          <p>AI-assisted development and backend integration. The team handled frontend development and testing.</p>
+        </div>
+        <div class="tag-row" aria-label="Technologies">
+          <span>XGBoost</span><span>Python</span><span>Public accident data</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <p class="mono card-kicker">PEC HACKS 4.0 · PANIMALAR ENGINEERING COLLEGE · HIGH SCHOOL TRACK</p>
+        <h3>Vaccine Cold Chain Ledger</h3>
+        <p class="card-result">🏆 Consolation Prize</p>
+        <p class="card-desc">A hardware-integrated cold-chain monitoring system that records real-time vaccine storage temperature and makes the information available through a web application.</p>
+        <ol class="flow mono" aria-label="System flow">
+          <li>DHT22 temperature sensor</li>
+          <li>Arduino / ESP32</li>
+          <li>Temperature data</li>
+          <li>SHA-256 hashing</li>
+          <li>Supabase</li>
+          <li>Web application</li>
+        </ol>
+        <p class="card-desc small">The system uses a DHT22 to record real-time temperature and displays the information through the web application.</p>
+        <div class="contrib contrib-full">
+          <span class="mono contrib-label">MY CONTRIBUTION</span>
+          <p>Complete full-stack software implementation, including hardware/software integration.</p>
+        </div>
+        <div class="tag-row" aria-label="Technologies">
+          <span>Arduino</span><span>ESP32</span><span>DHT22</span><span>LCD</span><span>React</span><span>Next.js</span><span>TypeScript</span><span>Supabase</span><span>REST API</span><span>SHA-256</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <p class="mono card-kicker">PERSONAL PROJECT</p>
+        <h3>EPL Predictor</h3>
+        <p class="card-result muted">Work in progress · personal exploration</p>
+        <p class="card-desc">A personal project exploring historical English football data and match-outcome prediction. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn&rsquo;t).</p>
+        <div class="tag-row" aria-label="Technologies">
+          <span>Python</span><span>Historical match data</span><span>Data exploration</span>
+        </div>
+        <!-- Replace href with the real repo URL when published -->
+        <a class="card-link" href="https://github.com/Raghav2012Code" target="_blank" rel="noopener">
+          View on GitHub
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+      </article>
+
+      <!-- PHOTO PLACEHOLDER card: keeps grid balanced, easy to fill later -->
+      <div class="photo-placeholder photo-placeholder-tall reveal" aria-label="Placeholder for competition photos">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4.5-4.5L6 21"/></svg>
+        <p class="mono">COMPETITION PHOTOS → DROP IN ASSETS/</p>
+        <p>SRM, PEC Hacks &amp; Technoxian photos go here. No stock images.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECHNOLOGIES ============ -->
+<section class="section" id="technologies">
+  <div class="container">
+    <p class="section-eyebrow mono reveal">03 // TOOLKIT</p>
+    <h2 class="reveal">Technologies I build with</h2>
+    <p class="section-lead reveal">What I&rsquo;ve actually used in projects. No percentages, no expertise claims — just the stack.</p>
+    <div class="stack-grid">
+      <div class="stack-group reveal">
+        <p class="mono stack-label">WEB</p>
+        <ul class="stack-list"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Next.js</li></ul>
+      </div>
+      <div class="stack-group reveal">
+        <p class="mono stack-label">BACKEND / DATA</p>
+        <ul class="stack-list"><li>Supabase</li><li>REST APIs</li><li>SHA-256</li></ul>
+      </div>
+      <div class="stack-group reveal">
+        <p class="mono stack-label">ROBOTICS / HARDWARE</p>
+        <ul class="stack-list"><li>Arduino</li><li>ESP32</li><li>DHT22</li><li>IR Sensors</li><li>Laser Sensors</li><li>Servos</li><li>Solenoids</li><li>LCDs</li><li>Sensors</li><li>Actuators</li></ul>
+      </div>
+      <div class="stack-group reveal">
+        <p class="mono stack-label">PROGRAMMING</p>
+        <ul class="stack-list"><li>Python</li></ul>
+        <p class="mono stack-label stack-label-gap">TOOLS</p>
+        <ul class="stack-list"><li>Git</li><li>GitHub</li><li>Claude Code</li><li>OpenAI Codex</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI-ASSISTED DEVELOPMENT ============ -->
+<section class="section section-alt" id="workflow">
+  <div class="container">
+    <div class="ai-panel reveal">
+      <div class="ai-left">
+        <p class="mono terminal-bar"><span class="t-dot" aria-hidden="true"></span><span class="t-dot" aria-hidden="true"></span><span class="t-dot" aria-hidden="true"></span> raghav@buildbox: ~/workflow</p>
+        <p class="mono terminal-line"><span class="prompt">$</span> how_i_build --tools</p>
+        <p class="mono terminal-line dim">→ claude-code · openai-codex</p>
+        <p class="mono terminal-line"><span class="prompt">$</span> how_i_build --loop</p>
+        <p class="mono terminal-line dim">→ prototype → debug → integrate → test → ship</p>
+        <p class="mono terminal-line"><span class="prompt">$</span> <span class="caret" aria-hidden="true">▮</span></p>
+      </div>
+      <div class="ai-right">
+        <p class="section-eyebrow mono">04 // WORKFLOW</p>
+        <h2>AI-assisted development</h2>
+        <p>AI coding tools are a major part of how I build. I use Claude Code and OpenAI Codex to prototype ideas, generate and modify implementations, debug problems, explore unfamiliar technologies, and move from an idea to a working project quickly.</p>
+        <p class="ai-note"><strong>But the tools don&rsquo;t replace understanding.</strong> I still integrate, test, understand, and adapt the resulting software to fit the project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROBOTICS ============ -->
+<section class="section" id="robotics">
+  <div class="container robotics-grid">
+    <div>
+      <p class="section-eyebrow mono reveal">05 // ROBOTICS</p>
+      <h2 class="reveal">I like builds that<br/>touch the real world.</h2>
+      <p class="section-lead reveal">Software is great — but my favourite moment is when code moves something physical: a servo turns, a sensor fires, a mechanism responds.</p>
+      <a class="btn btn-secondary reveal" href="#projects">See the hardware projects</a>
+    </div>
+    <ul class="robo-list">
+      <li class="reveal"><span class="robo-code mono">01</span><div><strong>ESP32 &amp; Arduino</strong><p>Microcontrollers at the centre of every hardware build.</p></div></li>
+      <li class="reveal"><span class="robo-code mono">02</span><div><strong>Sensors</strong><p>IR, laser, temperature — reading the physical world.</p></div></li>
+      <li class="reveal"><span class="robo-code mono">03</span><div><strong>Actuators</strong><p>Servos, solenoids, displays — acting on the physical world.</p></div></li>
+      <li class="reveal"><span class="robo-code mono">04</span><div><strong>Electronics</strong><p>Circuits, wiring, and making it all actually work together.</p></div></li>
+      <li class="reveal"><span class="robo-code mono">05</span><div><strong>Hardware / software integration</strong><p>Connecting physical hardware to software — the whole point.</p></div></li>
+      <li class="reveal"><span class="robo-code mono">06</span><div><strong>Physical computing</strong><p>Building things that interact with the physical world.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section class="section section-alt" id="timeline">
+  <div class="container timeline-wrap">
+    <p class="section-eyebrow mono reveal">06 // COMPETITIONS</p>
+    <h2 class="reveal">Competition timeline</h2>
+    <ol class="timeline">
+      <li class="tl-item reveal">
+        <span class="tl-year mono">2025</span>
+        <div class="tl-card">
+          <p class="tl-title">Robowunder International Robotics Championship</p>
+          <p class="tl-sub">Malaysia · Door Hinge Safety System</p>
+          <p class="tl-result gold">🥇 Overall Winner</p>
+        </div>
+      </li>
+      <li class="tl-item reveal">
+        <span class="tl-year mono">2025</span>
+        <div class="tl-card">
+          <p class="tl-title">Zonal Robotics Championship</p>
+          <p class="tl-sub">SRM Chennai · Road Accident Safety Hub</p>
+          <p class="tl-result">🎯 Qualified for NRC Technoxian</p>
+        </div>
+      </li>
+      <li class="tl-item reveal">
+        <span class="tl-year mono">2025</span>
+        <div class="tl-card">
+          <p class="tl-title">PEC Hacks 4.0</p>
+          <p class="tl-sub">Panimalar Engineering College · High School Track · Vaccine Cold Chain Ledger</p>
+          <p class="tl-result">🏆 Consolation Prize</p>
+        </div>
+      </li>
+      <li class="tl-item tl-minor reveal">
+        <span class="tl-year mono">2025</span>
+        <div class="tl-card">
+          <p class="tl-title">Technoviz 2025</p>
+          <p class="tl-sub">SRM Ramapuram · School Category</p>
+          <p class="tl-result muted">Participated</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ CURRENTLY ============ -->
+<!-- EASY TO EDIT: update this list whenever focus changes. -->
+<section class="section" id="currently">
+  <div class="container currently-panel reveal">
+    <div>
+      <p class="section-eyebrow mono">07 // CURRENTLY</p>
+      <h2>Building / exploring now</h2>
+    </div>
+    <ul class="currently-list">
+      <li><span class="c-dot" aria-hidden="true"></span>Robotics and ESP32 projects</li>
+      <li><span class="c-dot" aria-hidden="true"></span>Hardware/software integration</li>
+      <li><span class="c-dot" aria-hidden="true"></span>Web development</li>
+      <li><span class="c-dot" aria-hidden="true"></span>AI-assisted development</li>
+      <li><span class="c-dot" aria-hidden="true"></span>Experimental projects</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section section-alt" id="contact">
+  <div class="container contact-wrap reveal">
+    <p class="section-eyebrow mono">08 // CONTACT</p>
+    <h2>Say hello.</h2>
+    <p class="section-lead">Always happy to talk robotics, hardware, or builds in progress.</p>
+    <div class="contact-cards">
+      <a class="contact-card" href="https://github.com/Raghav2012Code" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12v3.15c0 .3.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+        <div><p class="mono contact-label">GITHUB</p><p class="contact-value">github.com/Raghav2012Code</p></div>
+      </a>
+      <a class="contact-card" href="mailto:raghavgamerz670@gmail.com">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <div><p class="mono contact-label">EMAIL</p><p class="contact-value">raghavgamerz670@gmail.com</p></div>
+      </a>
+      <div class="contact-card contact-card-static">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        <div><p class="mono contact-label">SCHOOL</p><p class="contact-value">Velammal Academy Nolambur</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <p class="footer-name">Raghav Krishna</p>
+      <p class="footer-quote">&ldquo;Built with curiosity and way too much caffeine.&rdquo;</p>
+    </div>
+    <p class="mono footer-meta">STUDENT · DEVELOPER · ROBOTICS BUILDER — CHENNAI 2026</p>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+# Playwright test artifacts (local only, never commit)
+.playwright-mcp/
