@@ -36,4 +36,27 @@
     { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
   );
   items.forEach(function (el) { observer.observe(el); });
+
+  // Reading progress — 2px hairline under the nav, rAF-throttled.
+  // Skipped when the user prefers reduced motion (CSS hides the bar too).
+  var progress = document.getElementById("scrollProgress");
+  var motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (progress && !motionQuery.matches) {
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var ratio = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      progress.style.transform = "scaleX(" + ratio.toFixed(4) + ")";
+    }
+    function requestUpdate() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    update();
+  }
 })();

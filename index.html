@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Raghav Krishna — Student • Developer • Robotics Builder</title>
 <meta name="description" content="Portfolio of Raghav Krishna, 14-year-old student, developer and robotics builder from Chennai. ESP32, Arduino, sensors, AI-assisted development." />
+<meta name="theme-color" content="#0a0a0b" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230b0e14'/><circle cx='50' cy='42' r='16' fill='none' stroke='%23fbbf24' stroke-width='6'/><rect x='32' y='62' width='36' height='8' rx='4' fill='%23fbbf24'/></svg>" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0b'/><circle cx='50' cy='42' r='16' fill='none' stroke='%23c9a227' stroke-width='6'/><rect x='32' y='62' width='36' height='8' rx='4' fill='%23c9a227'/></svg>" />
 </head>
 <body>
 
@@ -44,6 +45,7 @@
     <a href="#timeline">Timeline</a>
     <a href="#contact">Contact</a>
   </nav>
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
 </header>
 
 <main id="main">
@@ -51,10 +53,12 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="container hero-inner">
+    <!-- PROFILE PHOTO: swap src for assets/profile.jpg to use a real photograph. -->
     <img class="profile-img reveal"
          src="https://github.com/Raghav2012Code.png"
          alt="Profile photo of Raghav Krishna"
-         width="72" height="72" loading="eager" />
+         width="72" height="72" loading="eager" fetchpriority="high" decoding="async"
+         onerror="this.style.display='none'" />
     <p class="eyebrow reveal">Chennai, India · Grade 9 · Velammal Academy Nolambur</p>
     <h1 class="reveal">Raghav Krishna</h1>
     <p class="hero-role reveal">Student · Developer · Robotics Builder</p>
@@ -136,7 +140,6 @@
         <span class="sys-arrow" aria-hidden="true">→</span>
         <span><strong>Actuate</strong> — Servo + Solenoid</span>
       </p>
-      <p class="techline">ESP32 · Laser · IR sensor · Servo · Solenoid</p>
     </article>
 
     <!-- ===== Secondary projects ===== -->
@@ -310,7 +313,7 @@
 <footer class="footer">
   <div class="container footer-inner">
     <p class="footer-name">Raghav Krishna</p>
-    <p class="footer-meta">Student · Developer · Robotics Builder — Chennai 2026</p>
+    <p class="footer-meta">Student · Developer · Robotics Builder — Chennai 2026 · <a class="footer-top" href="#top">Back to top ↑</a></p>
   </div>
 </footer>
 
