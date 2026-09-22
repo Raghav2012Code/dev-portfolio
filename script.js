@@ -1,5 +1,6 @@
 // Mobile menu + subtle scroll reveal. No frameworks, no build step.
 (function () {
+  document.documentElement.classList.add("js");
   var toggle = document.getElementById("navToggle");
   var menu = document.getElementById("mobileMenu");
 
