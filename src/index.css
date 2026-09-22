@@ -76,7 +76,7 @@ a:focus-visible, button:focus-visible {
   text-wrap: balance;
 }
 .section-lead { color: var(--text-dim); margin-top: 10px; font-size: 16px; line-height: 1.65; max-width: 36rem; text-wrap: pretty; }
-.about-copy p, .project-desc, #workflow p { text-wrap: pretty; }
+.about-copy p, .project-desc { text-wrap: pretty; }
 
 /* ---------- WM Button, adapted: quiet variants, one height, one radius ---------- */
 .btn {
@@ -252,14 +252,6 @@ a:focus-visible, button:focus-visible {
 }
 .stack-row p:last-child { color: var(--text-dim); line-height: 1.7; }
 .stack-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); padding-top: 3px; }
-
-/* ---------- workflow ---------- */
-#workflow p { color: var(--text-dim); font-size: 16px; margin-top: 18px; max-width: 38rem; }
-#workflow .note {
-  margin-top: 20px; padding-left: 18px;
-  border-left: 1px solid var(--line-faint); color: var(--text-dim); font-size: 15px; line-height: 1.65;
-}
-#workflow .note strong { color: var(--text); font-weight: 600; }
 
 /* ---------- robotics ---------- */
 .robotics-grid { display: block; }

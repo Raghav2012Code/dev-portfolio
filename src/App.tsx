@@ -1,7 +1,6 @@
 import { MotionConfig } from "motion/react";
 import { About } from "./components/About";
 import { Achievements } from "./components/Achievements";
-import { AIWorkflow } from "./components/AIWorkflow";
 import { Contact } from "./components/Contact";
 import { Currently } from "./components/Currently";
 import { Footer } from "./components/Footer";
@@ -25,7 +24,6 @@ export function App() {
         <About />
         <Projects />
         <Skills />
-        <AIWorkflow />
         <Robotics />
         <Timeline />
         <Currently />

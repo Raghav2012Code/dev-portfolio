@@ -17,7 +17,7 @@ npm run typecheck
 |---|---|
 | Copy for every section | `data/content.ts` (typed — edit text here) |
 | Page assembly | `App.tsx` |
-| Sections | `components/` (`Hero`, `Achievements`, `About`, `Projects`, `Skills`, `AIWorkflow`, `Robotics`, `Timeline`, `Currently`, `Contact`, `Footer`, `Navbar`) |
+| Sections | `components/` (`Hero`, `Achievements`, `About`, `Projects`, `Skills`, `Robotics`, `Timeline`, `Currently`, `Contact`, `Footer`, `Navbar`) |
 | Project cards | `components/ProjectCard.tsx` |
 | Badge / tooltip / section headings | `components/ui.tsx` (Watermelon UI primitives, ported natively) |
 | Motion language (ease, rise, stagger) | `lib/motion.ts` (`motion/react`, transform/opacity only) |
