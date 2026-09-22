@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import type { Variants } from "motion/react";
 import type { Project, SignalStep, TechMention } from "../data/content";
-import { EASE, SCROLL_VIEWPORT } from "../lib/motion";
+import { EASE, REVEAL_DURATION, SCROLL_VIEWPORT, STAGGER_STEP } from "../lib/motion";
 import { Badge, Tip } from "./ui";
 
 const cardVariants: Variants = {
@@ -9,7 +9,7 @@ const cardVariants: Variants = {
   shown: (index: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: EASE, delay: index * 0.07 },
+    transition: { duration: REVEAL_DURATION, ease: EASE, delay: index * STAGGER_STEP },
   }),
   hover: { y: -3, transition: { duration: 0.25, ease: EASE } },
 };
