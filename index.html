@@ -72,9 +72,9 @@
       <circle cx="1080" cy="120" r="5"/><circle cx="700" cy="220" r="5"/>
       <circle cx="150" cy="120" r="5"/><circle cx="300" cy="240" r="5"/>
     </g>
-    <g fill="rgba(251,191,36,.5)">
-      <circle cx="520" cy="380" r="2.5"><animate attributeName="opacity" values="1;.2;1" dur="2.4s" repeatCount="indefinite"/></circle>
-      <circle cx="700" cy="220" r="2.5"><animate attributeName="opacity" values=".2;1;.2" dur="2.4s" repeatCount="indefinite"/></circle>
+    <g fill="rgba(251,191,36,.45)">
+      <circle cx="520" cy="380" r="2.5"/>
+      <circle cx="700" cy="220" r="2.5"/>
     </g>
   </svg>
   <div class="hero-fade" aria-hidden="true"></div>
@@ -145,21 +145,21 @@
   <div class="container">
     <div class="achieve-row reveal">
       <div class="achieve-item">
-        <span class="achieve-medal" aria-hidden="true">🥇</span>
+        <span class="achieve-index mono" aria-hidden="true">01</span>
         <div>
           <p class="achieve-title">Robowunder International Robotics Championship 2025</p>
           <p class="achieve-sub"><strong>Overall Winner</strong> · Malaysia</p>
         </div>
       </div>
       <div class="achieve-item">
-        <span class="achieve-medal" aria-hidden="true">🏆</span>
+        <span class="achieve-index mono" aria-hidden="true">02</span>
         <div>
           <p class="achieve-title">PEC Hacks 4.0</p>
           <p class="achieve-sub"><strong>Consolation Prize</strong> · High School Track · Panimalar Engineering College</p>
         </div>
       </div>
       <div class="achieve-item">
-        <span class="achieve-medal" aria-hidden="true">🎯</span>
+        <span class="achieve-index mono" aria-hidden="true">03</span>
         <div>
           <p class="achieve-title">NRC Technoxian</p>
           <p class="achieve-sub"><strong>Qualified</strong> through Zonal Robotics Championship · SRM Chennai</p>
@@ -203,10 +203,10 @@
         <div>
           <p class="mono chip-label">★ FEATURED PROJECT</p>
           <h3>Door Hinge Safety System</h3>
-          <p class="featured-comp">Robowunder International Robotics Championship 2025 · Malaysia · <strong class="gold">🥇 Overall Winner</strong></p>
+          <p class="featured-comp">Robowunder International Robotics Championship 2025 · Malaysia · <strong>Overall Winner</strong></p>
         </div>
         <div class="featured-badge" aria-label="Overall winner">
-          <span class="featured-badge-medal" aria-hidden="true">🥇</span>
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="m8.8 13.5-1.6 7 4.8-2.8 4.8 2.8-1.6-7"/></svg>
           <span class="mono">WINNER</span>
         </div>
       </div>
@@ -246,7 +246,7 @@
         <div class="hw-list" aria-label="Hardware used">
           <span class="mono hw-label">HARDWARE</span>
           <ul>
-            <li>ESP32</li><li>Laser</li><li>IR sensor</li><li>Servo</li><li>Solenoid</li>
+            <li class="tag">ESP32</li><li class="tag">Laser</li><li class="tag">IR sensor</li><li class="tag">Servo</li><li class="tag">Solenoid</li>
           </ul>
         </div>
         <!-- PHOTO PLACEHOLDER: replace with competition / robot photos later. No stock photos. -->
@@ -264,7 +264,7 @@
       <article class="card reveal">
         <p class="mono card-kicker">ZONAL ROBOTICS CHAMPIONSHIP · SRM CHENNAI</p>
         <h3>Road Accident Safety Hub</h3>
-        <p class="card-result">🎯 Qualified for NRC Technoxian</p>
+        <p class="card-result">Qualified for NRC Technoxian</p>
         <p class="card-desc">A data-driven road safety project designed to identify patterns in accident occurrence and predict where accidents could occur.</p>
         <ul class="card-points">
           <li>Built with <strong>XGBoost</strong> and <strong>Python</strong>, trained on public accident data</li>
@@ -275,14 +275,14 @@
           <p>AI-assisted development and backend integration. The team handled frontend development and testing.</p>
         </div>
         <div class="tag-row" aria-label="Technologies">
-          <span>XGBoost</span><span>Python</span><span>Public accident data</span>
+          <span class="tag">XGBoost</span><span class="tag">Python</span><span class="tag">Public accident data</span>
         </div>
       </article>
 
       <article class="card reveal">
         <p class="mono card-kicker">PEC HACKS 4.0 · PANIMALAR ENGINEERING COLLEGE · HIGH SCHOOL TRACK</p>
         <h3>Vaccine Cold Chain Ledger</h3>
-        <p class="card-result">🏆 Consolation Prize</p>
+        <p class="card-result">Consolation Prize</p>
         <p class="card-desc">A hardware-integrated cold-chain monitoring system that records real-time vaccine storage temperature and makes the information available through a web application.</p>
         <ol class="flow mono" aria-label="System flow">
           <li>DHT22 temperature sensor</li>
@@ -298,7 +298,7 @@
           <p>Complete full-stack software implementation, including hardware/software integration.</p>
         </div>
         <div class="tag-row" aria-label="Technologies">
-          <span>Arduino</span><span>ESP32</span><span>DHT22</span><span>LCD</span><span>React</span><span>Next.js</span><span>TypeScript</span><span>Supabase</span><span>REST API</span><span>SHA-256</span>
+          <span class="tag">Arduino</span><span class="tag">ESP32</span><span class="tag">DHT22</span><span class="tag">LCD</span><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Supabase</span><span class="tag">REST API</span><span class="tag">SHA-256</span>
         </div>
       </article>
 
@@ -308,7 +308,7 @@
         <p class="card-result muted">Work in progress · personal exploration</p>
         <p class="card-desc">A personal project exploring historical English football data and match-outcome prediction. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn&rsquo;t).</p>
         <div class="tag-row" aria-label="Technologies">
-          <span>Python</span><span>Historical match data</span><span>Data exploration</span>
+          <span class="tag">Python</span><span class="tag">Historical match data</span><span class="tag">Data exploration</span>
         </div>
         <!-- Replace href with the real repo URL when published -->
         <a class="card-link" href="https://github.com/Raghav2012Code" target="_blank" rel="noopener">
@@ -410,7 +410,7 @@
         <div class="tl-card">
           <p class="tl-title">Robowunder International Robotics Championship</p>
           <p class="tl-sub">Malaysia · Door Hinge Safety System</p>
-          <p class="tl-result gold">🥇 Overall Winner</p>
+          <p class="tl-result">Overall Winner</p>
         </div>
       </li>
       <li class="tl-item reveal">
@@ -418,7 +418,7 @@
         <div class="tl-card">
           <p class="tl-title">Zonal Robotics Championship</p>
           <p class="tl-sub">SRM Chennai · Road Accident Safety Hub</p>
-          <p class="tl-result">🎯 Qualified for NRC Technoxian</p>
+          <p class="tl-result">Qualified for NRC Technoxian</p>
         </div>
       </li>
       <li class="tl-item reveal">
@@ -426,7 +426,7 @@
         <div class="tl-card">
           <p class="tl-title">PEC Hacks 4.0</p>
           <p class="tl-sub">Panimalar Engineering College · High School Track · Vaccine Cold Chain Ledger</p>
-          <p class="tl-result">🏆 Consolation Prize</p>
+          <p class="tl-result">Consolation Prize</p>
         </div>
       </li>
       <li class="tl-item tl-minor reveal">
