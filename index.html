@@ -129,10 +129,10 @@
 
     <!-- ===== FEATURED: Door Hinge Safety System ===== -->
     <article class="featured reveal">
-      <p class="badge badge-accent">Featured · Overall Winner</p>
+      <p class="badge badge-accent">Featured · Overall Winner · Gold</p>
       <h3>Door Hinge Safety System</h3>
       <p class="project-meta">Robowunder International Robotics Championship 2025 · Malaysia</p>
-      <p class="project-desc">A child-safety system designed to help prevent finger injuries around door hinges. The system uses sensors to detect when a hand is present near the hinge and actuates the mechanism to prevent the dangerous situation.</p>
+      <p class="project-desc">A hardware safety system designed to help prevent finger injuries around door hinges. Laser and IR sensors watch the hinge danger zone, and when something is detected inside it, the servo and solenoid actuators respond.</p>
       <p class="sysline">
         <span><strong>Sense</strong> — <span class="tip" tabindex="0" data-tip="Detects a hand near the hinge">Laser + IR sensor</span></span>
         <span class="sys-arrow" aria-hidden="true">→</span>
@@ -140,6 +140,7 @@
         <span class="sys-arrow" aria-hidden="true">→</span>
         <span><strong>Actuate</strong> — Servo + Solenoid</span>
       </p>
+      <p class="techline">ESP32 · Laser sensor · IR sensor · Servo · Solenoid</p>
     </article>
 
     <!-- ===== Secondary projects ===== -->
@@ -148,9 +149,9 @@
       <article class="project reveal">
         <p class="badge">Zonal Robotics Championship · SRM Chennai</p>
         <h3>Road Accident Safety Hub</h3>
-        <p class="project-result">Qualified for NRC Technoxian</p>
-        <p class="project-desc">A data-driven road safety project designed to identify patterns in accident occurrence and predict where accidents could occur. Built with XGBoost and Python, trained on public accident data — including time, day, junction characteristics, and other relevant parameters from public datasets.</p>
-        <p class="contrib"><span>Contribution</span> — AI-assisted development and backend integration. The team handled frontend development and testing.</p>
+        <p class="project-result">Qualified for NRC Technoxian through the zonal championship</p>
+        <p class="project-desc">A robotics competition project that uses public accident data and XGBoost to predict where accidents may occur. It looks at parameters like time, day, junction information, and other relevant public-data parameters.</p>
+        <p class="contrib"><span>Contribution</span> — Vibe-coding/software implementation and backend integration. The team handled frontend and testing.</p>
         <p class="techline"><span class="tip" tabindex="0" data-tip="Gradient-boosted trees library for tabular data">XGBoost</span> · Python · Public accident data</p>
       </article>
 
@@ -158,10 +159,11 @@
         <p class="badge">PEC Hacks 4.0 · Panimalar Engineering College · High School Track</p>
         <h3>Vaccine Cold Chain Ledger</h3>
         <p class="project-result">Consolation Prize</p>
-        <p class="project-desc">A hardware-integrated cold-chain monitoring system that records real-time vaccine storage temperature and makes the information available through a web application. The system uses a DHT22 to record real-time temperature and displays the information through the web application.</p>
+        <p class="project-desc">A hardware-integrated cold-chain monitoring system: a DHT22 sensor tracks vaccine storage temperature via Arduino/ESP32, shows readings on an LCD, and records SHA-256-hashed data to Supabase for display in a web application.</p>
         <p class="sysline sysline-small">
           <span>DHT22 sensor</span><span class="sys-arrow" aria-hidden="true">→</span>
           <span>Arduino / ESP32</span><span class="sys-arrow" aria-hidden="true">→</span>
+          <span>LCD</span><span class="sys-arrow" aria-hidden="true">→</span>
           <span>SHA-256 hashing</span><span class="sys-arrow" aria-hidden="true">→</span>
           <span>Supabase</span><span class="sys-arrow" aria-hidden="true">→</span>
           <span>Web app</span>
@@ -174,10 +176,17 @@
         <p class="badge">Personal project</p>
         <h3>EPL Predictor</h3>
         <p class="project-result muted">Work in progress · personal exploration</p>
-        <p class="project-desc">A personal project exploring historical English football data and match-outcome prediction. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn&rsquo;t).</p>
-        <p class="techline">Python · Historical match data · Data exploration</p>
+        <p class="project-desc">A personal project using historical English football data and XGBoost to explore match-outcome prediction. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn&rsquo;t).</p>
+        <p class="techline">Python · <span class="tip" tabindex="0" data-tip="Gradient-boosted trees library for tabular data">XGBoost</span> · Historical match data</p>
         <!-- Replace href with the real repo URL when published -->
         <a class="card-link" href="https://github.com/Raghav2012Code" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project reveal">
+        <p class="badge">Personal · Experimental</p>
+        <h3>Urbania</h3>
+        <p class="project-result muted">Experimental · personal project</p>
+        <p class="project-desc">A personal experimental project: a 2D city simulation I&rsquo;m building to explore how simulated systems behave.</p>
       </article>
 
     </div>
