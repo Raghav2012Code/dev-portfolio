@@ -346,6 +346,12 @@ a:focus-visible, button:focus-visible {
   html { scroll-behavior: auto; }
 }
 
+/* ---------- Motion layer (motion.js): WAAPI owns reveals when available ---------- */
+.motion-on .reveal { transition: none; opacity: 0; transform: translateY(8px); }
+.motion-on .reveal.visible { opacity: 1; transform: none; }
+.motion-on .hero .reveal { transition-delay: 0s; }
+.motion-on .btn:active { transform: none; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 640px) {
   :root { --section-pad: 64px; }

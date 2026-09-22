@@ -51,23 +51,26 @@
   }
 
   // Reveal on scroll — single IntersectionObserver, subtle by design.
+  // Skipped when the Motion layer owns reveals (see motion.js).
   var items = document.querySelectorAll(".reveal");
-  if (!("IntersectionObserver" in window)) {
-    items.forEach(function (el) { el.classList.add("visible"); });
-    return;
+  if (!window.__motionOK) {
+    if (!("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("visible"); });
+    } else {
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      );
+      items.forEach(function (el) { observer.observe(el); });
+    }
   }
-  var observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-  );
-  items.forEach(function (el) { observer.observe(el); });
 
   // Reading progress — 2px hairline under the nav, rAF-throttled.
   // Skipped when the user prefers reduced motion (CSS hides the bar too).

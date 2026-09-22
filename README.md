@@ -43,6 +43,15 @@ WM Tooltip (`.tip`, hover-gated, keyboard-focusable). Cards, tabs and dialogs
 were evaluated and deliberately not used — the single-column editorial layout
 already solves those cases with less UI.
 
+## Motion (motion.dev)
+
+Animation runs through Motion v12 (pinned CDN importmap, `motion.js`):
+one ease (`[0.22, 1, 0.36, 1]`), one 8px rise, 70ms staggers — hero entrance,
+grouped section reveals, project hover lift (`translateY(-3px)`, transform
+only), button press scale. Transform/opacity only, `once` observers, hover
+gating, full `prefers-reduced-motion` bypass. If the CDN/module fails,
+`script.js` CSS reveals take over automatically (offline-safe baseline).
+
 ## Adding real photos
 
 Search `index.html` for `PHOTO PLACEHOLDER`. Replace any `.photo-placeholder` block with:
