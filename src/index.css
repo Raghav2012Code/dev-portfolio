@@ -163,10 +163,6 @@ a:focus-visible, button:focus-visible {
 .hero-teaser a:hover { color: var(--text-dim); text-decoration: underline; text-decoration-color: var(--line-faint); text-underline-offset: 4px; }
 .hero-teaser-count { color: var(--text); font-weight: 650; }
 
-/* ---------- project page ---------- */
-.page-back { padding-top: 32px; }
-.page-back .card-link { margin-top: 0; }
-
 /* ---------- sections ---------- */
 .section { padding: var(--section-pad) 0; border-top: 1px solid var(--line); }
 

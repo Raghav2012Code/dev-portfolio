@@ -26,7 +26,6 @@ export const ACHIEVEMENTS_LABEL = "Achievements";
 export const PROJECTS_PAGE_PATH = "/project";
 
 export const PROJECTS_PAGE_COPY = {
-  backHome: "Back home",
   viewAll: "View all projects",
 } as const;
 

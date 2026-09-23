@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import type { MouseEvent } from "react";
 import { GITHUB_URL, NAV_GITHUB_LABEL, NAV_LINKS, PROFILE_NAME, PROJECTS_PAGE_PATH } from "../data/content";
 import { EASE, INTERACTION_DURATION, RISE_PX } from "../lib/motion";
-import { resolveHref } from "../lib/site";
+import { resolveHref, isHomePage } from "../lib/site";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -51,9 +51,15 @@ export function Navbar() {
   return (
     <header className="nav" id="top">
       <div className="nav-inner">
-        <a className="brand" href="#top" aria-label={`${PROFILE_NAME} home`} onClick={scrollToTop}>
-          <span className="brand-text">{PROFILE_NAME}</span>
-        </a>
+        {isHomePage() ? (
+          <a className="brand" href="#top" aria-label={`${PROFILE_NAME} home`} onClick={scrollToTop}>
+            <span className="brand-text">{PROFILE_NAME}</span>
+          </a>
+        ) : (
+          <a className="brand" href="/" aria-label={`${PROFILE_NAME} home`}>
+            <span className="brand-text">{PROFILE_NAME}</span>
+          </a>
+        )}
         <nav className="nav-links" aria-label="Primary">
           {NAV_LINKS.map((link) => (
             <a
