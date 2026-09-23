@@ -18,6 +18,9 @@ function formatDate(date: string) {
 export function Contributions() {
   const copy = SECTION_COPY.contributions;
   const [calendar, setCalendar] = useState<ContributionCalendar | null>(null);
+  const [compact, setCompact] = useState(
+    () => window.matchMedia("(max-width: 640px)").matches,
+  );
 
   useEffect(() => {
     let active = true;
@@ -30,16 +33,28 @@ export function Contributions() {
     };
   }, []);
 
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 640px)");
+    const onChange = (event: MediaQueryListEvent) => setCompact(event.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+
   if (!calendar) return null;
+
+  // Small screens show the most recent ~6 months so the chart fits
+  // without horizontal scrolling; larger screens show the full year.
+  const visibleWeeks = compact ? calendar.weeks.slice(-26) : calendar.weeks;
+  const rangeLabel = compact ? "recent months" : "the past year";
 
   const cellSize = 10;
   const gap = 2;
   const step = cellSize + gap;
   const labelWidth = 24;
   const labelHeight = 16;
-  const chartWidth = labelWidth + Math.max(calendar.weeks.length * step - gap, 1);
+  const chartWidth = labelWidth + Math.max(visibleWeeks.length * step - gap, 1);
   const chartHeight = labelHeight + 7 * step - gap;
-  const monthLabels = calendar.weeks.flatMap((week, weekIndex) => {
+  const monthLabels = visibleWeeks.flatMap((week, weekIndex) => {
     const firstOfMonth = week.find((day) => new Date(`${day.date}T00:00:00Z`).getUTCDate() === 1);
     return firstOfMonth
       ? [{
@@ -64,7 +79,7 @@ export function Contributions() {
             <div
               className="contribution-chart-scroll"
               role="region"
-              aria-label="Scrollable public contribution calendar"
+              aria-label={compact ? "Public contribution calendar" : "Scrollable public contribution calendar"}
               tabIndex={0}
             >
               <motion.svg
@@ -75,9 +90,9 @@ export function Contributions() {
                 style={{ width: chartWidth }}
                 viewBox={`0 0 ${chartWidth} ${chartHeight}`}
                 role="img"
-                aria-label={`GitHub public contribution calendar for the past year. ${calendar.totalContributions.toLocaleString()} contributions.`}
+                aria-label={`GitHub public contribution calendar for ${rangeLabel}. ${calendar.totalContributions.toLocaleString()} contributions in the past year.`}
               >
-                <title>Public GitHub contributions by day over the past year</title>
+                <title>Public GitHub contributions by day over {rangeLabel}</title>
                 <desc>
                   Each square represents one day. Darker gold squares indicate more public
                   contributions. Open the GitHub profile for the full contribution calendar.
@@ -102,7 +117,7 @@ export function Contributions() {
                     {weekday === 1 ? "Mon" : weekday === 3 ? "Wed" : "Fri"}
                   </text>
                 ))}
-                {calendar.weeks.flatMap((week, weekIndex) =>
+                {visibleWeeks.flatMap((week, weekIndex) =>
                   week.map((day) => {
                     const weekday = new Date(`${day.date}T00:00:00Z`).getUTCDay();
                     return (
@@ -124,7 +139,9 @@ export function Contributions() {
                 )}
               </motion.svg>
             </div>
-            <p className="contribution-scroll-hint">{copy.scrollHint}</p>
+            {compact ? null : (
+              <p className="contribution-scroll-hint">{copy.scrollHint}</p>
+            )}
             <figcaption className="contribution-legend">
               <span>{copy.less}</span>
               {[0, 1, 2, 3, 4].map((level) => (
