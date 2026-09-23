@@ -261,6 +261,11 @@ a:focus-visible, button:focus-visible {
 .card-link + .card-link { margin-left: 18px; }
 
 .project-grid { margin-top: 8px; display: block; }
+.project-gist-list { list-style: none; margin-top: 28px; border-top: 1px solid var(--line); }
+.project-gist-list li { padding: 15px 0; border-bottom: 1px solid var(--line); }
+.project-gist-title { color: var(--text); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; text-decoration: none; transition: var(--t); }
+.project-gist-title:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+.project-gist-sub { color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-top: 1px; }
 .project { padding: 36px 0; border-bottom: 1px solid var(--line); }
 .project:last-child { border-bottom: none; padding-bottom: 0; }
 
