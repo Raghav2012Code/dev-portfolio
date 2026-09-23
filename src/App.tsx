@@ -23,8 +23,8 @@ export function App() {
         <Hero />
         <Achievements />
         <About />
-        <Projects />
         <Contributions />
+        <Projects />
         <Skills />
         <Robotics />
         <Timeline />
