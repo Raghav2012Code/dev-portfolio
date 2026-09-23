@@ -360,7 +360,8 @@ a:focus-visible, button:focus-visible {
   display: grid; grid-template-columns: 100px 1fr; gap: 16px;
   padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 15px; align-items: baseline;
 }
-.contact-label { font-size: 12.5px; letter-spacing: 0.01em; color: var(--text-faint); font-weight: 600; }
+.contact-label { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; letter-spacing: 0.01em; color: var(--text-faint); font-weight: 600; }
+.contact-label svg { width: 14px; height: 14px; flex: none; }
 .contact-list a { color: var(--text); font-weight: 550; text-decoration: underline; text-decoration-color: var(--line-faint); text-underline-offset: 4px; overflow-wrap: anywhere; transition: var(--t); }
 .contact-list a:hover { text-decoration-color: var(--accent); }
 
