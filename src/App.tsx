@@ -24,7 +24,7 @@ export function App() {
         <Achievements />
         <About />
         <Contributions />
-        <Projects />
+        <Projects preview />
         <Skills />
         <Robotics />
         <Timeline />

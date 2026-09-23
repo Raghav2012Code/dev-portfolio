@@ -163,6 +163,7 @@ export interface Project {
   result?: string;
   resultMuted?: boolean;
   description: string;
+  details?: string[];
   sysline?: SignalStep[];
   syslineSmall?: boolean;
   contrib?: string;
@@ -181,6 +182,10 @@ export const PROJECTS: Project[] = [
     meta: "Robowunder International Robotics Championship 2026 · Malaysia",
     description:
       "A hardware safety system designed to help prevent finger injuries around door hinges. Laser and IR sensors watch the hinge danger zone, and when something is detected inside it, the servo and solenoid actuators respond.",
+    details: [
+      "The response chain is sense, process, actuate: laser and infrared sensing tuned to a hand near the hinge, an ESP32 with Wi-Fi and Bluetooth doing the thinking, and a servo plus solenoid doing the moving.",
+      "It was built for the Robowunder International Robotics Championship 2026 in Malaysia, where it took Overall Winner and Gold.",
+    ],
     sysline: [
       { strong: "Sense", text: { label: "Laser + IR sensor", tip: "Detects a hand near the hinge" } },
       { strong: "Process", text: { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" } },
@@ -200,6 +205,10 @@ export const PROJECTS: Project[] = [
     result: "Qualified for NRC Technoxian through the zonal championship",
     description:
       "A robotics competition project that uses public accident data and XGBoost to predict where accidents may occur. It looks at parameters like time, day, junction information, and other relevant public-data parameters.",
+    details: [
+      "The model is gradient-boosted trees over tabular public data: time of day, day of the week, junction information and other relevant parameters, predicting where accidents may occur.",
+      "My part was the complete frontend, built with Claude Code and integrated with the backend, while the team handled testing.",
+    ],
     contrib:
       "Built the full frontend using Claude Code and integrated it with the backend. The team handled testing.",
     techline: [
@@ -215,6 +224,10 @@ export const PROJECTS: Project[] = [
     result: "Consolation Prize",
     description:
       "A hardware-integrated cold-chain monitoring system: a DHT22 sensor tracks vaccine storage temperature via Arduino/ESP32, shows readings on an LCD, and records SHA-256-hashed data to Supabase for display in a web application.",
+    details: [
+      "A DHT22 temperature sensor feeds readings through Arduino or ESP32 to an on-device LCD, while SHA-256-hashed records land in Supabase for display in the web application.",
+      "I did the complete full-stack software implementation, including the hardware/software integration.",
+    ],
     sysline: [
       { text: { label: "DHT22 sensor" } },
       { text: { label: "Arduino / ESP32" } },
@@ -247,6 +260,10 @@ export const PROJECTS: Project[] = [
     resultMuted: true,
     description:
       "A transparent, tamper-evident ledger for peer-to-peer rooftop solar energy trading. Neighbours trade surplus at a community rate, and every trade is sealed into a SHA-256 hash chain computed in the browser. All data simulated.",
+    details: [
+      "Neighbours trade rooftop surplus at a community rate, and every trade is sealed into a tamper-evident SHA-256 hash chain computed in the browser; all data is simulated.",
+      "My contribution was the frontend development and the competition pitch.",
+    ],
     contrib: "Frontend development and the competition pitch.",
     techline: [
       { label: "React" },
@@ -264,6 +281,9 @@ export const PROJECTS: Project[] = [
     resultMuted: true,
     description:
       "A personal project using historical English football data and XGBoost to explore match-outcome prediction. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn’t).",
+    details: [
+      "Historical English football data goes into gradient-boosted trees exploring match-outcome prediction: an exercise in working with real datasets, testing simple prediction ideas, and learning what works and what doesn’t.",
+    ],
     techline: [
       { label: "Python" },
       { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },

@@ -85,6 +85,7 @@ function TechLine({ items }: { items: TechMention[] }) {
 interface ProjectCardProps {
   project: Project;
   index: number;
+  detailed?: boolean;
 }
 
 /**
@@ -92,7 +93,7 @@ interface ProjectCardProps {
  * (transform only); badges, borders, links and tooltips stay in CSS.
  * `index` continues the section's reveal stagger.
  */
-export function ProjectCard({ project, index }: ProjectCardProps) {
+export function ProjectCard({ project, index, detailed = true }: ProjectCardProps) {
   return (
     <motion.article
       className={project.featured ? "featured" : "project"}
@@ -112,6 +113,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </p>
       ) : null}
       <p className="project-desc">{project.description}</p>
+      {detailed && project.details
+        ? project.details.map((paragraph) => (
+            <p key={paragraph} className="project-details">
+              {paragraph}
+            </p>
+          ))
+        : null}
       {project.media ? (
         <figure className="project-media">
           <img src={project.media.src} alt={project.media.alt} loading="lazy" decoding="async" />

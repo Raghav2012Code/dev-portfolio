@@ -75,7 +75,7 @@ a:focus-visible, button:focus-visible {
   text-wrap: balance;
 }
 .section-lead { color: var(--text-dim); margin-top: 10px; font-size: 16px; line-height: 1.65; max-width: 36rem; text-wrap: pretty; }
-.about-copy p, .project-desc { text-wrap: pretty; }
+.about-copy p, .project-desc, .project-details { text-wrap: pretty; }
 
 /* ---------- WM Button, adapted: quiet variants, one height, one radius ---------- */
 .btn {
@@ -220,6 +220,8 @@ a:focus-visible, button:focus-visible {
 .featured .project-result { color: var(--accent-text); }
 .project-result.muted { color: var(--text-faint); font-weight: 500; }
 .project-desc { color: var(--text-dim); margin-top: 12px; max-width: 40rem; font-size: 15.5px; }
+.project-details { color: var(--text-dim); margin-top: 12px; max-width: 40rem; font-size: 15.5px; }
+.project-details + .project-details { margin-top: 8px; }
 .sysline {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px;
   margin-top: 18px; font-size: 14px; line-height: 1.6; color: var(--text-faint);
