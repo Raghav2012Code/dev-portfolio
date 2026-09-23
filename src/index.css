@@ -402,6 +402,13 @@ a:focus-visible, button:focus-visible {
   .profile-img { width: 60px; height: 60px; margin-bottom: 24px; }
   .hero-actions .btn { flex: 1 1 0; padding: 0 12px; }
   .featured { padding: 24px 0 32px 18px; }
+  .featured .sysline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+  .featured .sysline > span { min-width: 0; overflow-wrap: anywhere; }
+  .featured .sys-arrow { display: none; }
   .about-facts div { grid-template-columns: 1fr; gap: 2px; }
   .stack-row { grid-template-columns: 1fr; gap: 4px; }
   .timeline li { grid-template-columns: 48px minmax(0, 1fr); gap: 12px; }

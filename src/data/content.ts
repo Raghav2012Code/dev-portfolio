@@ -205,7 +205,7 @@ export const PROJECTS: Project[] = [
     description:
       "A robotics competition project that uses public accident data and XGBoost to predict where accidents may occur. It looks at parameters like time, day, junction information, and other relevant public-data parameters.",
     contrib:
-      "Vibe-coding/software implementation and backend integration. The team handled frontend and testing.",
+      "Built the full frontend using Claude Code and integrated it with the backend. The team handled testing.",
     techline: [
       { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
       { label: "Python" },
