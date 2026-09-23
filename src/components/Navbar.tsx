@@ -1,8 +1,8 @@
 import { AnimatePresence, motion, useScroll } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { MouseEvent } from "react";
-import { GITHUB_URL, NAV_LINKS } from "../data/content";
-import { EASE } from "../lib/motion";
+import { GITHUB_URL, NAV_GITHUB_LABEL, NAV_LINKS, PROFILE_NAME } from "../data/content";
+import { EASE, INTERACTION_DURATION, RISE_PX } from "../lib/motion";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -50,8 +50,8 @@ export function Navbar() {
   return (
     <header className="nav" id="top">
       <div className="nav-inner">
-        <a className="brand" href="#top" aria-label="Raghav Krishna home" onClick={scrollToTop}>
-          <span className="brand-text">Raghav Krishna</span>
+        <a className="brand" href="#top" aria-label={`${PROFILE_NAME} home`} onClick={scrollToTop}>
+          <span className="brand-text">{PROFILE_NAME}</span>
         </a>
         <nav className="nav-links" aria-label="Primary">
           {NAV_LINKS.map((link) => (
@@ -66,7 +66,7 @@ export function Navbar() {
         </nav>
         <div className="nav-cta">
           <a className="nav-github" href={GITHUB_URL} target="_blank" rel="noopener">
-            GitHub ↗
+            {NAV_GITHUB_LABEL}
           </a>
           <button
             className="nav-toggle"
@@ -91,10 +91,10 @@ export function Navbar() {
             className="mobile-menu"
             id="mobileMenu"
             aria-label="Mobile"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: EASE }}
+            initial={{ opacity: 0, y: -RISE_PX }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -RISE_PX }}
+            transition={{ duration: INTERACTION_DURATION, ease: EASE }}
           >
             {NAV_LINKS.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setOpen(false)}>

@@ -15,9 +15,96 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Contact", href: "#contact" },
 ];
 
-export const GITHUB_URL = "https://github.com/Raghav2012Code";
-export const GITHUB_AVATAR_URL = "https://github.com/Raghav2012Code.png";
+export const GITHUB_USERNAME = "Raghav2012Code";
+export const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
+export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png`;
 export const CONTACT_EMAIL = "raghavgamerz670@gmail.com";
+export const PROFILE_NAME = "Raghav Krishna";
+export const NAV_GITHUB_LABEL = "GitHub";
+
+export const HERO_COPY = {
+  name: PROFILE_NAME,
+  eyebrow: "Chennai, India · Grade 9 · Velammal Academy Nolambur",
+  role: "Student · Developer · Robotics Builder",
+  description:
+    "14-year-old builder exploring software, AI-assisted development, and hardware projects with ESP32, Arduino, sensors, and more.",
+  avatarAlt: `Profile image of ${PROFILE_NAME}`,
+  projectsLink: "View Projects",
+  githubLink: "GitHub",
+} as const;
+
+export const SECTION_COPY = {
+  about: {
+    eyebrow: "About",
+    title: "I learn by building things.",
+    paragraphs: [
+      "Most of what I’ve learned has come from building. I’m especially interested in hardware projects with ESP32s, sensors, and actuators, and in connecting them to software.",
+      "I use AI coding tools such as Claude Code and OpenAI Codex to prototype, implement, and debug projects.",
+    ],
+  },
+  projects: {
+    eyebrow: "Projects",
+    title: "Selected work",
+    lead: "Hardware-first projects, built for real competitions.",
+  },
+  contributions: {
+    eyebrow: "GitHub activity",
+    title: "Public contributions",
+    scrollHint: "Scroll to see the full year.",
+    less: "Less",
+    more: "More",
+  },
+  stack: {
+    eyebrow: "Technologies",
+    title: "Technologies I build with",
+  },
+  robotics: {
+    eyebrow: "Robotics",
+    title: "Builds that touch the real world.",
+    lead:
+      "Software is great, but my favourite moment is when code moves something physical: a servo turns, a sensor fires, a mechanism responds.",
+  },
+  timeline: {
+    eyebrow: "Competitions",
+    title: "Competition timeline",
+  },
+  currently: {
+    eyebrow: "Currently",
+    title: "Building / exploring now",
+  },
+  contact: {
+    eyebrow: "Contact",
+    title: "Say hello.",
+    lead: "Always happy to talk robotics, hardware, or builds in progress.",
+  },
+} as const;
+
+export interface ContactItem {
+  label: string;
+  value: string;
+  href?: string;
+  external?: boolean;
+}
+
+export const CONTACT_ITEMS: ContactItem[] = [
+  { label: "GitHub", value: "github.com/Raghav2012Code", href: GITHUB_URL, external: true },
+  { label: "Email", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
+  {
+    label: "Discord",
+    value: "thegamer3559",
+    href: "https://discord.com/users/980399356148609045",
+    external: true,
+  },
+];
+
+export const FOOTER_COPY = {
+  tagline: "Student · Developer · Robotics Builder · Chennai 2026 ·",
+  backToTop: "Back to top",
+} as const;
+
+export const UI_COPY = {
+  contributionLabel: "Contribution",
+} as const;
 
 export interface Achievement {
   title: string;
@@ -37,18 +124,6 @@ export const ACHIEVEMENTS: Achievement[] = [
     title: "NRC Technoxian",
     sub: "Qualified through Zonal Robotics Championship · SRM Chennai",
   },
-];
-
-export interface AboutFact {
-  term: string;
-  detail: string;
-}
-
-export const ABOUT_FACTS: AboutFact[] = [
-  { term: "Age", detail: "14" },
-  { term: "School", detail: "Velammal Academy Nolambur" },
-  { term: "City", detail: "Chennai, India" },
-  { term: "Into", detail: "Robotics · Hardware · Web" },
 ];
 
 /** A technology mention; `tip` adds the hover/focus tooltip gloss. */
@@ -82,12 +157,13 @@ export interface Project {
   techline?: TechMention[];
   link?: ProjectLink;
   demo?: ProjectLink;
+  media?: { src: string; alt: string; caption: string };
 }
 
 export const PROJECTS: Project[] = [
   {
     name: "Door Hinge Safety System",
-    badge: "Featured · Overall Winner · Gold",
+    badge: "Overall winner · Gold",
     badgeAccent: true,
     featured: true,
     meta: "Robowunder International Robotics Championship 2026 · Malaysia",
@@ -113,13 +189,13 @@ export const PROJECTS: Project[] = [
     description:
       "A robotics competition project that uses public accident data and XGBoost to predict where accidents may occur. It looks at parameters like time, day, junction information, and other relevant public-data parameters.",
     contrib:
-      "Vibe-coding/software implementation and backend integration. The team handled frontend and testing.",
+      "Built the full frontend using Claude Code and integrated it with the backend. The team handled testing.",
     techline: [
       { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
       { label: "Python" },
       { label: "Public accident data" },
     ],
-    link: { label: "View on GitHub →", href: "https://github.com/abivan100-stack/C.R.A.S.H" },
+    link: { label: "View repository", href: "https://github.com/abivan100-stack/C.R.A.S.H" },
   },
   {
     name: "Vaccine Cold Chain Ledger",
@@ -138,7 +214,7 @@ export const PROJECTS: Project[] = [
     syslineSmall: true,
     contrib:
       "Complete full-stack software implementation, including hardware/software integration.",
-    link: { label: "View on GitHub →", href: "https://github.com/abivan100-stack/vault" },
+    link: { label: "View repository", href: "https://github.com/abivan100-stack/vault" },
     techline: [
       { label: "Arduino" },
       { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" },
@@ -166,8 +242,13 @@ export const PROJECTS: Project[] = [
       { label: "Tailwind CSS" },
       { label: "SHA-256", tip: "Cryptographic hash for tamper-evident records" },
     ],
-    link: { label: "View on GitHub →", href: "https://github.com/abivan100-stack/volt-ledger" },
-    demo: { label: "View live site →", href: "https://volt-ledger.vercel.app" },
+    link: { label: "View repository", href: "https://github.com/abivan100-stack/volt-ledger" },
+    demo: { label: "Open live site", href: "https://volt-ledger.vercel.app" },
+    media: {
+      src: "/projects/volt-hero.png",
+      alt: "Volt Ledger landing page introducing a rooftop solar trading platform",
+      caption: "Volt Ledger project interface",
+    },
   },
   {
     name: "EPL Predictor",
@@ -181,7 +262,7 @@ export const PROJECTS: Project[] = [
       { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
       { label: "Historical match data" },
     ],
-    link: { label: "View on GitHub →", href: "https://github.com/Raghav2012Code/epl-predictor" },
+    link: { label: "View repository", href: "https://github.com/Raghav2012Code/epl-predictor" },
   },
   {
     name: "Urbania",
@@ -190,7 +271,7 @@ export const PROJECTS: Project[] = [
     resultMuted: true,
     description:
       "A personal experimental project: a 2D city simulation I’m building to explore how simulated systems behave.",
-    link: { label: "View on GitHub →", href: "https://github.com/Raghav2012Code/urbania" },
+    link: { label: "View repository", href: "https://github.com/Raghav2012Code/urbania" },
   },
 ];
 
@@ -281,19 +362,11 @@ export const CURRENTLY: CurrentlyItem[] = [
     sub: "Sensors, servos, solenoids and microcontrollers.",
   },
   {
-    title: "Hardware/software integration",
-    sub: "Connecting code to the physical world.",
-  },
-  {
     title: "Web development",
     sub: "React, TypeScript, including this portfolio.",
   },
   {
     title: "AI-assisted development",
     sub: "Claude Code and OpenAI Codex in the loop.",
-  },
-  {
-    title: "Experimental projects",
-    sub: "Small builds and new ideas.",
   },
 ];

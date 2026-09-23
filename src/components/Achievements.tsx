@@ -13,11 +13,8 @@ export function Achievements() {
           whileInView="shown"
           viewport={SCROLL_VIEWPORT}
         >
-          {ACHIEVEMENTS.map((item, i) => (
+          {ACHIEVEMENTS.map((item) => (
             <motion.li key={item.title} variants={itemVariants}>
-              <span className="achieve-index" aria-hidden="true">
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <div>
                 <p className="achieve-title">{item.title}</p>
                 <p className="achieve-sub">{item.sub}</p>

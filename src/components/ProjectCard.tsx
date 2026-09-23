@@ -1,34 +1,70 @@
 import { motion } from "motion/react";
 import type { Variants } from "motion/react";
 import type { Project, SignalStep, TechMention } from "../data/content";
-import { EASE, REVEAL_DURATION, SCROLL_VIEWPORT, STAGGER_STEP } from "../lib/motion";
+import { UI_COPY } from "../data/content";
+import {
+  EASE,
+  INTERACTION_DURATION,
+  REVEAL_DURATION,
+  RISE_PX,
+  SCROLL_VIEWPORT,
+  STAGGER_STEP,
+  reveal,
+} from "../lib/motion";
 import { Badge, Tip } from "./ui";
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 8 },
+  hidden: { opacity: 0, y: RISE_PX },
   shown: (index: number) => ({
     opacity: 1,
     y: 0,
     transition: { duration: REVEAL_DURATION, ease: EASE, delay: index * STAGGER_STEP },
   }),
-  hover: { y: -3, transition: { duration: 0.25, ease: EASE } },
+  hover: { y: -3, transition: { duration: INTERACTION_DURATION, ease: EASE } },
 };
 
-function SignalLine({ steps, small = false }: { steps: SignalStep[]; small?: boolean }) {
+function SignalLine({
+  steps,
+  small = false,
+  animateSteps = false,
+}: {
+  steps: SignalStep[];
+  small?: boolean;
+  animateSteps?: boolean;
+}) {
+  if (animateSteps) {
+    return (
+      <ol className="signal-flow" aria-label="Door Hinge Safety System response sequence">
+        {steps.map((step, i) => (
+          <motion.li className="signal-flow-step" key={`${step.text.label}-${i}`} {...reveal(i)}>
+            {step.strong ? <span className="signal-flow-label">{step.strong}</span> : null}
+            <span className="signal-flow-value">
+              <Tip label={step.text.label} tip={step.text.tip} />
+            </span>
+          </motion.li>
+        ))}
+      </ol>
+    );
+  }
+
   return (
     <p className={small ? "sysline sysline-small" : "sysline"}>
-      {steps.map((step, i) => (
-        <span key={`${step.text.label}-${i}`}>
-          {step.strong ? <strong>{step.strong}</strong> : null}
-          {step.strong ? ": " : null}
-          <Tip label={step.text.label} tip={step.text.tip} />
-          {i < steps.length - 1 ? (
-            <span className="sys-arrow" aria-hidden="true">
-              {" → "}
-            </span>
-          ) : null}
-        </span>
-      ))}
+      {steps.map((step, i) => {
+        const key = `${step.text.label}-${i}`;
+        const content = (
+          <>
+            {step.strong ? <strong>{step.strong}</strong> : null}
+            {step.strong ? ": " : null}
+            <Tip label={step.text.label} tip={step.text.tip} />
+            {i < steps.length - 1 ? (
+              <span className="sys-arrow" aria-hidden="true">
+                {" → "}
+              </span>
+            ) : null}
+          </>
+        );
+        return <span key={key}>{content}</span>;
+      })}
     </p>
   );
 }
@@ -39,7 +75,7 @@ function TechLine({ items }: { items: TechMention[] }) {
       {items.map((item, i) => (
         <span key={`${item.label}-${i}`}>
           <Tip label={item.label} tip={item.tip} />
-          {i < items.length - 1 ? " · " : ""}
+          {i < items.length - 1 ? ", " : ""}
         </span>
       ))}
     </p>
@@ -76,10 +112,22 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </p>
       ) : null}
       <p className="project-desc">{project.description}</p>
-      {project.sysline ? <SignalLine steps={project.sysline} small={project.syslineSmall} /> : null}
+      {project.media ? (
+        <figure className="project-media">
+          <img src={project.media.src} alt={project.media.alt} loading="lazy" decoding="async" />
+          <figcaption>{project.media.caption}</figcaption>
+        </figure>
+      ) : null}
+      {project.sysline ? (
+        <SignalLine
+          steps={project.sysline}
+          small={project.syslineSmall}
+          animateSteps={project.featured}
+        />
+      ) : null}
       {project.contrib ? (
         <p className="contrib">
-          <span>Contribution</span>: {project.contrib}
+          <span>{UI_COPY.contributionLabel}</span>: {project.contrib}
         </p>
       ) : null}
       {project.techline ? <TechLine items={project.techline} /> : null}
