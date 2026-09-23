@@ -229,6 +229,7 @@ a:focus-visible, button:focus-visible {
   padding: 12px 0;
 }
 .featured .sysline strong { color: var(--text); }
+.featured .sysline-step { display: inline-block; }
 .techline {
   margin-top: 14px; font-family: var(--mono);
   font-size: 12.5px; letter-spacing: 0.01em; color: var(--text-faint);
@@ -408,6 +409,7 @@ a:focus-visible, button:focus-visible {
     gap: 6px;
   }
   .featured .sysline > span { min-width: 0; overflow-wrap: anywhere; }
+  .featured .sysline > .sysline-step { display: grid; }
   .featured .sys-arrow { display: none; }
   .about-facts div { grid-template-columns: 1fr; gap: 2px; }
   .stack-row { grid-template-columns: 1fr; gap: 4px; }

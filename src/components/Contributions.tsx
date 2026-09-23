@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { GITHUB_URL, SECTION_COPY } from "../data/content";
-import { reveal } from "../lib/motion";
+import { EASE, REVEAL_DURATION, reveal } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 type ContributionLevel = 0 | 1 | 2 | 3 | 4;
@@ -143,8 +143,11 @@ export function Contributions() {
                   aria-label="Scrollable public contribution calendar"
                   tabIndex={0}
                 >
-                  <svg
+                  <motion.svg
                     className="contribution-chart"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: REVEAL_DURATION, ease: EASE }}
                     style={{ width: chartWidth }}
                     viewBox={`0 0 ${chartWidth} ${chartHeight}`}
                     role="img"
@@ -195,7 +198,7 @@ export function Contributions() {
                         );
                       }),
                     )}
-                  </svg>
+                  </motion.svg>
                 </div>
                 <p className="contribution-scroll-hint">{copy.scrollHint}</p>
                 <figcaption className="contribution-legend">

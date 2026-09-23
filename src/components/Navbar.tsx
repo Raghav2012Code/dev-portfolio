@@ -2,7 +2,7 @@ import { AnimatePresence, motion, useScroll } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { MouseEvent } from "react";
 import { GITHUB_URL, NAV_GITHUB_LABEL, NAV_LINKS, PROFILE_NAME } from "../data/content";
-import { EASE, INTERACTION_DURATION } from "../lib/motion";
+import { EASE, INTERACTION_DURATION, RISE_PX } from "../lib/motion";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -91,9 +91,9 @@ export function Navbar() {
             className="mobile-menu"
             id="mobileMenu"
             aria-label="Mobile"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ opacity: 0, y: -RISE_PX }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -RISE_PX }}
             transition={{ duration: INTERACTION_DURATION, ease: EASE }}
           >
             {NAV_LINKS.map((link) => (
