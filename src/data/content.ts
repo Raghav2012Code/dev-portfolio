@@ -18,6 +18,87 @@ export const NAV_LINKS: NavLink[] = [
 export const GITHUB_URL = "https://github.com/Raghav2012Code";
 export const GITHUB_AVATAR_URL = "https://github.com/Raghav2012Code.png";
 export const CONTACT_EMAIL = "raghavgamerz670@gmail.com";
+export const PROFILE_NAME = "Raghav Krishna";
+export const NAV_GITHUB_LABEL = "GitHub ↗";
+
+export const HERO_COPY = {
+  name: PROFILE_NAME,
+  eyebrow: "Chennai, India · Grade 9 · Velammal Academy Nolambur",
+  role: "Student · Developer · Robotics Builder",
+  description:
+    "14-year-old builder exploring software, AI-assisted development, and hardware projects with ESP32, Arduino, sensors, and more.",
+  avatarAlt: `Profile image of ${PROFILE_NAME}`,
+  projectsLink: "View Projects",
+  githubLink: "GitHub",
+} as const;
+
+export const SECTION_COPY = {
+  about: {
+    eyebrow: "01 · About",
+    title: "I learn by building things.",
+    paragraphs: [
+      "I’m Raghav, a 14-year-old student at Velammal Academy Nolambur who got interested in AI in 2022 and has been following the space ever since.",
+      "I know the fundamentals of programming, but most of what I’ve learned has come from actually building things. I especially enjoy hardware projects, working with ESP32s, sensors and actuators, and figuring out how software can interact with the physical world.",
+      "I also use AI coding tools like Claude Code and OpenAI Codex as part of my development workflow for prototyping, implementation, debugging, and exploring ideas.",
+    ],
+  },
+  projects: {
+    eyebrow: "02 · Projects",
+    title: "Selected work",
+    lead: "Hardware-first projects, built for real competitions.",
+  },
+  stack: {
+    eyebrow: "03 · Stack",
+    title: "Technologies I build with",
+  },
+  robotics: {
+    eyebrow: "04 · Robotics",
+    title: "Builds that touch the real world.",
+    lead:
+      "Software is great, but my favourite moment is when code moves something physical: a servo turns, a sensor fires, a mechanism responds.",
+  },
+  timeline: {
+    eyebrow: "05 · Competitions",
+    title: "Competition timeline",
+  },
+  currently: {
+    eyebrow: "06 · Currently",
+    title: "Building / exploring now",
+  },
+  contact: {
+    eyebrow: "07 · Contact",
+    title: "Say hello.",
+    lead: "Always happy to talk robotics, hardware, or builds in progress.",
+  },
+} as const;
+
+export interface ContactItem {
+  label: string;
+  value: string;
+  href?: string;
+  external?: boolean;
+}
+
+export const CONTACT_ITEMS: ContactItem[] = [
+  { label: "GitHub", value: "github.com/Raghav2012Code →", href: GITHUB_URL, external: true },
+  { label: "Email", value: `${CONTACT_EMAIL} →`, href: `mailto:${CONTACT_EMAIL}` },
+  {
+    label: "Discord",
+    value: "thegamer3559 →",
+    href: "https://discord.com/users/980399356148609045",
+    external: true,
+  },
+  { label: "School", value: "Velammal Academy Nolambur" },
+];
+
+export const FOOTER_COPY = {
+  tagline: "Student · Developer · Robotics Builder · Chennai 2026 ·",
+  backToTop: "Back to top ↑",
+} as const;
+
+export const UI_COPY = {
+  contributionLabel: "Contribution",
+} as const;
 
 export interface Achievement {
   title: string;

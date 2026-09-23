@@ -1,17 +1,25 @@
 import { motion } from "motion/react";
 import type { Variants } from "motion/react";
 import type { Project, SignalStep, TechMention } from "../data/content";
-import { EASE, REVEAL_DURATION, SCROLL_VIEWPORT, STAGGER_STEP } from "../lib/motion";
+import { UI_COPY } from "../data/content";
+import {
+  EASE,
+  INTERACTION_DURATION,
+  REVEAL_DURATION,
+  RISE_PX,
+  SCROLL_VIEWPORT,
+  STAGGER_STEP,
+} from "../lib/motion";
 import { Badge, Tip } from "./ui";
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 8 },
+  hidden: { opacity: 0, y: RISE_PX },
   shown: (index: number) => ({
     opacity: 1,
     y: 0,
     transition: { duration: REVEAL_DURATION, ease: EASE, delay: index * STAGGER_STEP },
   }),
-  hover: { y: -3, transition: { duration: 0.25, ease: EASE } },
+  hover: { y: -3, transition: { duration: INTERACTION_DURATION, ease: EASE } },
 };
 
 function SignalLine({ steps, small = false }: { steps: SignalStep[]; small?: boolean }) {
@@ -79,7 +87,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       {project.sysline ? <SignalLine steps={project.sysline} small={project.syslineSmall} /> : null}
       {project.contrib ? (
         <p className="contrib">
-          <span>Contribution</span>: {project.contrib}
+          <span>{UI_COPY.contributionLabel}</span>: {project.contrib}
         </p>
       ) : null}
       {project.techline ? <TechLine items={project.techline} /> : null}

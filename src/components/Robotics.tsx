@@ -1,17 +1,17 @@
 import { motion } from "motion/react";
-import { ROBOTICS_ITEMS } from "../data/content";
+import { ROBOTICS_ITEMS, SECTION_COPY } from "../data/content";
 import { itemVariants, listVariants, reveal, SCROLL_VIEWPORT } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 export function Robotics() {
+  const copy = SECTION_COPY.robotics;
   return (
     <section className="section" id="robotics">
       <div className="container robotics-grid">
         <div>
-          <SectionHead eyebrow="04 · Robotics" title="Builds that touch the real world." />
+          <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
           <motion.p {...reveal(2)} className="section-lead">
-            Software is great, but my favourite moment is when code moves something physical: a
-            servo turns, a sensor fires, a mechanism responds.
+            {copy.lead}
           </motion.p>
         </div>
         <motion.ul

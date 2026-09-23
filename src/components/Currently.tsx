@@ -1,13 +1,14 @@
 import { motion } from "motion/react";
-import { CURRENTLY } from "../data/content";
+import { CURRENTLY, SECTION_COPY } from "../data/content";
 import { reveal } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 export function Currently() {
+  const copy = SECTION_COPY.currently;
   return (
     <section className="section" id="currently">
       <div className="container narrow">
-        <SectionHead eyebrow="06 · Currently" title="Building / exploring now" />
+        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
         <motion.ul {...reveal(2)} className="currently-list">
           {CURRENTLY.map((item, i) => (
             <li key={item.title}>

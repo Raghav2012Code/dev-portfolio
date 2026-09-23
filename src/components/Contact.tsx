@@ -1,41 +1,34 @@
 import { motion } from "motion/react";
-import { CONTACT_EMAIL, GITHUB_URL } from "../data/content";
+import { CONTACT_ITEMS, SECTION_COPY } from "../data/content";
 import { reveal } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 export function Contact() {
+  const copy = SECTION_COPY.contact;
   return (
     <section className="section" id="contact">
       <div className="container narrow">
-        <SectionHead eyebrow="07 · Contact" title="Say hello." />
+        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
         <motion.p {...reveal(2)} className="section-lead">
-          Always happy to talk robotics, hardware, or builds in progress.
+          {copy.lead}
         </motion.p>
         <motion.ul {...reveal(3)} className="contact-list">
-          <li>
-            <span className="contact-label">GitHub</span>
-            <a href={GITHUB_URL} target="_blank" rel="noopener">
-              github.com/Raghav2012Code →
-            </a>
-          </li>
-          <li>
-            <span className="contact-label">Email</span>
-            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL} →</a>
-          </li>
-          <li>
-            <span className="contact-label">Discord</span>
-            <a
-              href="https://discord.com/users/980399356148609045"
-              target="_blank"
-              rel="noopener"
-            >
-              thegamer3559 →
-            </a>
-          </li>
-          <li>
-            <span className="contact-label">School</span>
-            <span>Velammal Academy Nolambur</span>
-          </li>
+          {CONTACT_ITEMS.map((item) => (
+            <li key={item.label}>
+              <span className="contact-label">{item.label}</span>
+              {item.href ? (
+                <a
+                  href={item.href}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener" : undefined}
+                >
+                  {item.value}
+                </a>
+              ) : (
+                <span>{item.value}</span>
+              )}
+            </li>
+          ))}
         </motion.ul>
       </div>
     </section>

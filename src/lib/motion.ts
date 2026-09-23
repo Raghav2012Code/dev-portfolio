@@ -10,6 +10,8 @@ export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const RISE_PX = 8;
 export const REVEAL_DURATION = 0.4;
 export const STAGGER_STEP = 0.05;
+export const INTERACTION_DURATION = 0.25;
+export const PRESS_DURATION = 0.12;
 
 export const SCROLL_VIEWPORT: ViewportOptions = { once: true, amount: 0.1, margin: "20% 0px" };
 
