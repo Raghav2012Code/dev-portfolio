@@ -96,7 +96,8 @@ export function Hero() {
         {contributionTotal !== null ? (
           <motion.p {...entrance(6)} className="hero-teaser">
             <a href="#contributions">
-              {contributionTotal.toLocaleString()} {CONTRIBUTION_TEASER.lead}
+              <span className="hero-teaser-count">{contributionTotal.toLocaleString()}</span>{" "}
+              {CONTRIBUTION_TEASER.lead}
             </a>
           </motion.p>
         ) : null}
