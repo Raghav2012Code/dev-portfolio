@@ -37,7 +37,7 @@ Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
 
 ## Deploy
 
-- Vercel CLI is installed and logged in. Project `van-89de/dev-portfolio`, live at `https://dev-portfolio-azure-nine.vercel.app`. GitHub is connected, so pushes to `main` auto-deploy. CLI deploys are rarely needed.
+- Vercel CLI is installed and logged in. Project `van-89de/dev-portfolio`, live at `https://raghavkrishna-dev.vercel.app` (alias; `raghav-dev.vercel.app` and `raghavdev.vercel.app` were already taken). GitHub is connected, so pushes to `main` auto-deploy. CLI deploys are rarely needed.
 - `.vercelignore` must keep excluding `.playwright-mcp/` and `dist/`. Uploading them aborts the deploy on slow networks.
 - Sitemap still needs the canonical URL (slot reserved in `public/robots.txt`).
 

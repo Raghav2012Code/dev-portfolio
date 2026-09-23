@@ -3,7 +3,7 @@
 Personal portfolio of Raghav Krishna, 14-year-old student, developer and
 robotics builder from Chennai.
 
-**Live:** https://dev-portfolio-azure-nine.vercel.app
+**Live:** https://raghavkrishna-dev.vercel.app
 
 ## Stack
 
