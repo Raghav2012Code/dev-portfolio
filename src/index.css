@@ -114,8 +114,9 @@ a:focus-visible, button:focus-visible {
 .nav-links a:hover { color: var(--text); text-decoration: underline; text-decoration-color: var(--line-faint); }
 .nav-links a[aria-current="true"] { color: var(--text); text-decoration: underline; text-decoration-color: var(--accent); }
 .nav-cta { display: flex; align-items: center; gap: 12px; }
-.nav-github { color: var(--text-dim); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: var(--t); }
+.nav-github { display: inline-flex; align-items: center; gap: 6px; color: var(--text-dim); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: var(--t); }
 .nav-github:hover { color: var(--text); }
+.nav-github-icon { width: 14px; height: 14px; flex: none; }
 .nav-toggle {
   display: none; background: none; color: var(--text);
   border: 1px solid var(--line); border-radius: var(--radius);
