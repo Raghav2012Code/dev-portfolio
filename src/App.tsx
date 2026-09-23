@@ -2,6 +2,7 @@ import { MotionConfig } from "motion/react";
 import { About } from "./components/About";
 import { Achievements } from "./components/Achievements";
 import { Contact } from "./components/Contact";
+import { Contributions } from "./components/Contributions";
 import { Currently } from "./components/Currently";
 import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
@@ -23,6 +24,7 @@ export function App() {
         <Achievements />
         <About />
         <Projects />
+        <Contributions />
         <Skills />
         <Robotics />
         <Timeline />

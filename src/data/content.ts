@@ -15,8 +15,9 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Contact", href: "#contact" },
 ];
 
-export const GITHUB_URL = "https://github.com/Raghav2012Code";
-export const GITHUB_AVATAR_URL = "https://github.com/Raghav2012Code.png";
+export const GITHUB_USERNAME = "Raghav2012Code";
+export const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
+export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png`;
 export const CONTACT_EMAIL = "raghavgamerz670@gmail.com";
 export const PROFILE_NAME = "Raghav Krishna";
 export const NAV_GITHUB_LABEL = "GitHub ↗";
@@ -47,26 +48,36 @@ export const SECTION_COPY = {
     title: "Selected work",
     lead: "Hardware-first projects, built for real competitions.",
   },
+  contributions: {
+    eyebrow: "03 · GitHub activity",
+    title: "Public contributions",
+    linkLabel: "View GitHub profile",
+    loading: "Loading the contribution calendar…",
+    unavailable: "The contribution calendar is unavailable right now.",
+    scrollHint: "Scroll to see the full year.",
+    less: "Less",
+    more: "More",
+  },
   stack: {
-    eyebrow: "03 · Stack",
+    eyebrow: "04 · Stack",
     title: "Technologies I build with",
   },
   robotics: {
-    eyebrow: "04 · Robotics",
+    eyebrow: "05 · Robotics",
     title: "Builds that touch the real world.",
     lead:
       "Software is great, but my favourite moment is when code moves something physical: a servo turns, a sensor fires, a mechanism responds.",
   },
   timeline: {
-    eyebrow: "05 · Competitions",
+    eyebrow: "06 · Competitions",
     title: "Competition timeline",
   },
   currently: {
-    eyebrow: "06 · Currently",
+    eyebrow: "07 · Currently",
     title: "Building / exploring now",
   },
   contact: {
-    eyebrow: "07 · Contact",
+    eyebrow: "08 · Contact",
     title: "Say hello.",
     lead: "Always happy to talk robotics, hardware, or builds in progress.",
   },

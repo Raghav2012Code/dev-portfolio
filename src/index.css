@@ -248,6 +248,38 @@ a:focus-visible, button:focus-visible {
 .project { padding: 36px 0; border-bottom: 1px solid var(--line); }
 .project:last-child { border-bottom: none; padding-bottom: 0; }
 
+/* ---------- GitHub contributions ---------- */
+.contributions { border-top: 1px solid var(--line); }
+.contribution-content { margin-top: 28px; }
+.contribution-summary { color: var(--text-dim); font-size: 14px; }
+.contribution-figure { margin-top: 16px; }
+.contribution-chart { display: block; width: 100%; max-width: 658px; height: auto; overflow: visible; }
+.contribution-chart-scroll {
+  max-width: 100%; overflow-x: auto; padding-bottom: 3px;
+  scrollbar-color: var(--line-faint) transparent; scrollbar-width: thin;
+}
+.contribution-chart-scroll::-webkit-scrollbar { height: 6px; }
+.contribution-chart-scroll::-webkit-scrollbar-track { background: var(--line); }
+.contribution-chart-scroll::-webkit-scrollbar-thumb { background: var(--line-faint); border-radius: 4px; }
+.contribution-chart-scroll:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+.contribution-axis-label { fill: var(--text-faint); font-family: var(--mono); font-size: 9px; }
+.contribution-cell { fill: var(--line-strong); }
+.contribution-level-1 { fill: #59491b; }
+.contribution-level-2 { fill: #806719; }
+.contribution-level-3 { fill: #ae8e27; }
+.contribution-level-4 { fill: var(--accent-text); }
+.contribution-legend .contribution-level-0 { background: var(--line-strong); }
+.contribution-legend .contribution-level-1 { background: #59491b; }
+.contribution-legend .contribution-level-2 { background: #806719; }
+.contribution-legend .contribution-level-3 { background: #ae8e27; }
+.contribution-legend .contribution-level-4 { background: var(--accent-text); }
+.contribution-legend { display: flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--text-faint); font-size: 12px; }
+.contribution-legend .contribution-cell { width: 10px; height: 10px; border-radius: 2px; }
+.contribution-scroll-hint { display: none; }
+.contribution-link { display: inline-block; margin-top: 20px; color: var(--text-dim); font-size: 13.5px; text-underline-offset: 4px; text-decoration-color: var(--line-faint); }
+.contribution-link:hover { color: var(--text); text-decoration-color: var(--accent); }
+.contribution-unavailable { color: var(--text-dim); font-size: 14px; }
+
 /* ---------- stack ---------- */
 .stack-list { margin-top: 36px; border-top: 1px solid var(--line); }
 .stack-row {
@@ -374,6 +406,8 @@ a:focus-visible, button:focus-visible {
   .stack-row { grid-template-columns: 1fr; gap: 4px; }
   .timeline li { grid-template-columns: 48px minmax(0, 1fr); gap: 12px; }
   .robo-list li { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 14px; }
+  .contribution-chart { max-width: none; }
+  .contribution-scroll-hint { display: block; margin-top: 5px; color: var(--text-faint); font-size: 11px; }
   .contact-list li { grid-template-columns: 1fr; gap: 2px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
