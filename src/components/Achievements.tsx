@@ -1,11 +1,14 @@
 import { motion } from "motion/react";
-import { ACHIEVEMENTS } from "../data/content";
+import { ACHIEVEMENTS, ACHIEVEMENTS_LABEL } from "../data/content";
 import { itemVariants, listVariants, SCROLL_VIEWPORT } from "../lib/motion";
 
 export function Achievements() {
   return (
-    <section className="achievements" aria-label="Featured achievements">
+    <section className="achievements" aria-labelledby="achievements-label">
       <div className="container">
+        <p className="achieve-label" id="achievements-label">
+          {ACHIEVEMENTS_LABEL}
+        </p>
         <motion.ul
           className="achieve-list"
           variants={listVariants}

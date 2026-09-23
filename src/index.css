@@ -164,6 +164,10 @@ a:focus-visible, button:focus-visible {
 
 /* ---------- achievements: compact rows ---------- */
 .achievements { padding: 0; border-top: none; }
+.achieve-label {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--text-faint); padding-top: 4px; margin-bottom: 8px;
+}
 .achieve-list { list-style: none; }
 .achieve-list li {
   display: flex; gap: 20px; align-items: baseline;

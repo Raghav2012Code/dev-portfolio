@@ -21,6 +21,7 @@ export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png`;
 export const CONTACT_EMAIL = "raghavgamerz670@gmail.com";
 export const PROFILE_NAME = "Raghav Krishna";
 export const NAV_GITHUB_LABEL = "GitHub";
+export const ACHIEVEMENTS_LABEL = "Achievements";
 
 export const HERO_COPY = {
   name: PROFILE_NAME,
