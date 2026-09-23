@@ -164,7 +164,7 @@ a:focus-visible, button:focus-visible {
 .hero-teaser-count { color: var(--text); font-weight: 650; }
 
 /* ---------- sections ---------- */
-.section { padding: var(--section-pad) 0; border-top: 1px solid var(--line); }
+.section { padding: var(--section-pad) 0; }
 
 /* ---------- achievements: compact rows ---------- */
 .achievements { padding: 0; border-top: none; }
@@ -270,7 +270,6 @@ a:focus-visible, button:focus-visible {
 .project:last-child { border-bottom: none; padding-bottom: 0; }
 
 /* ---------- GitHub contributions ---------- */
-.contributions { border-top: 1px solid var(--line); }
 .contribution-content { margin-top: 28px; }
 .contribution-summary { color: var(--text-dim); font-size: 14px; }
 .contribution-figure { margin-top: 16px; }
