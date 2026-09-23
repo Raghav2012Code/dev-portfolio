@@ -23,6 +23,13 @@ export const PROFILE_NAME = "Raghav Krishna";
 export const NAV_GITHUB_LABEL = "GitHub";
 export const ACHIEVEMENTS_LABEL = "Achievements";
 
+export const PROJECTS_PAGE_PATH = "/project";
+
+export const PROJECTS_PAGE_COPY = {
+  backHome: "Back home",
+  viewAll: "View all projects",
+} as const;
+
 export const HERO_COPY = {
   name: PROFILE_NAME,
   eyebrow: "Chennai, India · Grade 9 · Velammal Academy Nolambur",

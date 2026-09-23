@@ -30,4 +30,12 @@ const contributionApiDevPlugin: Plugin = {
 
 export default defineConfig({
   plugins: [react(), contributionApiDevPlugin],
+  build: {
+    rollupOptions: {
+      input: {
+        main: "index.html",
+        project: "project.html",
+      },
+    },
+  },
 });
