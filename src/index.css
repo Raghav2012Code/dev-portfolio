@@ -25,7 +25,7 @@
   --line-faint: #3f3f46;
   --radius: 4px;
   --dur: 0.15s;
-  --ease: ease;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --t: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease, text-decoration-color 0.15s ease;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
