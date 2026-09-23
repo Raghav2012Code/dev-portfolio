@@ -1,54 +1,10 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { SECTION_COPY } from "../data/content";
+import type { ContributionCalendar } from "../lib/contributions";
+import { getContributions } from "../lib/contributions";
 import { EASE, REVEAL_DURATION, reveal } from "../lib/motion";
 import { SectionHead } from "./ui";
-
-type ContributionLevel = 0 | 1 | 2 | 3 | 4;
-
-interface ContributionDay {
-  date: string;
-  count: number;
-  level: ContributionLevel;
-}
-
-interface ContributionCalendar {
-  available: true;
-  totalContributions: number;
-  weeks: ContributionDay[][];
-}
-
-function isContributionLevel(value: unknown): value is ContributionLevel {
-  return value === 0 || value === 1 || value === 2 || value === 3 || value === 4;
-}
-
-function isContributionCalendar(value: unknown): value is ContributionCalendar {
-  if (typeof value !== "object" || value === null) return false;
-  const calendar = value as Record<string, unknown>;
-  if (
-    typeof calendar.totalContributions !== "number" ||
-    !Number.isInteger(calendar.totalContributions) ||
-    calendar.totalContributions < 0 ||
-    !Array.isArray(calendar.weeks)
-  ) {
-    return false;
-  }
-
-  return calendar.available === true && calendar.weeks.every(
-    (week: unknown) =>
-      Array.isArray(week) &&
-      week.every(
-        (day: unknown) =>
-          typeof day === "object" &&
-          day !== null &&
-          typeof (day as Record<string, unknown>).date === "string" &&
-          typeof (day as Record<string, unknown>).count === "number" &&
-          Number.isInteger((day as Record<string, unknown>).count) &&
-          ((day as Record<string, unknown>).count as number) >= 0 &&
-          isContributionLevel((day as Record<string, unknown>).level),
-      ),
-  );
-}
 
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("en", {
@@ -64,42 +20,13 @@ export function Contributions() {
   const [calendar, setCalendar] = useState<ContributionCalendar | null>(null);
 
   useEffect(() => {
-    const controller = new AbortController();
     let active = true;
-    const timeout = window.setTimeout(() => controller.abort(), 8000);
 
-    async function loadCalendar() {
-      try {
-        const response = await fetch("/api/github-contributions", {
-          signal: controller.signal,
-        });
-        if (!response.ok) throw new Error("Contribution data request failed.");
-
-        const payload: unknown = await response.json();
-        if (
-          typeof payload === "object" &&
-          payload !== null &&
-          "available" in payload &&
-          payload.available === false
-        ) {
-          return;
-        }
-        if (!isContributionCalendar(payload)) {
-          throw new Error("Contribution data response was invalid.");
-        }
-        if (active) setCalendar(payload);
-      } catch {
-        // Keep the section hidden when its data source is unavailable.
-      } finally {
-        window.clearTimeout(timeout);
-      }
-    }
-
-    void loadCalendar();
+    void getContributions().then((result) => {
+      if (active) setCalendar(result);
+    });
     return () => {
       active = false;
-      window.clearTimeout(timeout);
-      controller.abort();
     };
   }, []);
 
