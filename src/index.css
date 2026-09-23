@@ -172,7 +172,7 @@ a:focus-visible, button:focus-visible {
 .achieve-list li:last-child { border-bottom: none; padding-bottom: 24px; }
 .achieve-title { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
 .achieve-sub {
-  color: var(--accent-text); font-size: 13.5px; line-height: 1.6; margin-top: 3px;
+  color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-top: 3px;
   border-left: 2px solid var(--accent); padding-left: 9px;
 }
 
