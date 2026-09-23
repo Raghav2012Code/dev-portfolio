@@ -21,11 +21,8 @@ export function Robotics() {
           whileInView="shown"
           viewport={SCROLL_VIEWPORT}
         >
-          {ROBOTICS_ITEMS.map((item, i) => (
+          {ROBOTICS_ITEMS.map((item) => (
             <motion.li key={item.title} variants={itemVariants}>
-              <span className="robo-code" aria-hidden="true">
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <div>
                 <strong>{item.title}</strong>
                 <p>{item.text}</p>
