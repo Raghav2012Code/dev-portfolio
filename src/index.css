@@ -398,6 +398,7 @@ a:focus-visible, button:focus-visible {
 @media (max-width: 640px) {
   :root { --section-pad: 64px; }
   .tip::after { min-width: 80px; width: 80px; max-width: 80px; }
+  .about-copy p { text-align: justify; }
   .nav-links { display: none; }
   .nav-toggle { display: block; }
   .hero { padding: 64px 0 60px; }
