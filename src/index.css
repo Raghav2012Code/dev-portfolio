@@ -267,7 +267,7 @@ a:focus-visible, button:focus-visible {
 .contribution-content { margin-top: 28px; }
 .contribution-summary { color: var(--text-dim); font-size: 14px; }
 .contribution-figure { margin-top: 16px; }
-.contribution-chart { display: block; width: 100%; max-width: 658px; height: auto; overflow: visible; }
+.contribution-chart { display: block; width: 100%; max-width: 100%; height: auto; overflow: visible; }
 .contribution-chart-scroll {
   max-width: 100%; overflow-x: auto; padding-bottom: 3px;
   scrollbar-color: var(--line-faint) transparent; scrollbar-width: thin;
@@ -416,7 +416,6 @@ a:focus-visible, button:focus-visible {
   .stack-row { grid-template-columns: 1fr; gap: 4px; }
   .timeline li { grid-template-columns: 48px minmax(0, 1fr); gap: 12px; }
   .robo-list li { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 14px; }
-  .contribution-chart { max-width: none; }
   .contribution-scroll-hint { display: block; margin-top: 5px; color: var(--text-faint); font-size: 11px; }
   .contact-list li { grid-template-columns: 1fr; gap: 2px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
