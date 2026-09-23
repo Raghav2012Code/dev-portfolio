@@ -399,14 +399,12 @@ a:focus-visible, button:focus-visible {
 @media (max-width: 640px) {
   :root { --section-pad: 64px; }
   .tip::after { min-width: 80px; width: 80px; max-width: 80px; }
-  .about-copy p { text-align: justify; }
   .nav-links { display: none; }
   .nav-toggle { display: block; }
   .hero { padding: 64px 0 60px; }
   .profile-img { width: 60px; height: 60px; margin-bottom: 24px; }
   .hero-actions .btn { flex: 1 1 0; padding: 0 12px; }
   .featured { padding: 24px 0 32px 18px; }
-  .about-copy p { text-align: justify; }
   .stack-row { grid-template-columns: 1fr; gap: 4px; }
   .timeline li { grid-template-columns: 48px minmax(0, 1fr); gap: 12px; }
   .robo-list li { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 14px; }
