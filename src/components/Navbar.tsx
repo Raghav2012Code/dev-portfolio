@@ -1,8 +1,9 @@
 import { AnimatePresence, motion, useScroll } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { MouseEvent } from "react";
-import { GITHUB_URL, NAV_GITHUB_LABEL, NAV_LINKS, PROFILE_NAME } from "../data/content";
+import { GITHUB_URL, NAV_GITHUB_LABEL, NAV_LINKS, PROFILE_NAME, PROJECTS_PAGE_PATH } from "../data/content";
 import { EASE, INTERACTION_DURATION, RISE_PX } from "../lib/motion";
+import { resolveHref } from "../lib/site";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -57,7 +58,7 @@ export function Navbar() {
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={link.href === "#projects" ? PROJECTS_PAGE_PATH : resolveHref(link.href)}
               aria-current={activeHref === link.href ? "true" : undefined}
             >
               {link.label}
@@ -107,7 +108,11 @@ export function Navbar() {
             transition={{ duration: INTERACTION_DURATION, ease: EASE }}
           >
             {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
+              <a
+                key={link.href}
+                href={link.href === "#projects" ? PROJECTS_PAGE_PATH : resolveHref(link.href)}
+                onClick={() => setOpen(false)}
+              >
                 {link.label}
               </a>
             ))}

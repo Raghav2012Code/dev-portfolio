@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import type { ReactEventHandler } from "react";
 import { useEffect, useState } from "react";
-import { CONTRIBUTION_TEASER, GITHUB_AVATAR_URL, GITHUB_URL, HERO_COPY } from "../data/content";
+import { CONTRIBUTION_TEASER, GITHUB_AVATAR_URL, GITHUB_URL, HERO_COPY, PROJECTS_PAGE_PATH } from "../data/content";
 import { getContributions } from "../lib/contributions";
 import { EASE, entrance, PRESS_DURATION } from "../lib/motion";
 
@@ -66,7 +66,7 @@ export function Hero() {
         >
           <motion.a
             className="btn btn-primary"
-            href="#projects"
+            href={PROJECTS_PAGE_PATH}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: PRESS_DURATION, ease: EASE }}
           >
