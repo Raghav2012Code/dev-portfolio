@@ -244,11 +244,6 @@ export const PROJECTS: Project[] = [
     ],
     link: { label: "View repository", href: "https://github.com/abivan100-stack/volt-ledger" },
     demo: { label: "Open live site", href: "https://volt-ledger.vercel.app" },
-    media: {
-      src: "/projects/volt-hero.png",
-      alt: "Volt Ledger landing page introducing a rooftop solar trading platform",
-      caption: "Volt Ledger project interface",
-    },
   },
   {
     name: "EPL Predictor",
