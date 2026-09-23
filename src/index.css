@@ -158,6 +158,9 @@ a:focus-visible, button:focus-visible {
 .hero-role { margin-top: 14px; font-size: 16px; font-weight: 500; color: var(--text-dim); }
 .hero-desc { margin-top: 14px; color: var(--text-dim); font-size: 16.5px; line-height: 1.7; max-width: 34rem; }
 .hero-actions { display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
+.hero-teaser { margin-top: 22px; font-size: 14px; color: var(--text-faint); }
+.hero-teaser a { color: var(--text-dim); font-weight: 550; text-decoration: underline; text-decoration-color: var(--line-faint); text-underline-offset: 4px; transition: var(--t); }
+.hero-teaser a:hover { color: var(--text); text-decoration-color: var(--accent); }
 
 /* ---------- sections ---------- */
 .section { padding: var(--section-pad) 0; border-top: 1px solid var(--line); }

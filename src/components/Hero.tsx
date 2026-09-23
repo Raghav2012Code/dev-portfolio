@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import type { ReactEventHandler } from "react";
-import { GITHUB_AVATAR_URL, GITHUB_URL, HERO_COPY } from "../data/content";
+import { useEffect, useState } from "react";
+import { CONTRIBUTION_TEASER, GITHUB_AVATAR_URL, GITHUB_URL, HERO_COPY } from "../data/content";
+import { getContributions } from "../lib/contributions";
 import { EASE, entrance, PRESS_DURATION } from "../lib/motion";
 
 const hideOnError: ReactEventHandler<HTMLImageElement> = (event) => {
@@ -8,6 +10,17 @@ const hideOnError: ReactEventHandler<HTMLImageElement> = (event) => {
 };
 
 export function Hero() {
+  const [contributionTotal, setContributionTotal] = useState<number | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    void getContributions().then((calendar) => {
+      if (active && calendar) setContributionTotal(calendar.totalContributions);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
   return (
     <section className="hero">
       <div className="container hero-inner">
@@ -80,6 +93,13 @@ export function Hero() {
             {HERO_COPY.githubLink}
           </motion.a>
         </motion.div>
+        {contributionTotal !== null ? (
+          <motion.p {...entrance(6)} className="hero-teaser">
+            <a href="#contributions">
+              {contributionTotal.toLocaleString()} {CONTRIBUTION_TEASER.lead}
+            </a>
+          </motion.p>
+        ) : null}
       </div>
     </section>
   );

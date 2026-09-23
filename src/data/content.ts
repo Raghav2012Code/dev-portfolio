@@ -107,6 +107,10 @@ export const UI_COPY = {
   contributionLabel: "Contribution",
 } as const;
 
+export const CONTRIBUTION_TEASER = {
+  lead: "public contributions in the past year",
+} as const;
+
 export interface Achievement {
   title: string;
   sub: string;
