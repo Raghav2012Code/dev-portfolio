@@ -30,7 +30,7 @@
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --max: 720px;
-  --section-pad: 88px;
+  --section-pad: 64px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
