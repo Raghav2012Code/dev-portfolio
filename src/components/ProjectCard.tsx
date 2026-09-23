@@ -32,6 +32,21 @@ function SignalLine({
   small?: boolean;
   animateSteps?: boolean;
 }) {
+  if (animateSteps) {
+    return (
+      <ol className="signal-flow" aria-label="Door Hinge Safety System response sequence">
+        {steps.map((step, i) => (
+          <motion.li className="signal-flow-step" key={`${step.text.label}-${i}`} {...reveal(i)}>
+            {step.strong ? <span className="signal-flow-label">{step.strong}</span> : null}
+            <span className="signal-flow-value">
+              <Tip label={step.text.label} tip={step.text.tip} />
+            </span>
+          </motion.li>
+        ))}
+      </ol>
+    );
+  }
+
   return (
     <p className={small ? "sysline sysline-small" : "sysline"}>
       {steps.map((step, i) => {
@@ -48,13 +63,7 @@ function SignalLine({
             ) : null}
           </>
         );
-        return animateSteps ? (
-          <motion.span className="sysline-step" key={key} {...reveal(i)}>
-            {content}
-          </motion.span>
-        ) : (
-          <span key={key}>{content}</span>
-        );
+        return <span key={key}>{content}</span>;
       })}
     </p>
   );
@@ -66,7 +75,7 @@ function TechLine({ items }: { items: TechMention[] }) {
       {items.map((item, i) => (
         <span key={`${item.label}-${i}`}>
           <Tip label={item.label} tip={item.tip} />
-          {i < items.length - 1 ? " · " : ""}
+          {i < items.length - 1 ? ", " : ""}
         </span>
       ))}
     </p>
@@ -103,6 +112,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         </p>
       ) : null}
       <p className="project-desc">{project.description}</p>
+      {project.media ? (
+        <figure className="project-media">
+          <img src={project.media.src} alt={project.media.alt} loading="lazy" decoding="async" />
+          <figcaption>{project.media.caption}</figcaption>
+        </figure>
+      ) : null}
       {project.sysline ? (
         <SignalLine
           steps={project.sysline}

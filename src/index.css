@@ -17,7 +17,7 @@
   --bg: #0a0a0b;
   --text: #f4f4f5;
   --text-dim: #a1a1aa;
-  --text-faint: #71717a;
+  --text-faint: #7b7b84;
   --accent: #c9a227;
   --accent-text: #d9b845;
   --line: #1b1b1e;
@@ -66,8 +66,7 @@ a:focus-visible, button:focus-visible {
 
 /* ---------- type ---------- */
 .section-eyebrow {
-  font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
   color: var(--text-faint); margin-bottom: 12px;
 }
 .section h2 {
@@ -147,8 +146,8 @@ a:focus-visible, button:focus-visible {
   margin-bottom: 28px;
 }
 .eyebrow {
-  font-size: 12.5px; font-weight: 500; letter-spacing: 0.08em;
-  color: var(--text-faint); margin-bottom: 14px; text-transform: uppercase;
+  font-size: 12.5px; font-weight: 500; letter-spacing: 0.02em;
+  color: var(--text-faint); margin-bottom: 14px;
 }
 .hero h1 {
   font-size: clamp(44px, 7vw, 68px);
@@ -170,7 +169,6 @@ a:focus-visible, button:focus-visible {
   padding: 18px 0; border-top: 1px solid var(--line);
 }
 .achieve-list li:last-child { border-bottom: none; padding-bottom: 24px; }
-.achieve-index { font-family: var(--mono); font-size: 12px; color: var(--text-faint); min-width: 24px; }
 .achieve-title { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
 .achieve-sub {
   color: var(--accent-text); font-size: 13.5px; line-height: 1.6; margin-top: 3px;
@@ -182,20 +180,14 @@ a:focus-visible, button:focus-visible {
 .about-copy { margin-top: 28px; }
 .about-copy p { color: var(--text-dim); margin-bottom: 16px; font-size: 16px; max-width: 38rem; }
 .about-copy p:last-of-type { margin-bottom: 0; }
-.about-facts { margin-top: 32px; border-top: 1px solid var(--line); list-style: none; }
-.about-facts div {
-  display: grid; grid-template-columns: 120px 1fr; gap: 16px;
-  padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14.5px;
-}
-.about-facts dt { color: var(--text-faint); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 3px; }
 
 /* ---------- projects: single-column editorial blocks ---------- */
 .featured { margin-top: 44px; padding: 32px 0 40px 24px; border-left: 2px solid var(--accent); }
-/* ---------- WM Badge, adapted: hairline pill, mono, one radius. Labels only. ---------- */
+/* ---------- project labels ---------- */
 .badge {
   display: inline-flex; align-items: center; max-width: 100%;
-  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.01em;
   color: var(--text-dim);
   border: 1px solid var(--line-strong); border-radius: var(--radius);
   padding: 5px 10px; margin-bottom: 14px;
@@ -222,14 +214,26 @@ a:focus-visible, button:focus-visible {
 .sysline strong { color: var(--text-dim); font-weight: 600; }
 .sys-arrow { color: var(--line-faint); }
 .sysline-small { font-size: 13.5px; }
-/* featured signal strip: hairline-framed sense → process → actuate flow */
-.featured .sysline {
-  font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.01em;
-  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  padding: 12px 0;
+.signal-flow {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none; margin-top: 22px; border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
 }
-.featured .sysline strong { color: var(--text); }
-.featured .sysline-step { display: inline-block; }
+.signal-flow-step {
+  position: relative; display: flex; flex-direction: column; gap: 5px;
+  min-width: 0; padding: 13px 18px 14px 0;
+}
+.signal-flow-step + .signal-flow-step { border-left: 1px solid var(--line); padding-left: 18px; }
+.signal-flow-step:not(:last-child)::after {
+  content: ""; position: absolute; right: -3px; top: 50%; width: 5px; height: 5px;
+  border-top: 1px solid var(--accent); border-right: 1px solid var(--accent);
+  transform: translateY(-50%) rotate(45deg); background: var(--bg);
+}
+.signal-flow-label { color: var(--accent-text); font-size: 11px; font-weight: 650; letter-spacing: 0.04em; }
+.signal-flow-value { color: var(--text); font-size: 14px; font-weight: 550; overflow-wrap: anywhere; }
+.project-media { margin-top: 22px; }
+.project-media img { width: 100%; height: auto; border: 1px solid var(--line-strong); border-radius: var(--radius); }
+.project-media figcaption { margin-top: 7px; color: var(--text-faint); font-size: 12px; }
 .techline {
   margin-top: 14px; font-family: var(--mono);
   font-size: 12.5px; letter-spacing: 0.01em; color: var(--text-faint);
@@ -277,9 +281,6 @@ a:focus-visible, button:focus-visible {
 .contribution-legend { display: flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--text-faint); font-size: 12px; }
 .contribution-legend .contribution-cell { width: 10px; height: 10px; border-radius: 2px; }
 .contribution-scroll-hint { display: none; }
-.contribution-link { display: inline-block; margin-top: 20px; color: var(--text-dim); font-size: 13.5px; text-underline-offset: 4px; text-decoration-color: var(--line-faint); }
-.contribution-link:hover { color: var(--text); text-decoration-color: var(--accent); }
-.contribution-unavailable { color: var(--text-dim); font-size: 14px; }
 
 /* ---------- stack ---------- */
 .stack-list { margin-top: 36px; border-top: 1px solid var(--line); }
@@ -288,7 +289,7 @@ a:focus-visible, button:focus-visible {
   padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 14.5px;
 }
 .stack-row p:last-child { color: var(--text-dim); line-height: 1.7; }
-.stack-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); padding-top: 3px; }
+.stack-label { font-size: 12.5px; font-weight: 600; letter-spacing: 0.01em; color: var(--text-faint); padding-top: 3px; }
 
 /* ---------- robotics ---------- */
 .robotics-grid { display: block; }
@@ -344,7 +345,7 @@ a:focus-visible, button:focus-visible {
   display: grid; grid-template-columns: 100px 1fr; gap: 16px;
   padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 15px; align-items: baseline;
 }
-.contact-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); font-weight: 600; }
+.contact-label { font-size: 12.5px; letter-spacing: 0.01em; color: var(--text-faint); font-weight: 600; }
 .contact-list a { color: var(--text); font-weight: 550; text-decoration: underline; text-decoration-color: var(--line-faint); text-underline-offset: 4px; overflow-wrap: anywhere; transition: var(--t); }
 .contact-list a:hover { text-decoration-color: var(--accent); }
 
@@ -403,15 +404,7 @@ a:focus-visible, button:focus-visible {
   .profile-img { width: 60px; height: 60px; margin-bottom: 24px; }
   .hero-actions .btn { flex: 1 1 0; padding: 0 12px; }
   .featured { padding: 24px 0 32px 18px; }
-  .featured .sysline {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 6px;
-  }
-  .featured .sysline > span { min-width: 0; overflow-wrap: anywhere; }
-  .featured .sysline > .sysline-step { display: grid; }
-  .featured .sys-arrow { display: none; }
-  .about-facts div { grid-template-columns: 1fr; gap: 2px; }
+  .about-copy p { text-align: justify; }
   .stack-row { grid-template-columns: 1fr; gap: 4px; }
   .timeline li { grid-template-columns: 48px minmax(0, 1fr); gap: 12px; }
   .robo-list li { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 14px; }
@@ -419,4 +412,11 @@ a:focus-visible, button:focus-visible {
   .contribution-scroll-hint { display: block; margin-top: 5px; color: var(--text-faint); font-size: 11px; }
   .contact-list li { grid-template-columns: 1fr; gap: 2px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 380px) {
+  .robo-list li { grid-template-columns: minmax(0, 1fr); gap: 4px; align-items: start; }
+  .signal-flow { grid-template-columns: minmax(0, 1fr); }
+  .signal-flow-step, .signal-flow-step + .signal-flow-step { padding: 11px 0; border-left: 0; }
+  .signal-flow-step:not(:last-child)::after { right: 4px; top: auto; bottom: -3px; transform: rotate(135deg); }
 }
