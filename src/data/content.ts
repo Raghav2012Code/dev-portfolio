@@ -21,28 +21,41 @@ export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png`;
 export const CONTACT_EMAIL = "raghavgamerz670@gmail.com";
 export const PROFILE_NAME = "Raghav Krishna";
 export const NAV_GITHUB_LABEL = "GitHub";
-export const ACHIEVEMENTS_LABEL = "Achievements";
 
 export const PROJECTS_PAGE_PATH = "/project";
 
-export const PROJECTS_PAGE_COPY = {
-  viewAll: "View all projects",
-} as const;
-
 export const HERO_COPY = {
   name: PROFILE_NAME,
-  eyebrow: "Chennai, India · Grade 9 · Velammal Academy Nolambur",
-  role: "Student · Developer · Robotics Builder",
+  role: "Student, developer and robotics builder",
+  facts: "Grade 9 at Velammal Academy Nolambur, Chennai, India",
   description:
     "14-year-old builder exploring software, AI-assisted development, and hardware projects with ESP32, Arduino, sensors, and more.",
   avatarAlt: `Profile image of ${PROFILE_NAME}`,
-  projectsLink: "View Projects",
+  projectsLink: "View projects",
   githubLink: "GitHub",
 } as const;
 
+/** One stage of the hero build-loop figure. */
+export interface BuildStage {
+  stage: string;
+  part: string;
+  examples: string;
+}
+
+export const BUILD_LOOP: { caption: string; stages: BuildStage[] } = {
+  caption: "Sense, process, actuate: the loop behind my hardware builds.",
+  stages: [
+    { stage: "Sense", part: "Sensors", examples: "IR, laser, temperature" },
+    { stage: "Process", part: "Microcontroller", examples: "ESP32, Arduino" },
+    { stage: "Actuate", part: "Actuators", examples: "Servos, solenoids, displays" },
+  ],
+};
+
 export const SECTION_COPY = {
+  record: {
+    title: "Results",
+  },
   about: {
-    eyebrow: "About",
     title: "I learn by building things.",
     paragraphs: [
       "Most of what I’ve learned has come from building. I’m especially interested in hardware projects with ESP32s, sensors, and actuators, and in connecting them to software.",
@@ -50,37 +63,35 @@ export const SECTION_COPY = {
     ],
   },
   projects: {
-    eyebrow: "Projects",
     title: "Selected work",
     lead: "Hardware-first projects, built for real competitions.",
+    viewAll: "Read every project in full",
+  },
+  projectsPage: {
+    title: "Projects",
+    lead: "Hardware-first projects, built for real competitions, plus the personal experiments in between.",
   },
   contributions: {
-    eyebrow: "GitHub activity",
     title: "Public contributions",
     scrollHint: "Scroll to see the full year.",
     less: "Less",
     more: "More",
   },
   stack: {
-    eyebrow: "Technologies",
     title: "Technologies I build with",
   },
   robotics: {
-    eyebrow: "Robotics",
     title: "Builds that touch the real world.",
     lead:
       "Software is great, but my favourite moment is when code moves something physical: a servo turns, a sensor fires, a mechanism responds.",
   },
   timeline: {
-    eyebrow: "Competitions",
     title: "Competition timeline",
   },
   currently: {
-    eyebrow: "Currently",
-    title: "Building / exploring now",
+    title: "Building and exploring now",
   },
   contact: {
-    eyebrow: "Contact",
     title: "Say hello.",
     lead: "Always happy to talk robotics, hardware, or builds in progress.",
   },
@@ -89,13 +100,13 @@ export const SECTION_COPY = {
 export interface ContactItem {
   label: string;
   value: string;
-  href?: string;
+  href: string;
   external?: boolean;
 }
 
 export const CONTACT_ITEMS: ContactItem[] = [
-  { label: "GitHub", value: "github.com/Raghav2012Code", href: GITHUB_URL, external: true },
   { label: "Email", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
+  { label: "GitHub", value: "github.com/Raghav2012Code", href: GITHUB_URL, external: true },
   {
     label: "Discord",
     value: "thegamer3559",
@@ -105,35 +116,36 @@ export const CONTACT_ITEMS: ContactItem[] = [
 ];
 
 export const FOOTER_COPY = {
-  tagline: "Student · Developer · Robotics Builder · Chennai 2026 ·",
+  place: "Chennai, 2026",
   backToTop: "Back to top",
 } as const;
 
-export const UI_COPY = {
-  contributionLabel: "Contribution",
-} as const;
-
 export const CONTRIBUTION_TEASER = {
-  lead: "public contributions in the past year",
+  lead: "public GitHub contributions in the past year",
 } as const;
 
+/** Awarded or qualifying results only. Participation stays in the timeline. */
 export interface Achievement {
-  title: string;
-  sub: string;
+  result: string;
+  event: string;
+  detail: string;
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
   {
-    title: "Robowunder International Robotics Championship 2026",
-    sub: "Overall Winner · Malaysia",
+    result: "Overall Winner",
+    event: "Robowunder International Robotics Championship 2026",
+    detail: "Malaysia",
   },
   {
-    title: "PEC Hacks 4.0",
-    sub: "Consolation Prize · High School Track · Panimalar Engineering College",
+    result: "Consolation Prize",
+    event: "PEC Hacks 4.0",
+    detail: "High School Track, Panimalar Engineering College",
   },
   {
-    title: "NRC Technoxian",
-    sub: "Qualified through Zonal Robotics Championship · SRM Chennai",
+    result: "Qualified",
+    event: "NRC Technoxian",
+    detail: "Through the Zonal Robotics Championship, SRM Chennai",
   },
 ];
 
@@ -153,38 +165,41 @@ export interface ProjectLink {
   href: string;
 }
 
+/** `win` = awarded or qualified, `muted` = participated or personal. */
+export type ResultTone = "win" | "muted";
+
 export interface Project {
+  slug: string;
   name: string;
-  badge: string;
-  badgeAccent?: boolean;
   featured?: boolean;
-  meta?: string;
-  result?: string;
-  resultMuted?: boolean;
+  event: string;
+  result: string;
+  resultTone: ResultTone;
   description: string;
-  details?: string[];
   sysline?: SignalStep[];
-  syslineSmall?: boolean;
   contrib?: string;
   techline?: TechMention[];
-  link?: ProjectLink;
-  demo?: ProjectLink;
-  media?: { src: string; alt: string; caption: string };
+  links?: ProjectLink[];
 }
+
+export const PROJECT_SPEC_LABELS = {
+  event: "Built for",
+  result: "Result",
+  contrib: "My part",
+  tech: "Built with",
+  flow: "Signal chain",
+} as const;
 
 export const PROJECTS: Project[] = [
   {
+    slug: "door-hinge-safety-system",
     name: "Door Hinge Safety System",
-    badge: "Overall winner · Gold",
-    badgeAccent: true,
     featured: true,
-    meta: "Robowunder International Robotics Championship 2026 · Malaysia",
+    event: "Robowunder International Robotics Championship 2026, Malaysia",
+    result: "Overall Winner, Gold",
+    resultTone: "win",
     description:
       "A hardware safety system designed to help prevent finger injuries around door hinges. Laser and IR sensors watch the hinge danger zone, and when something is detected inside it, the servo and solenoid actuators respond.",
-    details: [
-      "The response chain is sense, process, actuate: laser and infrared sensing tuned to a hand near the hinge, an ESP32 with Wi-Fi and Bluetooth doing the thinking, and a servo plus solenoid doing the moving.",
-      "It was built for the Robowunder International Robotics Championship 2026 in Malaysia, where it took Overall Winner and Gold.",
-    ],
     sysline: [
       { strong: "Sense", text: { label: "Laser + IR sensor", tip: "Detects a hand near the hinge" } },
       { strong: "Process", text: { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" } },
@@ -199,15 +214,13 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    slug: "crash",
     name: "CRASH (Chennai Road Accident Safety Hub)",
-    badge: "Zonal Robotics Championship · SRM Chennai",
-    result: "Qualified for NRC Technoxian through the zonal championship",
+    event: "Zonal Robotics Championship, SRM Chennai",
+    result: "Qualified for NRC Technoxian",
+    resultTone: "win",
     description:
       "A robotics competition project that uses public accident data and XGBoost to predict where accidents may occur. It looks at parameters like time, day, junction information, and other relevant public-data parameters.",
-    details: [
-      "The model is gradient-boosted trees over tabular public data: time of day, day of the week, junction information and other relevant parameters, predicting where accidents may occur.",
-      "My part was the complete frontend, built with Claude Code and integrated with the backend, while the team handled testing.",
-    ],
     contrib:
       "Built the full frontend using Claude Code and integrated it with the backend. The team handled testing.",
     techline: [
@@ -215,18 +228,16 @@ export const PROJECTS: Project[] = [
       { label: "Python" },
       { label: "Public accident data" },
     ],
-    link: { label: "View repository", href: "https://github.com/abivan100-stack/C.R.A.S.H" },
+    links: [{ label: "View repository", href: "https://github.com/abivan100-stack/C.R.A.S.H" }],
   },
   {
+    slug: "vaccine-cold-chain-ledger",
     name: "Vaccine Cold Chain Ledger",
-    badge: "PEC Hacks 4.0 · Panimalar Engineering College · High School Track",
+    event: "PEC Hacks 4.0, High School Track, Panimalar Engineering College",
     result: "Consolation Prize",
+    resultTone: "win",
     description:
       "A hardware-integrated cold-chain monitoring system: a DHT22 sensor tracks vaccine storage temperature via Arduino/ESP32, shows readings on an LCD, and records SHA-256-hashed data to Supabase for display in a web application.",
-    details: [
-      "A DHT22 temperature sensor feeds readings through Arduino or ESP32 to an on-device LCD, while SHA-256-hashed records land in Supabase for display in the web application.",
-      "I did the complete full-stack software implementation, including the hardware/software integration.",
-    ],
     sysline: [
       { text: { label: "DHT22 sensor" } },
       { text: { label: "Arduino / ESP32" } },
@@ -235,10 +246,8 @@ export const PROJECTS: Project[] = [
       { text: { label: "Supabase" } },
       { text: { label: "Web app" } },
     ],
-    syslineSmall: true,
     contrib:
       "Complete full-stack software implementation, including hardware/software integration.",
-    link: { label: "View repository", href: "https://github.com/abivan100-stack/vault" },
     techline: [
       { label: "Arduino" },
       { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" },
@@ -251,18 +260,16 @@ export const PROJECTS: Project[] = [
       { label: "REST API" },
       { label: "SHA-256", tip: "Cryptographic hash for tamper-evident records" },
     ],
+    links: [{ label: "View repository", href: "https://github.com/abivan100-stack/vault" }],
   },
   {
+    slug: "volt-ledger",
     name: "Volt Ledger",
-    badge: "Shark Tank Challenge · Velammal",
-    result: "Participated · 2026",
-    resultMuted: true,
+    event: "Shark Tank Challenge, Velammal",
+    result: "Participated, 2026",
+    resultTone: "muted",
     description:
       "A transparent, tamper-evident ledger for peer-to-peer rooftop solar energy trading. Neighbours trade surplus at a community rate, and every trade is sealed into a SHA-256 hash chain computed in the browser. All data simulated.",
-    details: [
-      "Neighbours trade rooftop surplus at a community rate, and every trade is sealed into a tamper-evident SHA-256 hash chain computed in the browser; all data is simulated.",
-      "My contribution was the frontend development and the competition pitch.",
-    ],
     contrib: "Frontend development and the competition pitch.",
     techline: [
       { label: "React" },
@@ -270,52 +277,63 @@ export const PROJECTS: Project[] = [
       { label: "Tailwind CSS" },
       { label: "SHA-256", tip: "Cryptographic hash for tamper-evident records" },
     ],
-    link: { label: "View repository", href: "https://github.com/abivan100-stack/volt-ledger" },
-    demo: { label: "Open live site", href: "https://volt-ledger.vercel.app" },
+    links: [
+      { label: "View repository", href: "https://github.com/abivan100-stack/volt-ledger" },
+      { label: "Open live site", href: "https://volt-ledger.vercel.app" },
+    ],
   },
   {
+    slug: "epl-predictor",
     name: "EPL Predictor",
-    badge: "Personal project",
-    result: "Work in progress · personal exploration",
-    resultMuted: true,
+    event: "Personal project",
+    result: "Work in progress",
+    resultTone: "muted",
     description:
       "A personal project using historical English football data and XGBoost to explore match-outcome prediction. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn’t).",
-    details: [
-      "Historical English football data goes into gradient-boosted trees exploring match-outcome prediction: an exercise in working with real datasets, testing simple prediction ideas, and learning what works and what doesn’t.",
-    ],
     techline: [
       { label: "Python" },
       { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
       { label: "Historical match data" },
     ],
-    link: { label: "View repository", href: "https://github.com/Raghav2012Code/epl-predictor" },
+    links: [{ label: "View repository", href: "https://github.com/Raghav2012Code/epl-predictor" }],
   },
   {
+    slug: "urbania",
     name: "Urbania",
-    badge: "Personal · Experimental",
-    result: "Experimental · personal project",
-    resultMuted: true,
+    event: "Personal project",
+    result: "Experimental",
+    resultTone: "muted",
     description:
       "A personal experimental project: a 2D city simulation I’m building to explore how simulated systems behave.",
-    link: { label: "View repository", href: "https://github.com/Raghav2012Code/urbania" },
+    links: [{ label: "View repository", href: "https://github.com/Raghav2012Code/urbania" }],
   },
 ];
 
 export interface StackRow {
   label: string;
-  items: string;
+  items: string[];
 }
 
 export const STACK_ROWS: StackRow[] = [
   {
-    label: "Robotics / Hardware",
-    items:
-      "Arduino · ESP32 · DHT22 · IR Sensors · Laser Sensors · Servos · Solenoids · LCDs · Sensors · Actuators",
+    label: "Robotics and hardware",
+    items: [
+      "Arduino",
+      "ESP32",
+      "DHT22",
+      "IR sensors",
+      "Laser sensors",
+      "Servos",
+      "Solenoids",
+      "LCDs",
+      "Sensors",
+      "Actuators",
+    ],
   },
-  { label: "Web", items: "HTML · CSS · JavaScript · TypeScript · React · Next.js" },
-  { label: "Backend / Data", items: "Supabase · REST APIs · SHA-256" },
-  { label: "Programming", items: "Python" },
-  { label: "Tools", items: "Git · GitHub · Claude Code · OpenAI Codex" },
+  { label: "Web", items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js"] },
+  { label: "Backend and data", items: ["Supabase", "REST APIs", "SHA-256"] },
+  { label: "Programming", items: ["Python"] },
+  { label: "Tools", items: ["Git", "GitHub", "Claude Code", "OpenAI Codex"] },
 ];
 
 export interface RoboItem {
@@ -324,12 +342,12 @@ export interface RoboItem {
 }
 
 export const ROBOTICS_ITEMS: RoboItem[] = [
-  { title: "ESP32 & Arduino", text: "Microcontrollers at the centre of every hardware build." },
+  { title: "ESP32 and Arduino", text: "Microcontrollers at the centre of every hardware build." },
   { title: "Sensors", text: "IR, laser, temperature: reading the physical world." },
   { title: "Actuators", text: "Servos, solenoids, displays: acting on the physical world." },
   { title: "Electronics", text: "Circuits, wiring, and making it all actually work together." },
   {
-    title: "Hardware / software integration",
+    title: "Hardware and software integration",
     text: "Connecting physical hardware to software. That's the whole point.",
   },
   { title: "Physical computing", text: "Building things that interact with the physical world." },
@@ -338,8 +356,9 @@ export const ROBOTICS_ITEMS: RoboItem[] = [
 export interface TimelineItem {
   year: string;
   title: string;
-  sub: string;
-  result?: string;
+  place: string;
+  project?: string;
+  result: string;
   minor?: boolean;
 }
 
@@ -347,32 +366,37 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: "2026",
     title: "Robowunder International Robotics Championship",
-    sub: "Malaysia · Door Hinge Safety System",
+    place: "Malaysia",
+    project: "Door Hinge Safety System",
     result: "Overall Winner",
   },
   {
     year: "2026",
     title: "Zonal Robotics Championship",
-    sub: "SRM Chennai · CRASH",
+    place: "SRM Chennai",
+    project: "CRASH",
     result: "Qualified for NRC Technoxian",
   },
   {
     year: "2026",
     title: "PEC Hacks 4.0",
-    sub: "Panimalar Engineering College · High School Track · Vaccine Cold Chain Ledger",
+    place: "Panimalar Engineering College, High School Track",
+    project: "Vaccine Cold Chain Ledger",
     result: "Consolation Prize",
   },
   {
     year: "2026",
     title: "Shark Tank Challenge",
-    sub: "Velammal · Volt Ledger",
+    place: "Velammal",
+    project: "Volt Ledger",
     result: "Participated",
     minor: true,
   },
   {
     year: "2025",
     title: "Technoviz 2025",
-    sub: "SRM Ramapuram · School Category · Participated",
+    place: "SRM Ramapuram, School Category",
+    result: "Participated",
     minor: true,
   },
 ];

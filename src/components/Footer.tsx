@@ -12,12 +12,10 @@ export function Footer() {
     <footer className="footer">
       <div className="container footer-inner">
         <p className="footer-name">{PROFILE_NAME}</p>
-        <p className="footer-meta">
-          {FOOTER_COPY.tagline}{" "}
-          <a className="footer-top" href="#top" onClick={scrollToTop}>
-            {FOOTER_COPY.backToTop}
-          </a>
-        </p>
+        <p className="footer-meta">{FOOTER_COPY.place}</p>
+        <a className="footer-top" href="#top" onClick={scrollToTop}>
+          {FOOTER_COPY.backToTop}
+        </a>
       </div>
     </footer>
   );

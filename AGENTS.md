@@ -24,14 +24,21 @@ Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
 
 ## Motion system (single language, keep it that way)
 
-- All timing lives in `src/lib/motion.ts`: one ease, 8px rise, 50ms stagger, `SCROLL_VIEWPORT` with a 20% pre-entry margin so fast scrolls land on settled content.
-- `ProjectCard` has its own variants but must read `REVEAL_DURATION`/`STAGGER_STEP` from the lib. Never hardcode timing in components.
-- Row-lists (Achievements/Robotics/Timeline) use `listVariants`/`itemVariants`; everything else uses the `reveal(i)` spread.
-- Reduced motion is global (`MotionConfig reducedMotion="user"` in `App.tsx` + CSS query). Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
+- All timing lives in `src/lib/motion.ts`: one ease, 8px rise, 50ms stagger, plus the build-loop timeline (`LOOP_*`, `loop*Delay`).
+- One orchestrated moment only: the hero text entrance, then the `BuildLoop` figure draws once (blocks, traces, one pulse, actuator lights). Sections do not animate on scroll; content is static and readable on arrival.
+- Interaction motion (mobile menu, button press) answers the user's action. Never hardcode timing in components.
+- Reduced motion is global (`MotionConfig reducedMotion="user"` in `App.tsx` + CSS query). `BuildLoop` also reads `useReducedMotion` and renders its finished state. Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
+
+## Design system
+
+- Datasheet on drafting paper: tokens on `:root` in `src/index.css` (paper, ink, ink-2/3, rule, one PCB-green `--trace`), dark variant via `prefers-color-scheme`. Keep text contrast at WCAG AA.
+- One family: Archivo (Google Fonts, `wdth` + `wght` axes). Display type uses `font-stretch`; no second face, no monospace labels, no all-caps eyebrows.
+- Sections use `Section` (`components/ui.tsx`): heading in the margin column, body on the right. Facts go in `dl.spec` rows, not `·`-joined strings.
+- Green means connected or achieved: traces, links, awarded/qualified results. Don't use it as decoration.
 
 ## Components
 
-- Watermelon UI is ported natively (`Badge`, `Tip` in `components/ui.tsx`, nav, buttons). It is NOT an npm package here. Don't `npm install` it (React+Tailwind+shadcn registry, incompatible with this Vite stack).
+- Watermelon UI is ported natively (`Tip` in `components/ui.tsx`, nav, buttons). It is NOT an npm package here. Don't `npm install` it (React+Tailwind+shadcn registry, incompatible with this Vite stack).
 - Don't add component/animation libraries (KokonutUI, React Bits, Motion Primitives, 21st.dev were evaluated and rejected. Smallest footprint wins).
 - All section copy lives in `src/data/content.ts`. Edit text there, not in components.
 

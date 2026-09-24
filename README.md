@@ -7,8 +7,10 @@ robotics builder from Chennai.
 
 ## Stack
 
-React 19 + TypeScript + Vite, `motion/react` for animation. Minimalist
-single-column editorial design: one width, one font, one quiet accent.
+React 19 + TypeScript + Vite, `motion/react` for animation. Designed as a
+builder's datasheet: drafting-paper background, one typeface (Archivo), one
+PCB-green accent, light and dark themes. The hero figure draws the
+sense, process, actuate loop once on load; everything else stays still.
 
 ## Project content rules (keep them)
 

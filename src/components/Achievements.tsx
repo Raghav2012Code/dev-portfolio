@@ -1,31 +1,19 @@
-import { motion } from "motion/react";
-import { ACHIEVEMENTS, ACHIEVEMENTS_LABEL } from "../data/content";
-import { itemVariants, listVariants, SCROLL_VIEWPORT } from "../lib/motion";
+import { ACHIEVEMENTS, SECTION_COPY } from "../data/content";
+import { Section } from "./ui";
 
+/** Awarded and qualifying results. Participation lives in the timeline only. */
 export function Achievements() {
   return (
-    <section className="achievements" aria-labelledby="achievements-label">
-      <div className="container">
-        <p className="achieve-label" id="achievements-label">
-          {ACHIEVEMENTS_LABEL}
-        </p>
-        <motion.ul
-          className="achieve-list"
-          variants={listVariants}
-          initial="hidden"
-          whileInView="shown"
-          viewport={SCROLL_VIEWPORT}
-        >
-          {ACHIEVEMENTS.map((item) => (
-            <motion.li key={item.title} variants={itemVariants}>
-              <div>
-                <p className="achieve-title">{item.title}</p>
-                <p className="achieve-sub">{item.sub}</p>
-              </div>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </div>
-    </section>
+    <Section id="results" title={SECTION_COPY.record.title} className="section-record">
+      <ul className="record-list">
+        {ACHIEVEMENTS.map((item) => (
+          <li key={item.event}>
+            <p className="record-result">{item.result}</p>
+            <p className="record-event">{item.event}</p>
+            <p className="record-detail">{item.detail}</p>
+          </li>
+        ))}
+      </ul>
+    </Section>
   );
 }

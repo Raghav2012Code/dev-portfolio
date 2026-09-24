@@ -1,7 +1,7 @@
 import { MotionConfig } from "motion/react";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
-import { Projects } from "../components/Projects";
+import { ProjectList } from "../components/Projects";
 
 export function ProjectPage() {
   return (
@@ -11,7 +11,7 @@ export function ProjectPage() {
       </a>
       <Navbar />
       <main id="main">
-        <Projects />
+        <ProjectList />
       </main>
       <Footer />
     </MotionConfig>

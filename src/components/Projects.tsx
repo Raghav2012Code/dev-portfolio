@@ -1,57 +1,43 @@
-import { motion } from "motion/react";
-import { PROJECTS, PROJECTS_PAGE_COPY, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
-import { itemVariants, listVariants, reveal, SCROLL_VIEWPORT } from "../lib/motion";
+import { PROJECTS, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
 import { ProjectCard } from "./ProjectCard";
-import { SectionHead } from "./ui";
+import { Section } from "./ui";
 
-export function Projects({ preview = false }: { preview?: boolean }) {
-  const [featured, ...rest] = PROJECTS;
+/** Home page: every project as one index row linking to its full entry. */
+export function ProjectIndex() {
   const copy = SECTION_COPY.projects;
   return (
-    <section className="section" id="projects">
-      <div className="container">
-        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
-        <motion.p {...reveal(2)} className="section-lead">
-          {copy.lead}
-        </motion.p>
-
-        {preview ? (
-          <>
-            <motion.ul
-              className="project-gist-list"
-              variants={listVariants}
-              initial="hidden"
-              whileInView="shown"
-              viewport={SCROLL_VIEWPORT}
-            >
-              {[featured, ...rest.slice(0, 2)].map((project) =>
-                project ? (
-                  <motion.li key={project.name} variants={itemVariants}>
-                    <a className="project-gist-title" href={PROJECTS_PAGE_PATH}>
-                      {project.name}
-                    </a>
-                    {project.result ?? project.meta ? (
-                      <p className="project-gist-sub">{project.result ?? project.meta}</p>
-                    ) : null}
-                  </motion.li>
-                ) : null,
-              )}
-            </motion.ul>
-            <a className="card-link" href={PROJECTS_PAGE_PATH}>
-              {PROJECTS_PAGE_COPY.viewAll}
+    <Section id="projects" title={copy.title} lead={copy.lead}>
+      <ul className="project-index">
+        {PROJECTS.map((project) => (
+          <li key={project.slug}>
+            <a href={`${PROJECTS_PAGE_PATH}#${project.slug}`}>
+              <span className="index-name">{project.name}</span>
+              <span className="index-event">{project.event}</span>
+              <span className={`index-result tone-${project.resultTone}`}>{project.result}</span>
             </a>
-          </>
-        ) : (
-          <>
-            {featured ? <ProjectCard project={featured} index={3} detailed /> : null}
+          </li>
+        ))}
+      </ul>
+      <a className="text-link" href={PROJECTS_PAGE_PATH}>
+        {copy.viewAll}
+      </a>
+    </Section>
+  );
+}
 
-            <div className="project-grid">
-              {rest.map((project, i) => (
-                <ProjectCard key={project.name} project={project} index={4 + i} detailed />
-              ))}
-            </div>
-          </>
-        )}
+/** Projects page: page title, then every project as a datasheet entry. */
+export function ProjectList() {
+  const copy = SECTION_COPY.projectsPage;
+  return (
+    <section className="page" id="projects" aria-labelledby="projects-title">
+      <div className="container">
+        <header className="page-head">
+          <h1 id="projects-title">{copy.title}</h1>
+          <p className="page-lead">{copy.lead}</p>
+        </header>
+        {PROJECTS.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
+        ))}
       </div>
     </section>
   );
