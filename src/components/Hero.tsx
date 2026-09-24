@@ -5,55 +5,14 @@ import {
   GITHUB_AVATAR_URL,
   GITHUB_URL,
   HERO_COPY,
-  HERO_FEATURE,
   PROJECTS_PAGE_PATH,
 } from "../data/content";
-import type { SignalStep } from "../data/content";
 import { getContributions } from "../lib/contributions";
 import { EASE, entrance, PRESS_DURATION } from "../lib/motion";
-import { Tip } from "./ui";
 
 const hideOnError: ReactEventHandler<HTMLImageElement> = (event) => {
   event.currentTarget.style.display = "none";
 };
-
-/** Hero signal-flow steps — the featured build’s response chain. */
-const HERO_SIGNAL: SignalStep[] = [
-  { strong: "Sense", text: { label: "Laser + IR sensor", tip: "Detects a hand near the hinge" } },
-  { strong: "Process", text: { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" } },
-  { strong: "Actuate", text: { label: "Servo + Solenoid" } },
-];
-
-function HeroSignal() {
-  return (
-    <div className="hero-feature">
-      <motion.ol
-        className="signal-flow signal-flow-hero"
-        aria-label={HERO_FEATURE.ariaLabel}
-        {...entrance(4)}
-      >
-        {HERO_SIGNAL.map((step, i) => (
-          <motion.li
-            className="signal-flow-step"
-            key={step.text.label}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: EASE, delay: 0.35 + i * 0.08 }}
-          >
-            {step.strong ? <span className="signal-flow-label">{step.strong}</span> : null}
-            <span className="signal-flow-value">
-              <Tip label={step.text.label} tip={step.text.tip} />
-            </span>
-          </motion.li>
-        ))}
-      </motion.ol>
-      <motion.p className="hero-feature-caption" {...entrance(5)}>
-        <strong>{HERO_FEATURE.name}</strong>
-        <span>{HERO_FEATURE.result}</span>
-      </motion.p>
-    </div>
-  );
-}
 
 export function Hero() {
   const [contributionTotal, setContributionTotal] = useState<number | null>(null);
@@ -95,13 +54,11 @@ export function Hero() {
           </motion.p>
         </div>
 
-        <HeroSignal />
-
         <div className="hero-tail">
-          <motion.p className="hero-desc" {...entrance(6)}>
+          <motion.p className="hero-desc" {...entrance(4)}>
             {HERO_COPY.description}
           </motion.p>
-          <motion.div className="hero-actions" {...entrance(7)}>
+          <motion.div className="hero-actions" {...entrance(5)}>
             <motion.a
               className="btn btn-primary"
               href={PROJECTS_PAGE_PATH}
@@ -133,7 +90,7 @@ export function Hero() {
           </motion.div>
           <motion.p
             className={`hero-teaser${contributionTotal === null ? " hero-teaser-pending" : ""}`}
-            {...entrance(8)}
+            {...entrance(6)}
           >
             {contributionTotal !== null ? (
               <a href="#contributions">

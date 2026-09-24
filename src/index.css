@@ -136,16 +136,16 @@ a:focus-visible, button:focus-visible {
 .scroll-progress { height: 2px; background: transparent; }
 .scroll-progress span { display: block; height: 100%; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
 
-/* ---------- hero: name + featured build signal-flow ---------- */
+/* ---------- hero: name + intro ---------- */
 .hero { padding: 4.5rem 0 4rem; }
 .hero-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  gap: 2.5rem 3rem;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: var(--max);
 }
 .hero-main { min-width: 0; }
-.hero-tail { grid-column: 1 / -1; max-width: 36rem; }
+.hero-tail { max-width: 36rem; margin-top: 1.75rem; }
 .profile-img {
   width: 64px; height: 64px; object-fit: cover;
   border-radius: 50%; border: 1px solid var(--line-strong);
@@ -165,18 +165,6 @@ a:focus-visible, button:focus-visible {
 .hero-role {
   margin-top: 0.75rem;
   font-size: 16px; font-weight: 500; color: var(--text-dim);
-}
-.hero-feature { min-width: 0; padding-top: 0.5rem; }
-.hero-feature-caption {
-  display: flex; flex-direction: column; gap: 4px;
-  margin-top: 14px;
-}
-.hero-feature-caption strong {
-  font-family: var(--font-display);
-  font-size: 1.125rem; font-weight: 600; letter-spacing: -0.02em;
-}
-.hero-feature-caption span {
-  font-size: 13.5px; line-height: 1.55; color: var(--accent-text);
 }
 .hero-desc { margin-top: 0; color: var(--text-dim); font-size: 16.5px; line-height: 1.7; max-width: 34rem; }
 .hero-actions { display: flex; gap: 10px; margin-top: 1.5rem; flex-wrap: wrap; }
@@ -264,13 +252,11 @@ a:focus-visible, button:focus-visible {
   min-width: 0; padding: 13px 14px 14px 0;
 }
 .signal-flow-step + .signal-flow-step { border-left: 1px solid var(--line); padding-left: 14px; }
-.signal-flow-hero { grid-template-columns: 1.2fr 0.85fr 1.15fr; }
 .signal-flow-step:not(:last-child)::after {
   content: ""; position: absolute; right: -3px; top: 50%; width: 5px; height: 5px;
   border-top: 1px solid var(--accent); border-right: 1px solid var(--accent);
   transform: translateY(-50%) rotate(45deg); background: var(--bg);
 }
-.signal-flow.signal-flow-hero { margin-top: 0; }
 .signal-flow-label { color: var(--accent-text); font-size: 11px; font-weight: 600; letter-spacing: 0.04em; }
 .signal-flow-value { color: var(--text); font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
 .project-media { margin-top: 22px; }
@@ -437,11 +423,6 @@ a:focus-visible, button:focus-visible {
 }
 
 /* ---------- responsive ---------- */
-@media (max-width: 880px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .hero-tail { grid-column: auto; }
-}
-
 @media (max-width: 640px) {
   :root { --section-pad: 3.75rem; }
   .tip::after { min-width: 120px; width: max-content; max-width: calc(100vw - 32px); }

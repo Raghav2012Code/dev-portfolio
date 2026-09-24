@@ -40,13 +40,6 @@ export const HERO_COPY = {
   githubLink: "GitHub",
 } as const;
 
-/** Featured build shown in the hero as the page’s opening moment. */
-export const HERO_FEATURE = {
-  name: "Door Hinge Safety System",
-  result: "Overall Winner · Robowunder International Robotics Championship 2026 · Malaysia",
-  ariaLabel: "Door Hinge Safety System response sequence",
-} as const;
-
 export const SECTION_COPY = {
   about: {
     title: "I learn by building things.",

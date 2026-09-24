@@ -6,7 +6,7 @@ Personal site of a 14-year-old student, developer, and robotics builder from Che
 
 ## Preview
 
-![Portfolio home: dark editorial layout with name, Sense → Process → Actuate signal flow for the Door Hinge Safety System, and Overall Winner · Malaysia caption](docs/images/readme-home.png)
+![Portfolio home: dark editorial layout with name, role, and intro copy under a single orchestrated hero entrance](docs/images/readme-home.png)
 
 *Home — Space Grotesk + Inter, gold accent, one orchestrated hero entrance.*
 
@@ -14,8 +14,8 @@ Personal site of a 14-year-old student, developer, and robotics builder from Che
 
 A two-page portfolio (home + `/project`):
 
-- Hero with the Door Hinge Safety System signal flow and competition win
-- Wins strip, about, selected work, stack, competition timeline
+- Hero (name, place, role, intro), then wins strip
+- About, selected work (Door Hinge Safety System first), stack, competition timeline
 - Public GitHub contribution graph (profile link when the API is unavailable)
 - Contact
 
