@@ -1,4 +1,6 @@
+import { motion } from "motion/react";
 import { CONTACT_ITEMS, SECTION_COPY } from "../data/content";
+import { reveal } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 function ContactIcon({ label }: { label: string }) {
@@ -44,11 +46,12 @@ export function Contact() {
   const copy = SECTION_COPY.contact;
   return (
     <section className="section" id="contact">
-      <div className="container container-wide">
-        <SectionHead title={copy.title} />
-        <p className="section-lead">{copy.lead}</p>
-        <p className="contact-now">{copy.currently}</p>
-        <ul className="contact-list">
+      <div className="container narrow">
+        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
+        <motion.p {...reveal(2)} className="section-lead">
+          {copy.lead}
+        </motion.p>
+        <motion.ul {...reveal(3)} className="contact-list">
           {CONTACT_ITEMS.map((item) => (
             <li key={item.label}>
               <span className="contact-label">
@@ -68,7 +71,7 @@ export function Contact() {
               )}
             </li>
           ))}
-        </ul>
+        </motion.ul>
       </div>
     </section>
   );

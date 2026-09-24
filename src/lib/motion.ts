@@ -1,9 +1,10 @@
 // Shared motion language (motion/react v13).
-// One orchestrated moment: the hero entrance (and its signal-flow steps).
-// Section content is visible by default — no scroll-gated opacity.
-// Transform/opacity only. Reduced motion via MotionConfig reducedMotion="user"
-// in App, plus the CSS media query for ambient UI.
-import type { Transition } from "motion/react";
+// One calm ease-out, one 8px rise, 50ms staggers. Transform/opacity only.
+// Reveals trigger 20% BEFORE entry (viewport margin) and finish fast, so
+// even flick-scrolls land on settled content instead of chasing animation.
+// Reduced motion is handled globally via MotionConfig reducedMotion="user"
+// in App, plus the CSS media query that hides ambient UI like the progress bar.
+import type { Transition, Variants, ViewportOptions } from "motion/react";
 
 export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const RISE_PX = 8;
@@ -12,11 +13,46 @@ export const STAGGER_STEP = 0.05;
 export const INTERACTION_DURATION = 0.25;
 export const PRESS_DURATION = 0.12;
 
+export const SCROLL_VIEWPORT: ViewportOptions = { once: true, amount: 0.1, margin: "20% 0px" };
+
+/**
+ * Parent variant for row-lists (achievements, robotics, timeline).
+ * Children using `itemVariants` cascade with one shared stagger.
+ * No per-item delay math in components.
+ */
+export const listVariants: Variants = {
+  hidden: {},
+  shown: { transition: { staggerChildren: STAGGER_STEP } },
+};
+
+/** Child variant for `listVariants` parents. Inherits list animate state. */
+export const itemVariants: Variants = {
+  hidden: { opacity: 0, y: RISE_PX },
+  shown: { opacity: 1, y: 0, transition: { duration: REVEAL_DURATION, ease: EASE } },
+};
+
 export function revealTransition(index = 0, baseDelay = 0): Transition {
   return {
     duration: REVEAL_DURATION,
     ease: EASE,
     delay: baseDelay + index * STAGGER_STEP,
+  };
+}
+
+export interface RevealMotionProps {
+  initial: { opacity: number; y: number };
+  whileInView: { opacity: number; y: number };
+  viewport: ViewportOptions;
+  transition: Transition;
+}
+
+/** Spread onto a motion element for the site-wide scroll-reveal pattern. */
+export function reveal(index = 0, baseDelay = 0): RevealMotionProps {
+  return {
+    initial: { opacity: 0, y: RISE_PX },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: SCROLL_VIEWPORT,
+    transition: revealTransition(index, baseDelay),
   };
 }
 

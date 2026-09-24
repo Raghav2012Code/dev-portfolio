@@ -1,79 +1,60 @@
 # AGENTS.md for dev-portfolio
 
-Vite + React 19 + strict TypeScript single-page portfolio.
+Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
+`README.md` ("Project content rules"). Read them before touching copy.
 
-**Before editing copy** (project order, awards, skills, links, testimonials):
-read `README.md` → "Project content rules (keep them)".
+## Commands
 
-## Verify
+- `npm run build` runs `tsc -b && vite build` (typecheck first. Fix type errors, never `any`-cast or `@ts-ignore` to silence them).
+- `npm run typecheck` / `npm run dev` (port 5173) / `npm run preview` (serves `dist/`).
+- No lint, no tests, no CI. Verify visually + `build` green + zero console errors.
 
-Done when `npm run build` is green (typecheck included), console has zero
-errors, and the page has no horizontal overflow. No lint or tests exist.
+## Shell gotchas (Windows PowerShell 5.1)
 
-On type errors, fix the types — never `any` or `@ts-ignore` to silence them.
-
-Scripts live in `package.json`. Dev server: port 5173.
-
-## Shell (Windows PowerShell 5.1)
-
-- Chain with `; if ($?) { ... }` — no `&&`.
-- `Select-Object -First` / `-Last`, not `-FirstLine` / `-LastLine`.
-- Background jobs die with each shell call. For a persistent server:
-  `Start-Process ... -WindowStyle Hidden`, then probe with `Invoke-WebRequest`.
-- Prefer `npm run dev` / `preview`. For static checks use
-  `F:\Temp\opencode\serve-dist.py` — plain `python -m http.server` sends `.js`
-  as `text/plain` and blocks ES modules.
+- No `&&`. Chain with `; if ($?) { ... }`.
+- `Select-Object` has `-First`/`-Last`, NOT `-FirstLine`/`-LastLine`.
+- Each shell call is a fresh session: background jobs die with the call. For persistent servers use `Start-Process ... -WindowStyle Hidden`, then probe with `Invoke-WebRequest`.
+- Plain `python -m http.server` serves `.js` as `text/plain`, which blocks ES-module scripts. For static checks use `F:\Temp\opencode\serve-dist.py` (sets the JS MIME type); prefer `npm run dev` / `preview` otherwise.
 
 ## Browser checks (Playwright MCP)
 
-- Serve over `http://localhost` first; `file://` is blocked.
-- Localhost only works if the server is a detached process (above).
-- When it matters: desktop + 390px mobile, console errors, horizontal overflow
-  (`scrollWidth` vs `clientWidth`), Escape/menu, `reducedMotion: reduce`.
-- Playwright dumps live in `.playwright-mcp/` (keep it in `.vercelignore`).
+- `file://` URLs are blocked. Serve over `http://localhost` first.
+- Localhost works only if the server is a detached process (see above).
+- Test matrix when it matters: desktop + 390px mobile, console errors, horizontal overflow via `scrollWidth` vs `clientWidth`, Escape/menu behavior, `reducedMotion: reduce` emulation.
 
-## Motion
+## Motion system (single language, keep it that way)
 
-One language, one source: `src/lib/motion.ts` (`entrance()`, ease, rise,
-stagger). Components read timing from there — do not hardcode it.
-
-Hero entrance plays on mount. **Every section below the hero is visible by
-default** — no scroll-gated opacity, no per-section reveals.
-
-Reduced motion is global (`MotionConfig reducedMotion="user"` in `App.tsx`
-+ CSS media query). Transform/opacity only.
+- All timing lives in `src/lib/motion.ts`: one ease, 8px rise, 50ms stagger, `SCROLL_VIEWPORT` with a 20% pre-entry margin so fast scrolls land on settled content.
+- `ProjectCard` has its own variants but must read `REVEAL_DURATION`/`STAGGER_STEP` from the lib. Never hardcode timing in components.
+- Row-lists (Achievements/Robotics/Timeline) use `listVariants`/`itemVariants`; everything else uses the `reveal(i)` spread.
+- Reduced motion is global (`MotionConfig reducedMotion="user"` in `App.tsx` + CSS query). Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
 
 ## Components
 
-- Section copy lives in `src/data/content.ts`. Edit text there, not in
-  components.
-- Watermelon UI is already ported (`Badge`, `Tip`, nav, buttons in
-  `components/ui.tsx`). It is not an npm package here — do not install it
-  (registry stack is incompatible with this Vite app).
-- Prefer the smallest UI/animation footprint. KokonutUI, React Bits, Motion
-  Primitives, and 21st.dev were evaluated and rejected.
+- Watermelon UI is ported natively (`Badge`, `Tip` in `components/ui.tsx`, nav, buttons). It is NOT an npm package here. Don't `npm install` it (React+Tailwind+shadcn registry, incompatible with this Vite stack).
+- Don't add component/animation libraries (KokonutUI, React Bits, Motion Primitives, 21st.dev were evaluated and rejected. Smallest footprint wins).
+- All section copy lives in `src/data/content.ts`. Edit text there, not in components.
 
 ## Deploy
 
-- Pushes to `main` auto-deploy (GitHub → Vercel). Project `van-89de`, live
-  alias `https://raghavkrishna-dev.vercel.app`. CLI deploys are rarely needed.
-- Keep `.vercelignore` excluding `.playwright-mcp/` and `dist/` — uploading
-  them aborts deploys on slow networks.
-- Canonical URL `https://dev-portfolio-azure-nine.vercel.app/` must match in
-  `index.html`, `public/robots.txt`, and `public/sitemap.xml`.
+- Vercel CLI is installed and logged in. Project `van-89de/dev-portfolio`, live at `https://raghavkrishna-dev.vercel.app` (alias; `raghav-dev.vercel.app` and `raghavdev.vercel.app` were already taken). GitHub is connected, so pushes to `main` auto-deploy. CLI deploys are rarely needed.
+- `.vercelignore` must keep excluding `.playwright-mcp/` and `dist/`. Uploading them aborts the deploy on slow networks.
+- Keep the canonical URL (`https://dev-portfolio-azure-nine.vercel.app/`) in sync across `index.html`, `public/robots.txt`, and `public/sitemap.xml`.
 
 ## Git
 
-After a green build: commit + push to `main` unless the user says otherwise.
-Never force-push; never commit secrets. `LF will be replaced by CRLF` warnings
-are harmless.
+- Commit + push to `main` after green build unless the user says otherwise. Never force-push, never commit secrets. The `LF will be replaced by CRLF` warnings are harmless noise.
 
-## Skills
+## Agent skills
 
-- **File or fetch an issue/spec/ticket**: `gh` with
-  `--repo Raghav2012Code/dev-portfolio` → `docs/agents/issue-tracker.md`.
-- **Triage roles/labels**: `needs-triage`, `needs-info`, `ready-for-agent`,
-  `ready-for-human`, `wontfix` → `docs/agents/triage-labels.md`.
-- **Domain vocabulary or ADRs** (before exploring structure):
-  `docs/agents/domain.md` (single-context repo; `CONTEXT.md` / `docs/adr/`
-  only if present).
+### Issue tracker
+
+Issues live in upstream GitHub repo `Raghav2012Code/dev-portfolio`; use `gh` and specify `--repo Raghav2012Code/dev-portfolio`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the default labels `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, and `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This is a single-context repo. See `docs/agents/domain.md`.

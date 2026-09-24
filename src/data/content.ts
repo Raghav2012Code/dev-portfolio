@@ -10,6 +10,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
   { label: "Stack", href: "#technologies" },
+  { label: "Robotics", href: "#robotics" },
   { label: "Timeline", href: "#timeline" },
   { label: "Contact", href: "#contact" },
 ];
@@ -20,7 +21,7 @@ export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png`;
 export const CONTACT_EMAIL = "raghavgamerz670@gmail.com";
 export const PROFILE_NAME = "Raghav Krishna";
 export const NAV_GITHUB_LABEL = "GitHub";
-export const ACHIEVEMENTS_LABEL = "Wins";
+export const ACHIEVEMENTS_LABEL = "Achievements";
 
 export const PROJECTS_PAGE_PATH = "/project";
 
@@ -30,9 +31,8 @@ export const PROJECTS_PAGE_COPY = {
 
 export const HERO_COPY = {
   name: PROFILE_NAME,
-  place: "Chennai, India",
-  school: "Grade 9 · Velammal Academy Nolambur",
-  role: "Student, developer, and robotics builder",
+  eyebrow: "Chennai, India · Grade 9 · Velammal Academy Nolambur",
+  role: "Student · Developer · Robotics Builder",
   description:
     "14-year-old builder exploring software, AI-assisted development, and hardware projects with ESP32, Arduino, sensors, and more.",
   avatarAlt: `Profile image of ${PROFILE_NAME}`,
@@ -42,6 +42,7 @@ export const HERO_COPY = {
 
 export const SECTION_COPY = {
   about: {
+    eyebrow: "About",
     title: "I learn by building things.",
     paragraphs: [
       "Most of what I’ve learned has come from building. I’m especially interested in hardware projects with ESP32s, sensors, and actuators, and in connecting them to software.",
@@ -49,31 +50,39 @@ export const SECTION_COPY = {
     ],
   },
   projects: {
+    eyebrow: "Projects",
     title: "Selected work",
     lead: "Hardware-first projects, built for real competitions.",
   },
   contributions: {
+    eyebrow: "GitHub activity",
     title: "Public contributions",
-    lead: "public contributions in the past year",
     scrollHint: "Scroll to see the full year.",
     less: "Less",
     more: "More",
-    fallback:
-      "The contribution graph could not load. Open the GitHub profile for activity.",
-    fallbackLink: "View on GitHub",
   },
   stack: {
-    title: "What I build with",
+    eyebrow: "Technologies",
+    title: "Technologies I build with",
+  },
+  robotics: {
+    eyebrow: "Robotics",
+    title: "Builds that touch the real world.",
     lead:
       "Software is great, but my favourite moment is when code moves something physical: a servo turns, a sensor fires, a mechanism responds.",
   },
   timeline: {
+    eyebrow: "Competitions",
     title: "Competition timeline",
   },
+  currently: {
+    eyebrow: "Currently",
+    title: "Building / exploring now",
+  },
   contact: {
-    title: "Get in touch",
+    eyebrow: "Contact",
+    title: "Say hello.",
     lead: "Always happy to talk robotics, hardware, or builds in progress.",
-    currently: "Now: robotics and ESP32 projects, web development, and AI-assisted tooling.",
   },
 } as const;
 
@@ -96,12 +105,16 @@ export const CONTACT_ITEMS: ContactItem[] = [
 ];
 
 export const FOOTER_COPY = {
-  tagline: "Student, developer, and robotics builder in Chennai · 2026",
+  tagline: "Student · Developer · Robotics Builder · Chennai 2026 ·",
   backToTop: "Back to top",
 } as const;
 
 export const UI_COPY = {
   contributionLabel: "Contribution",
+} as const;
+
+export const CONTRIBUTION_TEASER = {
+  lead: "public contributions in the past year",
 } as const;
 
 export interface Achievement {
@@ -187,8 +200,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "CRASH (Chennai Road Accident Safety Hub)",
-    badge: "Zonal Robotics Championship",
-    meta: "SRM Chennai",
+    badge: "Zonal Robotics Championship · SRM Chennai",
     result: "Qualified for NRC Technoxian through the zonal championship",
     description:
       "A robotics competition project that uses public accident data and XGBoost to predict where accidents may occur. It looks at parameters like time, day, junction information, and other relevant public-data parameters.",
@@ -207,8 +219,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "Vaccine Cold Chain Ledger",
-    badge: "PEC Hacks 4.0",
-    meta: "Panimalar Engineering College · High School Track",
+    badge: "PEC Hacks 4.0 · Panimalar Engineering College · High School Track",
     result: "Consolation Prize",
     description:
       "A hardware-integrated cold-chain monitoring system: a DHT22 sensor tracks vaccine storage temperature via Arduino/ESP32, shows readings on an LCD, and records SHA-256-hashed data to Supabase for display in a web application.",
@@ -243,9 +254,8 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "Volt Ledger",
-    badge: "Shark Tank Challenge",
-    meta: "Velammal · 2026",
-    result: "Participated",
+    badge: "Shark Tank Challenge · Velammal",
+    result: "Participated · 2026",
     resultMuted: true,
     description:
       "A transparent, tamper-evident ledger for peer-to-peer rooftop solar energy trading. Neighbours trade surplus at a community rate, and every trade is sealed into a SHA-256 hash chain computed in the browser. All data simulated.",
@@ -266,7 +276,7 @@ export const PROJECTS: Project[] = [
   {
     name: "EPL Predictor",
     badge: "Personal project",
-    result: "Work in progress",
+    result: "Work in progress · personal exploration",
     resultMuted: true,
     description:
       "A personal project using historical English football data and XGBoost to explore match-outcome prediction. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn’t).",
@@ -282,8 +292,8 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "Urbania",
-    badge: "Experimental",
-    result: "Personal project",
+    badge: "Personal · Experimental",
+    result: "Experimental · personal project",
     resultMuted: true,
     description:
       "A personal experimental project: a 2D city simulation I’m building to explore how simulated systems behave.",
@@ -306,6 +316,23 @@ export const STACK_ROWS: StackRow[] = [
   { label: "Backend / Data", items: "Supabase · REST APIs · SHA-256" },
   { label: "Programming", items: "Python" },
   { label: "Tools", items: "Git · GitHub · Claude Code · OpenAI Codex" },
+];
+
+export interface RoboItem {
+  title: string;
+  text: string;
+}
+
+export const ROBOTICS_ITEMS: RoboItem[] = [
+  { title: "ESP32 & Arduino", text: "Microcontrollers at the centre of every hardware build." },
+  { title: "Sensors", text: "IR, laser, temperature: reading the physical world." },
+  { title: "Actuators", text: "Servos, solenoids, displays: acting on the physical world." },
+  { title: "Electronics", text: "Circuits, wiring, and making it all actually work together." },
+  {
+    title: "Hardware / software integration",
+    text: "Connecting physical hardware to software. That's the whole point.",
+  },
+  { title: "Physical computing", text: "Building things that interact with the physical world." },
 ];
 
 export interface TimelineItem {
@@ -347,5 +374,25 @@ export const TIMELINE: TimelineItem[] = [
     title: "Technoviz 2025",
     sub: "SRM Ramapuram · School Category · Participated",
     minor: true,
+  },
+];
+
+export interface CurrentlyItem {
+  title: string;
+  sub: string;
+}
+
+export const CURRENTLY: CurrentlyItem[] = [
+  {
+    title: "Robotics and ESP32 projects",
+    sub: "Sensors, servos, solenoids and microcontrollers.",
+  },
+  {
+    title: "Web development",
+    sub: "React, TypeScript, including this portfolio.",
+  },
+  {
+    title: "AI-assisted development",
+    sub: "Claude Code and OpenAI Codex in the loop.",
   },
 ];

@@ -1,13 +1,10 @@
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { GITHUB_URL, SECTION_COPY } from "../data/content";
+import { SECTION_COPY } from "../data/content";
 import type { ContributionCalendar } from "../lib/contributions";
 import { getContributions } from "../lib/contributions";
+import { EASE, REVEAL_DURATION, reveal } from "../lib/motion";
 import { SectionHead } from "./ui";
-
-type LoadState =
-  | { status: "loading" }
-  | { status: "ready"; calendar: ContributionCalendar }
-  | { status: "unavailable" };
 
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("en", {
@@ -20,7 +17,7 @@ function formatDate(date: string) {
 
 export function Contributions() {
   const copy = SECTION_COPY.contributions;
-  const [state, setState] = useState<LoadState>({ status: "loading" });
+  const [calendar, setCalendar] = useState<ContributionCalendar | null>(null);
   const [compact, setCompact] = useState(
     () => window.matchMedia("(max-width: 640px)").matches,
   );
@@ -29,8 +26,7 @@ export function Contributions() {
     let active = true;
 
     void getContributions().then((result) => {
-      if (!active) return;
-      setState(result ? { status: "ready", calendar: result } : { status: "unavailable" });
+      if (active) setCalendar(result);
     });
     return () => {
       active = false;
@@ -44,39 +40,10 @@ export function Contributions() {
     return () => query.removeEventListener("change", onChange);
   }, []);
 
-  if (state.status === "loading") {
-    return (
-      <section className="section contributions" id="contributions">
-        <div className="container container-wide">
-          <SectionHead title={copy.title} />
-          <div className="contribution-content contribution-pending" aria-busy="true">
-            <p className="contribution-summary">Loading contribution graph…</p>
-            <div className="contribution-placeholder" aria-hidden="true" />
-          </div>
-        </div>
-      </section>
-    );
-  }
+  if (!calendar) return null;
 
-  if (state.status === "unavailable") {
-    return (
-      <section className="section contributions" id="contributions">
-        <div className="container container-wide">
-          <SectionHead title={copy.title} />
-          <div className="contribution-content">
-            <p className="contribution-summary">{copy.fallback}</p>
-            <p>
-              <a className="card-link" href={GITHUB_URL} target="_blank" rel="noopener">
-                {copy.fallbackLink}
-              </a>
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  const calendar = state.calendar;
+  // Small screens show the most recent ~6 months so the chart fits
+  // without horizontal scrolling; larger screens show the full year.
   const visibleWeeks = compact ? calendar.weeks.slice(-26) : calendar.weeks;
   const rangeLabel = compact ? "recent months" : "the past year";
 
@@ -90,37 +57,36 @@ export function Contributions() {
   const monthLabels = visibleWeeks.flatMap((week, weekIndex) => {
     const firstOfMonth = week.find((day) => new Date(`${day.date}T00:00:00Z`).getUTCDate() === 1);
     return firstOfMonth
-      ? [
-          {
-            weekIndex,
-            label: new Intl.DateTimeFormat("en", {
-              month: "short",
-              timeZone: "UTC",
-            }).format(new Date(`${firstOfMonth.date}T00:00:00Z`)),
-          },
-        ]
+      ? [{
+          weekIndex,
+          label: new Intl.DateTimeFormat("en", {
+            month: "short",
+            timeZone: "UTC",
+          }).format(new Date(`${firstOfMonth.date}T00:00:00Z`)),
+        }]
       : [];
   });
 
   return (
     <section className="section contributions" id="contributions">
-      <div className="container container-wide">
-        <SectionHead title={copy.title} />
-        <div className="contribution-content">
+      <div className="container">
+        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
+        <motion.div {...reveal(2)} className="contribution-content">
           <p className="contribution-summary">
-            {calendar.totalContributions.toLocaleString()} {copy.lead}.
+            {calendar.totalContributions.toLocaleString()} public contributions in the past year.
           </p>
           <figure className="contribution-figure">
             <div
               className="contribution-chart-scroll"
               role="region"
-              aria-label={
-                compact ? "Public contribution calendar" : "Scrollable public contribution calendar"
-              }
+              aria-label={compact ? "Public contribution calendar" : "Scrollable public contribution calendar"}
               tabIndex={0}
             >
-              <svg
+              <motion.svg
                 className="contribution-chart"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: REVEAL_DURATION, ease: EASE }}
                 style={{ width: chartWidth }}
                 viewBox={`0 0 ${chartWidth} ${chartHeight}`}
                 role="img"
@@ -171,7 +137,7 @@ export function Contributions() {
                     );
                   }),
                 )}
-              </svg>
+              </motion.svg>
             </div>
             {compact ? null : (
               <p className="contribution-scroll-hint">{copy.scrollHint}</p>
@@ -188,7 +154,7 @@ export function Contributions() {
               <span>{copy.more}</span>
             </figcaption>
           </figure>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
