@@ -1,4 +1,5 @@
 import { MotionConfig } from "motion/react";
+import { Contact } from "../components/Contact";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
 import { Projects } from "../components/Projects";
@@ -12,6 +13,7 @@ export function ProjectPage() {
       <Navbar />
       <main id="main">
         <Projects />
+        <Contact />
       </main>
       <Footer />
     </MotionConfig>

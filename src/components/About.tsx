@@ -1,19 +1,17 @@
-import { motion } from "motion/react";
 import { SECTION_COPY } from "../data/content";
-import { reveal } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 export function About() {
   const copy = SECTION_COPY.about;
   return (
     <section className="section" id="about">
-      <div className="container about-grid">
-        <div>
-          <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
+      <div className="container container-wide">
+        <SectionHead title={copy.title} />
+        <div className="about-copy">
+          {copy.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
-        <motion.div {...reveal(2)} className="about-copy">
-          {copy.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-        </motion.div>
       </div>
     </section>
   );

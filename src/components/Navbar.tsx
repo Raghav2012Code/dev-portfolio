@@ -46,7 +46,7 @@ export function Navbar() {
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open ]);
+  }, [open]);
 
   return (
     <header className="nav" id="top">

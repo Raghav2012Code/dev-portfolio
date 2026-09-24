@@ -1,27 +1,6 @@
-import { motion } from "motion/react";
-import type { Variants } from "motion/react";
 import type { Project, SignalStep, TechMention } from "../data/content";
 import { UI_COPY } from "../data/content";
-import {
-  EASE,
-  INTERACTION_DURATION,
-  REVEAL_DURATION,
-  RISE_PX,
-  SCROLL_VIEWPORT,
-  STAGGER_STEP,
-  reveal,
-} from "../lib/motion";
 import { Badge, Tip } from "./ui";
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: RISE_PX },
-  shown: (index: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: REVEAL_DURATION, ease: EASE, delay: index * STAGGER_STEP },
-  }),
-  hover: { y: -3, transition: { duration: INTERACTION_DURATION, ease: EASE } },
-};
 
 function SignalLine({
   steps,
@@ -36,12 +15,12 @@ function SignalLine({
     return (
       <ol className="signal-flow" aria-label="Door Hinge Safety System response sequence">
         {steps.map((step, i) => (
-          <motion.li className="signal-flow-step" key={`${step.text.label}-${i}`} {...reveal(i)}>
+          <li className="signal-flow-step" key={`${step.text.label}-${i}`}>
             {step.strong ? <span className="signal-flow-label">{step.strong}</span> : null}
             <span className="signal-flow-value">
               <Tip label={step.text.label} tip={step.text.tip} />
             </span>
-          </motion.li>
+          </li>
         ))}
       </ol>
     );
@@ -84,26 +63,16 @@ function TechLine({ items }: { items: TechMention[] }) {
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
   detailed?: boolean;
 }
 
 /**
- * Editorial project block. Motion owns the entrance + hover lift
- * (transform only); badges, borders, links and tooltips stay in CSS.
- * `index` continues the section's reveal stagger.
+ * Editorial project block. Visible by default — no scroll-gated opacity,
+ * no hover lift. Badges, borders, links and tooltips stay in CSS.
  */
-export function ProjectCard({ project, index, detailed = true }: ProjectCardProps) {
+export function ProjectCard({ project, detailed = true }: ProjectCardProps) {
   return (
-    <motion.article
-      className={project.featured ? "featured" : "project"}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="shown"
-      whileHover="hover"
-      viewport={SCROLL_VIEWPORT}
-      custom={index}
-    >
+    <article className={project.featured ? "featured" : "project"}>
       <Badge accent={project.badgeAccent}>{project.badge}</Badge>
       <h3>{project.name}</h3>
       {project.meta ? <p className="project-meta">{project.meta}</p> : null}
@@ -149,6 +118,6 @@ export function ProjectCard({ project, index, detailed = true }: ProjectCardProp
           {project.demo.label}
         </a>
       ) : null}
-    </motion.article>
+    </article>
   );
 }

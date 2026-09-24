@@ -1,30 +1,22 @@
-import { motion } from "motion/react";
 import { ACHIEVEMENTS, ACHIEVEMENTS_LABEL } from "../data/content";
-import { itemVariants, listVariants, SCROLL_VIEWPORT } from "../lib/motion";
 
 export function Achievements() {
   return (
     <section className="achievements" aria-labelledby="achievements-label">
-      <div className="container">
+      <div className="container container-wide">
         <p className="achieve-label" id="achievements-label">
           {ACHIEVEMENTS_LABEL}
         </p>
-        <motion.ul
-          className="achieve-list"
-          variants={listVariants}
-          initial="hidden"
-          whileInView="shown"
-          viewport={SCROLL_VIEWPORT}
-        >
+        <ul className="achieve-list">
           {ACHIEVEMENTS.map((item) => (
-            <motion.li key={item.title} variants={itemVariants}>
+            <li key={item.title}>
               <div>
                 <p className="achieve-title">{item.title}</p>
                 <p className="achieve-sub">{item.sub}</p>
               </div>
-            </motion.li>
+            </li>
           ))}
-        </motion.ul>
+        </ul>
       </div>
     </section>
   );
