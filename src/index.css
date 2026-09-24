@@ -30,7 +30,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; overflow-x: clip; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -39,7 +39,7 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
@@ -261,9 +261,10 @@ a:focus-visible, button:focus-visible {
 }
 .signal-flow-step {
   position: relative; display: flex; flex-direction: column; gap: 5px;
-  min-width: 0; padding: 13px 18px 14px 0;
+  min-width: 0; padding: 13px 14px 14px 0;
 }
-.signal-flow-step + .signal-flow-step { border-left: 1px solid var(--line); padding-left: 18px; }
+.signal-flow-step + .signal-flow-step { border-left: 1px solid var(--line); padding-left: 14px; }
+.signal-flow-hero { grid-template-columns: 1.2fr 0.85fr 1.15fr; }
 .signal-flow-step:not(:last-child)::after {
   content: ""; position: absolute; right: -3px; top: 50%; width: 5px; height: 5px;
   border-top: 1px solid var(--accent); border-right: 1px solid var(--accent);
@@ -278,6 +279,7 @@ a:focus-visible, button:focus-visible {
 .techline {
   margin-top: 14px;
   font-size: 13px; color: var(--text-faint);
+  overflow-wrap: anywhere;
 }
 .contrib { margin-top: 12px; font-size: 14px; color: var(--text-faint); max-width: 40rem; }
 .contrib span { color: var(--text-dim); font-weight: 600; }
@@ -412,7 +414,7 @@ a:focus-visible, button:focus-visible {
     content: attr(data-tip);
     position: absolute; left: 50%; bottom: calc(100% + 8px);
     transform: translateX(-50%) translateY(2px);
-    min-width: 160px; max-width: 230px; padding: 8px 10px;
+    min-width: 160px; max-width: min(230px, calc(100vw - 32px)); padding: 8px 10px;
     font-family: var(--font); font-size: 12.5px; font-weight: 500; line-height: 1.5;
     letter-spacing: normal; text-transform: none; white-space: normal;
     color: var(--text); background: #131316;
@@ -423,6 +425,8 @@ a:focus-visible, button:focus-visible {
   .tip:hover::after, .tip:focus-visible::after {
     opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
   }
+  /* Hidden tips must not expand ancestor scrollWidth (Chrome still counts them). */
+  .tip:not(:hover):not(:focus-visible)::after { content: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -433,14 +437,14 @@ a:focus-visible, button:focus-visible {
 }
 
 /* ---------- responsive ---------- */
-@media (max-width: 860px) {
+@media (max-width: 880px) {
   .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
   .hero-tail { grid-column: auto; }
 }
 
 @media (max-width: 640px) {
   :root { --section-pad: 3.75rem; }
-  .tip::after { min-width: 80px; width: 80px; max-width: 80px; }
+  .tip::after { min-width: 120px; width: max-content; max-width: calc(100vw - 32px); }
   .nav-links { display: none; }
   .nav-toggle { display: block; }
   .hero { padding: 3rem 0 2.75rem; }
@@ -452,10 +456,11 @@ a:focus-visible, button:focus-visible {
   .contribution-scroll-hint { display: block; margin-top: 5px; color: var(--text-faint); font-size: 11px; }
   .contact-list li { grid-template-columns: 1fr; gap: 2px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
-  .footer-links { margin-left: 0; margin-top: 6px; }
+  .footer-meta { display: flex; flex-direction: column; }
+  .footer-links { display: flex; margin-left: 0; margin-top: 6px; }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 560px) {
   .signal-flow { grid-template-columns: minmax(0, 1fr); }
   .signal-flow-step, .signal-flow-step + .signal-flow-step { padding: 11px 0; border-left: 0; }
   .signal-flow-step:not(:last-child)::after { right: 4px; top: auto; bottom: -3px; transform: rotate(135deg); }

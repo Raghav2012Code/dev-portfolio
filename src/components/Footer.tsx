@@ -13,7 +13,7 @@ export function Footer() {
       <div className="container container-wide footer-inner">
         <p className="footer-name">{PROFILE_NAME}</p>
         <p className="footer-meta">
-          {FOOTER_COPY.tagline}
+          {FOOTER_COPY.tagline}{" "}
           <span className="footer-links">
             <a href={GITHUB_URL} target="_blank" rel="noopener">
               GitHub
