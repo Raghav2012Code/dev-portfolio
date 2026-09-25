@@ -18,9 +18,14 @@ export function resolveHref(hash: string): string {
   return isHomePage() ? hash : `/${hash}`;
 }
 
-/** Stable slug for a build, derived from its name (no extra content field). */
+/**
+ * Stable slug for a build, derived from its name (no extra content field).
+ * Parenthetical asides are dropped so `CRASH (Chennai Road Accident Safety
+ * Hub)` anchors as `crash`, keeping URLs short and predictable.
+ */
 export function slugify(value: string): string {
   return value
+    .replace(/\([^)]*\)/g, " ")
     .toLowerCase()
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
