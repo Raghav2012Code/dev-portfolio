@@ -1,15 +1,15 @@
 // Watermelon UI primitives, ported natively (see src/index.css header).
 // Tiny typed wrappers so badges, tooltips and section headings stay consistent.
-import { motion } from "motion/react";
+// Static by design: only the hero entrance is non-triggered motion, so headings
+// and section chrome render as settled content.
 import type { ReactNode } from "react";
-import { reveal } from "../lib/motion";
 
 interface BadgeProps {
   children: ReactNode;
   accent?: boolean;
 }
 
-/** Plain label. The parent card/section owns the reveal animation. */
+/** Plain label. */
 export function Badge({ children, accent = false }: BadgeProps) {
   return <p className={accent ? "badge badge-accent" : "badge"}>{children}</p>;
 }
@@ -32,18 +32,13 @@ interface SectionHeadProps {
   /** Optional kicker. Omit it where the title already says the job. */
   eyebrow?: string;
   title: string;
-  base?: number;
 }
 
-export function SectionHead({ eyebrow, title, base = 0 }: SectionHeadProps) {
+export function SectionHead({ eyebrow, title }: SectionHeadProps) {
   return (
     <>
-      {eyebrow ? (
-        <motion.p {...reveal(base)} className="section-eyebrow">
-          {eyebrow}
-        </motion.p>
-      ) : null}
-      <motion.h2 {...reveal(eyebrow ? base + 1 : base)}>{title}</motion.h2>
+      {eyebrow ? <p className="section-eyebrow">{eyebrow}</p> : null}
+      <h2>{title}</h2>
     </>
   );
 }

@@ -1,6 +1,4 @@
-import { motion } from "motion/react";
 import { PROJECTS, PROJECTS_PAGE_COPY, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
-import { reveal } from "../lib/motion";
 import { buildHref } from "../lib/site";
 import { ProjectCard } from "./ProjectCard";
 import { SectionHead } from "./ui";
@@ -12,9 +10,7 @@ export function Projects({ preview = false }: { preview?: boolean }) {
     <section className="section" id="projects">
       <div className="container">
         <SectionHead title={copy.title} />
-        <motion.p {...reveal(2)} className="section-lead">
-          {copy.lead}
-        </motion.p>
+        <p className="section-lead">{copy.lead}</p>
 
         {preview ? (
           <>
@@ -36,11 +32,11 @@ export function Projects({ preview = false }: { preview?: boolean }) {
           </>
         ) : (
           <>
-            {featured ? <ProjectCard project={featured} index={3} detailed /> : null}
+            {featured ? <ProjectCard project={featured} detailed /> : null}
 
             <div className="project-grid">
-              {rest.map((project, i) => (
-                <ProjectCard key={project.name} project={project} index={4 + i} detailed />
+              {rest.map((project) => (
+                <ProjectCard key={project.name} project={project} detailed />
               ))}
             </div>
           </>

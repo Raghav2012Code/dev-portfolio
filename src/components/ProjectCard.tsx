@@ -1,28 +1,9 @@
 import { motion } from "motion/react";
-import type { Variants } from "motion/react";
 import type { Project, SignalStep, TechMention } from "../data/content";
 import { UI_COPY } from "../data/content";
-import {
-  EASE,
-  INTERACTION_DURATION,
-  REVEAL_DURATION,
-  RISE_PX,
-  SCROLL_VIEWPORT,
-  STAGGER_STEP,
-  reveal,
-} from "../lib/motion";
+import { EASE, INTERACTION_DURATION } from "../lib/motion";
 import { buildAnchorId } from "../lib/site";
 import { Badge, MetaLine, Tip } from "./ui";
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: RISE_PX },
-  shown: (index: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: REVEAL_DURATION, ease: EASE, delay: index * STAGGER_STEP },
-  }),
-  hover: { y: -3, transition: { duration: INTERACTION_DURATION, ease: EASE } },
-};
 
 /**
  * One step language for every build. `full` is the featured winning build's
@@ -31,23 +12,8 @@ const cardVariants: Variants = {
  * optional per step and always come from the project's structured data.
  */
 function Chain({ steps, label, full }: { steps: SignalStep[]; label: string; full: boolean }) {
-  if (full) {
-    return (
-      <ol className="chain chain-full" aria-label={label}>
-        {steps.map((step, i) => (
-          <motion.li className="chain-step" key={`${step.text.label}-${i}`} {...reveal(i)}>
-            {step.strong ? <span className="chain-label">{step.strong}</span> : null}
-            <span className="chain-value">
-              <Tip label={step.text.label} tip={step.text.tip} />
-            </span>
-          </motion.li>
-        ))}
-      </ol>
-    );
-  }
-
   return (
-    <ol className="chain chain-quiet" aria-label={label}>
+    <ol className={full ? "chain chain-full" : "chain chain-quiet"} aria-label={label}>
       {steps.map((step, i) => (
         <li className="chain-step" key={`${step.text.label}-${i}`}>
           {step.strong ? <span className="chain-label">{step.strong}</span> : null}
@@ -75,26 +41,21 @@ function TechLine({ items }: { items: TechMention[] }) {
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
   detailed?: boolean;
 }
 
 /**
- * Editorial project block. Motion owns the entrance + hover lift
- * (transform only); badges, borders, links and tooltips stay in CSS.
- * `index` continues the section's reveal stagger.
+ * Editorial project block. Static by design: the featured build's hover lift
+ * is the only motion here (transform-only feedback), and it comes from the
+ * shared motion language.
  */
-export function ProjectCard({ project, index, detailed = true }: ProjectCardProps) {
+export function ProjectCard({ project, detailed = true }: ProjectCardProps) {
   return (
     <motion.article
       id={buildAnchorId(project.name)}
       className={project.featured ? "featured" : "project"}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="shown"
-      whileHover="hover"
-      viewport={SCROLL_VIEWPORT}
-      custom={index}
+      whileHover={project.featured ? { y: -3 } : undefined}
+      transition={{ duration: INTERACTION_DURATION, ease: EASE }}
     >
       <Badge accent={project.badgeAccent}>{project.badge}</Badge>
       <h3>{project.name}</h3>

@@ -1,9 +1,7 @@
-import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { SECTION_COPY } from "../data/content";
 import type { ContributionCalendar } from "../lib/contributions";
 import { getContributions } from "../lib/contributions";
-import { EASE, REVEAL_DURATION, reveal } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 function formatDate(date: string) {
@@ -71,7 +69,7 @@ export function Contributions() {
     <section className="section contributions" id="contributions">
       <div className="container">
         <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
-        <motion.div {...reveal(2)} className="contribution-content">
+        <div className="contribution-content">
           <p className="contribution-summary">
             {calendar.totalContributions.toLocaleString()} public contributions in the past year.
           </p>
@@ -82,11 +80,8 @@ export function Contributions() {
               aria-label={compact ? "Public contribution calendar" : "Scrollable public contribution calendar"}
               tabIndex={0}
             >
-              <motion.svg
+              <svg
                 className="contribution-chart"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: REVEAL_DURATION, ease: EASE }}
                 style={{ width: chartWidth }}
                 viewBox={`0 0 ${chartWidth} ${chartHeight}`}
                 role="img"
@@ -137,7 +132,7 @@ export function Contributions() {
                     );
                   }),
                 )}
-              </motion.svg>
+              </svg>
             </div>
             {compact ? null : (
               <p className="contribution-scroll-hint">{copy.scrollHint}</p>
@@ -154,7 +149,7 @@ export function Contributions() {
               <span>{copy.more}</span>
             </figcaption>
           </figure>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
