@@ -34,6 +34,9 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+/* scroll-padding covers every fragment target (sections and per-build
+   anchors) so nothing lands under the sticky 62px header. Smooth-vs-instant
+   is chosen here and overridden by the reduced-motion block below. */
 html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 body {
   background: var(--bg);
@@ -163,21 +166,24 @@ a:focus-visible, button:focus-visible {
 .hero-teaser a:hover { color: var(--text-dim); text-decoration: underline; text-decoration-color: var(--line-faint); text-underline-offset: 4px; }
 .hero-teaser-count { color: var(--text); font-weight: 650; }
 
-/* ---------- sections ---------- */
+/* ---------- sections ----------
+   Section separation is whitespace-only: `--section-pad` and nothing else,
+   never a full-width rule between sections. Hairlines survive only where
+   they carry structure inside a row-list. The nav and footer keep their one
+   boundary rule because they are chrome, not content. */
 .section { padding: var(--section-pad) 0; }
 
 /* ---------- achievements: compact rows ---------- */
-.achievements { padding: 0; border-top: none; }
 .achieve-label {
   font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
-  color: var(--text-faint); padding-top: 4px; margin-bottom: 8px;
+  color: var(--text-faint); margin-bottom: 8px;
 }
-.achieve-list { list-style: none; }
+.achieve-list { list-style: none; border-top: 1px solid var(--line); }
 .achieve-list li {
   display: flex; gap: 20px; align-items: baseline;
-  padding: 18px 0; border-top: 1px solid var(--line);
+  padding: 18px 0; border-bottom: 1px solid var(--line);
 }
-.achieve-list li:last-child { border-bottom: none; padding-bottom: 24px; }
+.achieve-list li:last-child { border-bottom: none; }
 .achieve-title { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
 .achieve-sub {
   color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-top: 3px;
@@ -412,7 +418,7 @@ a:focus-visible, button:focus-visible {
 
 /* ---------- responsive ---------- */
 @media (max-width: 640px) {
-  :root { --section-pad: 64px; }
+  :root { --section-pad: 48px; }
   .tip::after { min-width: 80px; width: 80px; max-width: 80px; }
   .nav-links { display: none; }
   .nav-toggle { display: block; }

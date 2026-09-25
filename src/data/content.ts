@@ -86,19 +86,30 @@ export const SECTION_COPY = {
   },
 } as const;
 
+/** Icon identity is keyed on this, never on the human-readable label. */
+export type ContactIconName = "github" | "email" | "discord";
+
 export interface ContactItem {
   label: string;
   value: string;
+  icon: ContactIconName;
   href?: string;
   external?: boolean;
 }
 
 export const CONTACT_ITEMS: ContactItem[] = [
-  { label: "GitHub", value: "github.com/Raghav2012Code", href: GITHUB_URL, external: true },
-  { label: "Email", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
+  {
+    label: "GitHub",
+    value: "github.com/Raghav2012Code",
+    icon: "github",
+    href: GITHUB_URL,
+    external: true,
+  },
+  { label: "Email", value: CONTACT_EMAIL, icon: "email", href: `mailto:${CONTACT_EMAIL}` },
   {
     label: "Discord",
     value: "thegamer3559",
+    icon: "discord",
     href: "https://discord.com/users/980399356148609045",
     external: true,
   },
@@ -158,6 +169,8 @@ export interface Project {
   badge: string;
   badgeAccent?: boolean;
   featured?: boolean;
+  /** One outcome fact, shown under the title in the home preview. */
+  gist?: string;
   meta?: string;
   result?: string;
   resultMuted?: boolean;
@@ -178,6 +191,7 @@ export const PROJECTS: Project[] = [
     badge: "Overall winner · Gold",
     badgeAccent: true,
     featured: true,
+    gist: "Overall Winner · Gold",
     meta: "Robowunder International Robotics Championship 2026 · Malaysia",
     description:
       "A hardware safety system designed to help prevent finger injuries around door hinges. Laser and IR sensors watch the hinge danger zone, and when something is detected inside it, the servo and solenoid actuators respond.",
@@ -201,6 +215,7 @@ export const PROJECTS: Project[] = [
   {
     name: "CRASH (Chennai Road Accident Safety Hub)",
     badge: "Zonal Robotics Championship · SRM Chennai",
+    gist: "Qualified for NRC Technoxian",
     result: "Qualified for NRC Technoxian through the zonal championship",
     description:
       "A robotics competition project that uses public accident data and XGBoost to predict where accidents may occur. It looks at parameters like time, day, junction information, and other relevant public-data parameters.",
@@ -220,6 +235,7 @@ export const PROJECTS: Project[] = [
   {
     name: "Vaccine Cold Chain Ledger",
     badge: "PEC Hacks 4.0 · Panimalar Engineering College · High School Track",
+    gist: "Consolation Prize",
     result: "Consolation Prize",
     description:
       "A hardware-integrated cold-chain monitoring system: a DHT22 sensor tracks vaccine storage temperature via Arduino/ESP32, shows readings on an LCD, and records SHA-256-hashed data to Supabase for display in a web application.",

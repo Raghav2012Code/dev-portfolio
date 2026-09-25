@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { PROJECTS, PROJECTS_PAGE_COPY, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
-import { itemVariants, listVariants, reveal, SCROLL_VIEWPORT } from "../lib/motion";
+import { reveal } from "../lib/motion";
+import { buildHref } from "../lib/site";
 import { ProjectCard } from "./ProjectCard";
 import { SectionHead } from "./ui";
 
@@ -17,26 +18,18 @@ export function Projects({ preview = false }: { preview?: boolean }) {
 
         {preview ? (
           <>
-            <motion.ul
-              className="project-gist-list"
-              variants={listVariants}
-              initial="hidden"
-              whileInView="shown"
-              viewport={SCROLL_VIEWPORT}
-            >
+            <ul className="project-gist-list">
               {[featured, ...rest.slice(0, 2)].map((project) =>
                 project ? (
-                  <motion.li key={project.name} variants={itemVariants}>
-                    <a className="project-gist-title" href={PROJECTS_PAGE_PATH}>
+                  <li key={project.name}>
+                    <a className="project-gist-title" href={buildHref(project.name)}>
                       {project.name}
                     </a>
-                    {project.result ?? project.meta ? (
-                      <p className="project-gist-sub">{project.result ?? project.meta}</p>
-                    ) : null}
-                  </motion.li>
+                    {project.gist ? <p className="project-gist-sub">{project.gist}</p> : null}
+                  </li>
                 ) : null,
               )}
-            </motion.ul>
+            </ul>
             <a className="card-link" href={PROJECTS_PAGE_PATH}>
               {PROJECTS_PAGE_COPY.viewAll}
             </a>

@@ -4,7 +4,7 @@ import { itemVariants, listVariants, SCROLL_VIEWPORT } from "../lib/motion";
 
 export function Achievements() {
   return (
-    <section className="achievements" aria-labelledby="achievements-label">
+    <section className="section achievements" aria-labelledby="achievements-label">
       <div className="container">
         <p className="achieve-label" id="achievements-label">
           {ACHIEVEMENTS_LABEL}

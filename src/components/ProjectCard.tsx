@@ -11,6 +11,7 @@ import {
   STAGGER_STEP,
   reveal,
 } from "../lib/motion";
+import { buildAnchorId } from "../lib/site";
 import { Badge, Tip } from "./ui";
 
 const cardVariants: Variants = {
@@ -96,6 +97,7 @@ interface ProjectCardProps {
 export function ProjectCard({ project, index, detailed = true }: ProjectCardProps) {
   return (
     <motion.article
+      id={buildAnchorId(project.name)}
       className={project.featured ? "featured" : "project"}
       variants={cardVariants}
       initial="hidden"

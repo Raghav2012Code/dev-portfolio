@@ -11,8 +11,10 @@ import { Projects } from "./components/Projects";
 import { Robotics } from "./components/Robotics";
 import { Skills } from "./components/Skills";
 import { Timeline } from "./components/Timeline";
+import { useHashScrollOnMount } from "./lib/scroll";
 
 export function App() {
+  useHashScrollOnMount();
   return (
     <MotionConfig reducedMotion="user">
       <a className="skip-link" href="#main">
