@@ -1,6 +1,8 @@
+import { motion } from "motion/react";
 import type { ComponentType } from "react";
 import { CONTACT_ITEMS, SECTION_COPY } from "../data/content";
 import type { ContactIconName } from "../data/content";
+import { reveal } from "../lib/motion";
 import { DiscordIcon, GitHubIcon, MailIcon } from "./icons";
 import { SectionHead } from "./ui";
 
@@ -15,9 +17,11 @@ export function Contact() {
   return (
     <section className="section" id="contact">
       <div className="container narrow">
-        <SectionHead title={copy.title} />
-        <p className="section-lead">{copy.lead}</p>
-        <ul className="contact-list">
+        <SectionHead title={copy.title} base={0} />
+        <motion.p {...reveal(2)} className="section-lead">
+          {copy.lead}
+        </motion.p>
+        <motion.ul {...reveal(3)} className="contact-list">
           {CONTACT_ITEMS.map((item) => {
             const Icon = CONTACT_ICONS[item.icon];
             return (
@@ -40,7 +44,7 @@ export function Contact() {
               </li>
             );
           })}
-        </ul>
+        </motion.ul>
       </div>
     </section>
   );

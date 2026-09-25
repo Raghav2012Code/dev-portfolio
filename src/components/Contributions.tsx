@@ -1,7 +1,9 @@
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { SECTION_COPY } from "../data/content";
 import type { ContributionCalendar } from "../lib/contributions";
 import { getContributions } from "../lib/contributions";
+import { reveal } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 function formatDate(date: string) {
@@ -68,8 +70,8 @@ export function Contributions() {
   return (
     <section className="section contributions" id="contributions">
       <div className="container">
-        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
-        <div className="contribution-content">
+        <SectionHead eyebrow={copy.eyebrow} title={copy.title} base={0} />
+        <motion.div {...reveal(2)} className="contribution-content">
           <p className="contribution-summary">
             {calendar.totalContributions.toLocaleString()} public contributions in the past year.
           </p>
@@ -149,7 +151,7 @@ export function Contributions() {
               <span>{copy.more}</span>
             </figcaption>
           </figure>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

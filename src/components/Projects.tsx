@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import {
   PROJECTS,
   PROJECTS_PAGE_COPY,
@@ -5,6 +6,7 @@ import {
   SECTION_COPY,
   projectGist,
 } from "../data/content";
+import { itemVariants, listVariants, reveal, SCROLL_VIEWPORT } from "../lib/motion";
 import { buildHref } from "../lib/site";
 import { ProjectCard } from "./ProjectCard";
 import { SectionHead } from "./ui";
@@ -15,36 +17,44 @@ export function Projects({ preview = false }: { preview?: boolean }) {
   return (
     <section className="section" id="projects">
       <div className="container">
-        <SectionHead title={copy.title} />
-        <p className="section-lead">{copy.lead}</p>
+        <SectionHead title={copy.title} base={0} />
+        <motion.p {...reveal(2)} className="section-lead">
+          {copy.lead}
+        </motion.p>
 
         {preview ? (
           <>
-            <ul className="project-gist-list">
+            <motion.ul
+              className="project-gist-list"
+              variants={listVariants}
+              initial="hidden"
+              whileInView="shown"
+              viewport={SCROLL_VIEWPORT}
+            >
               {[featured, ...rest.slice(0, 2)].map((project) =>
                 project ? (
-                  <li key={project.name}>
+                  <motion.li key={project.name} variants={itemVariants}>
                     <a className="project-gist-title" href={buildHref(project.name)}>
                       {project.name}
                     </a>
                     {projectGist(project) ? (
                       <p className="project-gist-sub">{projectGist(project)}</p>
                     ) : null}
-                  </li>
+                  </motion.li>
                 ) : null,
               )}
-            </ul>
+            </motion.ul>
             <a className="card-link" href={PROJECTS_PAGE_PATH}>
               {PROJECTS_PAGE_COPY.viewAll}
             </a>
           </>
         ) : (
           <>
-            {featured ? <ProjectCard project={featured} detailed /> : null}
+            {featured ? <ProjectCard project={featured} detailed index={3} /> : null}
 
             <div className="project-grid">
-              {rest.map((project) => (
-                <ProjectCard key={project.name} project={project} detailed />
+              {rest.map((project, i) => (
+                <ProjectCard key={project.name} project={project} detailed index={4 + i} />
               ))}
             </div>
           </>

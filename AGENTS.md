@@ -24,11 +24,10 @@ Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
 
 ## Motion system (single language, keep it that way)
 
-- All timing lives in `src/lib/motion.ts`: one calm ease-out, one 8px rise. Never hardcode timing in components.
-- Motion budget: exactly one non-triggered moment — the hero `entrance()`. Sections, lists and headings render statically so content is present without animation, and fast scrolls never chase reveals.
+- All timing lives in `src/lib/motion.ts`: one calm ease-out, one 8px rise, 50ms staggers, `SCROLL_VIEWPORT` with a 20% pre-entry margin so fast scrolls land on settled content. Never hardcode timing in components.
+- Motion budget, two moments: the hero `entrance()` on load, and one grouped reveal per section/list (`reveal(i)` spread, `listVariants`/`itemVariants` for row-lists). Nothing more.
 - Everything else answers an action: mobile menu (Navbar), tooltips (CSS), press feedback, featured-build hover lift, nav scroll-progress hairline, smooth-vs-instant anchors.
 - Reduced motion is global (`MotionConfig reducedMotion="user"` in `App.tsx` + CSS query). Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
-- If a section feels flat without its reveal, fix static hierarchy (type, spacing, emphasis) — not motion.
 
 ## Components
 

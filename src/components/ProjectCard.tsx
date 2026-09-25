@@ -1,9 +1,28 @@
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import type { Project, SignalStep, TechMention } from "../data/content";
 import { UI_COPY } from "../data/content";
-import { EASE, HOVER_LIFT_PX, INTERACTION_DURATION } from "../lib/motion";
+import {
+  EASE,
+  HOVER_LIFT_PX,
+  INTERACTION_DURATION,
+  REVEAL_DURATION,
+  RISE_PX,
+  SCROLL_VIEWPORT,
+  STAGGER_STEP,
+} from "../lib/motion";
 import { buildAnchorId } from "../lib/site";
 import { Badge, MetaLine, Tip } from "./ui";
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: RISE_PX },
+  shown: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: REVEAL_DURATION, ease: EASE, delay: index * STAGGER_STEP },
+  }),
+  hover: { y: -HOVER_LIFT_PX, transition: { duration: INTERACTION_DURATION, ease: EASE } },
+};
 
 /**
  * One step language for every build. `full` is the featured winning build's
@@ -42,20 +61,26 @@ function TechLine({ items }: { items: TechMention[] }) {
 interface ProjectCardProps {
   project: Project;
   detailed?: boolean;
+  /** Continues the section's reveal stagger. */
+  index?: number;
 }
 
 /**
- * Editorial project block. Static by design: the featured build's hover lift
- * is the only motion here (transform-only feedback), and it comes from the
- * shared motion language.
+ * Editorial project block. The card reveals once as it enters the viewport,
+ * and the featured build adds a transform-only hover lift. Both read timing
+ * from the shared motion language; badges and tooltips stay in CSS.
  */
-export function ProjectCard({ project, detailed = true }: ProjectCardProps) {
+export function ProjectCard({ project, detailed = true, index = 0 }: ProjectCardProps) {
   return (
     <motion.article
       id={buildAnchorId(project.name)}
       className={project.featured ? "featured" : "project"}
-      whileHover={project.featured ? { y: -HOVER_LIFT_PX } : undefined}
-      transition={{ duration: INTERACTION_DURATION, ease: EASE }}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="shown"
+      whileHover={project.featured ? "hover" : undefined}
+      viewport={SCROLL_VIEWPORT}
+      custom={index}
     >
       <Badge accent={project.badgeAccent}>{project.badge}</Badge>
       <h3>{project.name}</h3>

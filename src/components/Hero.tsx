@@ -1,10 +1,17 @@
 import { motion } from "motion/react";
 import type { ReactEventHandler } from "react";
 import { useEffect, useState } from "react";
-import { CONTRIBUTION_TEASER, FEATURED_PROJECT, GITHUB_AVATAR_URL, HERO_COPY } from "../data/content";
+import {
+  CONTRIBUTION_TEASER,
+  FEATURED_PROJECT,
+  GITHUB_AVATAR_URL,
+  GITHUB_URL,
+  HERO_COPY,
+} from "../data/content";
 import { getContributions } from "../lib/contributions";
 import { EASE, entrance, PRESS_DURATION } from "../lib/motion";
 import { buildHref } from "../lib/site";
+import { GitHubIcon } from "./icons";
 
 const hideOnError: ReactEventHandler<HTMLImageElement> = (event) => {
   event.currentTarget.style.display = "none";
@@ -72,6 +79,17 @@ export function Hero() {
             transition={{ duration: PRESS_DURATION, ease: EASE }}
           >
             {HERO_COPY.buildLink}
+          </motion.a>
+          <motion.a
+            className="btn btn-secondary"
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener"
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: PRESS_DURATION, ease: EASE }}
+          >
+            <GitHubIcon size={16} />
+            {HERO_COPY.githubLink}
           </motion.a>
         </motion.div>
         {contributionTotal !== null ? (

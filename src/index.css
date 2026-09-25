@@ -8,11 +8,10 @@
    WM Badge (.badge), WM Navigation (nav + aria-current), and
    WM Tooltip (.tip). Intentionally NOT used: cards, tabs,
    dialogs. The editorial layout already solves those cases with less UI.
-   Motion (motion/react): one non-triggered moment — the hero entrance.
-   Everything else is static; the rest of the motion answers an action
-   (mobile menu, tooltips, press feedback, featured-build hover lift).
-   Transform/opacity only. Reduced motion is disabled globally via
-   MotionConfig reducedMotion="user".
+   Motion (motion/react): hero entrance, grouped scroll reveals,
+   featured-build hover lift, button press feedback. One ease, one
+   rise, short staggers; transform/opacity only. Reduced motion is
+   disabled globally via MotionConfig reducedMotion="user".
    ============================================================ */
 :root {
   --bg: #0a0a0b;
@@ -96,6 +95,9 @@ a:focus-visible, button:focus-visible {
 .btn-primary { background: var(--text); color: #09090b; }
 .btn-primary:hover { background: #e4e4e7; }
 .btn-primary:active { background: #d4d4d8; }
+.btn-secondary { border-color: var(--line-strong); color: var(--text); }
+.btn-secondary:hover { border-color: var(--text-faint); }
+.btn-secondary:active { border-color: var(--text-dim); }
 
 /* ---------- nav ---------- */
 .nav {

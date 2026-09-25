@@ -1,4 +1,6 @@
+import { motion } from "motion/react";
 import { SECTION_COPY, shortProjectName, TIMELINE } from "../data/content";
+import { itemVariants, listVariants, SCROLL_VIEWPORT } from "../lib/motion";
 import { buildHref } from "../lib/site";
 import { SectionHead } from "./ui";
 
@@ -7,10 +9,20 @@ export function Timeline() {
   return (
     <section className="section" id="timeline">
       <div className="container narrow">
-        <SectionHead title={copy.title} />
-        <ol className="timeline">
+        <SectionHead title={copy.title} base={0} />
+        <motion.ol
+          className="timeline"
+          variants={listVariants}
+          initial="hidden"
+          whileInView="shown"
+          viewport={SCROLL_VIEWPORT}
+        >
           {TIMELINE.map((item, i) => (
-            <li key={`${item.title}-${i}`} className={item.minor ? "tl-minor" : undefined}>
+            <motion.li
+              key={`${item.title}-${i}`}
+              variants={itemVariants}
+              className={item.minor ? "tl-minor" : undefined}
+            >
               <span className="tl-year">{item.year}</span>
               <div>
                 <p className="tl-title">{item.title}</p>
@@ -26,9 +38,9 @@ export function Timeline() {
                   </p>
                 ) : null}
               </div>
-            </li>
+            </motion.li>
           ))}
-        </ol>
+        </motion.ol>
       </div>
     </section>
   );

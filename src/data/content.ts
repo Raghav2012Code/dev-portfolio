@@ -37,6 +37,7 @@ export const HERO_COPY = {
     "14-year-old builder exploring software, AI-assisted development, and hardware projects with ESP32, Arduino, sensors, and more.",
   avatarAlt: `Profile image of ${PROFILE_NAME}`,
   buildLink: "See the winning build",
+  githubLink: "GitHub",
 } as const;
 
 /** Sections whose titles are self-sufficient drop their redundant kicker. */

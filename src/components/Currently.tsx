@@ -1,4 +1,6 @@
+import { motion } from "motion/react";
 import { CURRENTLY, SECTION_COPY } from "../data/content";
+import { itemVariants, listVariants, SCROLL_VIEWPORT } from "../lib/motion";
 import { SectionHead } from "./ui";
 
 export function Currently() {
@@ -6,18 +8,24 @@ export function Currently() {
   return (
     <section className="section" id="currently">
       <div className="container narrow">
-        <SectionHead title={copy.title} />
-        <ul className="currently-list">
+        <SectionHead title={copy.title} base={0} />
+        <motion.ul
+          className="currently-list"
+          variants={listVariants}
+          initial="hidden"
+          whileInView="shown"
+          viewport={SCROLL_VIEWPORT}
+        >
           {CURRENTLY.map((item) => (
-            <li key={item.title}>
+            <motion.li key={item.title} variants={itemVariants}>
               <span className="currently-index" aria-hidden="true" />
               <div>
                 <p className="currently-title">{item.title}</p>
                 <p className="currently-sub">{item.sub}</p>
               </div>
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </div>
     </section>
   );
