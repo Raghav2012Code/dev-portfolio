@@ -24,24 +24,20 @@ const cardVariants: Variants = {
   hover: { y: -3, transition: { duration: INTERACTION_DURATION, ease: EASE } },
 };
 
-function SignalLine({
-  steps,
-  label,
-  small = false,
-  animateSteps = false,
-}: {
-  steps: SignalStep[];
-  label: string;
-  small?: boolean;
-  animateSteps?: boolean;
-}) {
-  if (animateSteps) {
+/**
+ * One step language for every build. `full` is the featured winning build's
+ * bold three-cell strip; every other applicable build gets the same labelled
+ * steps in the quiet, monochrome variant. Labels and plain-language tips are
+ * optional per step and always come from the project's structured data.
+ */
+function Chain({ steps, label, full }: { steps: SignalStep[]; label: string; full: boolean }) {
+  if (full) {
     return (
-      <ol className="signal-flow" aria-label={label}>
+      <ol className="chain chain-full" aria-label={label}>
         {steps.map((step, i) => (
-          <motion.li className="signal-flow-step" key={`${step.text.label}-${i}`} {...reveal(i)}>
-            {step.strong ? <span className="signal-flow-label">{step.strong}</span> : null}
-            <span className="signal-flow-value">
+          <motion.li className="chain-step" key={`${step.text.label}-${i}`} {...reveal(i)}>
+            {step.strong ? <span className="chain-label">{step.strong}</span> : null}
+            <span className="chain-value">
               <Tip label={step.text.label} tip={step.text.tip} />
             </span>
           </motion.li>
@@ -51,24 +47,16 @@ function SignalLine({
   }
 
   return (
-    <p className={small ? "sysline sysline-small" : "sysline"}>
-      {steps.map((step, i) => {
-        const key = `${step.text.label}-${i}`;
-        const content = (
-          <>
-            {step.strong ? <strong>{step.strong}</strong> : null}
-            {step.strong ? ": " : null}
+    <ol className="chain chain-quiet" aria-label={label}>
+      {steps.map((step, i) => (
+        <li className="chain-step" key={`${step.text.label}-${i}`}>
+          {step.strong ? <span className="chain-label">{step.strong}</span> : null}
+          <span className="chain-value">
             <Tip label={step.text.label} tip={step.text.tip} />
-            {i < steps.length - 1 ? (
-              <span className="sys-arrow" aria-hidden="true">
-                {" → "}
-              </span>
-            ) : null}
-          </>
-        );
-        return <span key={key}>{content}</span>;
-      })}
-    </p>
+          </span>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -131,11 +119,10 @@ export function ProjectCard({ project, index, detailed = true }: ProjectCardProp
         </figure>
       ) : null}
       {project.sysline ? (
-        <SignalLine
+        <Chain
           steps={project.sysline}
           label={`${project.name} response sequence`}
-          small={project.syslineSmall}
-          animateSteps={project.featured}
+          full={Boolean(project.featured)}
         />
       ) : null}
       {project.contrib ? (

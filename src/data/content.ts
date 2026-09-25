@@ -176,7 +176,6 @@ export interface Project {
   description: string;
   details?: string[];
   sysline?: SignalStep[];
-  syslineSmall?: boolean;
   contrib?: string;
   techline?: TechMention[];
   link?: ProjectLink;
@@ -203,13 +202,6 @@ export const PROJECTS: Project[] = [
       { strong: "Process", text: { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" } },
       { strong: "Actuate", text: { label: "Servo + Solenoid" } },
     ],
-    techline: [
-      { label: "ESP32" },
-      { label: "Laser sensor" },
-      { label: "IR sensor" },
-      { label: "Servo" },
-      { label: "Solenoid" },
-    ],
   },
   {
     name: "CRASH (Chennai Road Accident Safety Hub)",
@@ -222,13 +214,20 @@ export const PROJECTS: Project[] = [
       "The model is gradient-boosted trees over tabular public data: time of day, day of the week, junction information and other relevant parameters, predicting where accidents may occur.",
       "My part was the complete frontend, built with Claude Code and integrated with the backend, while the team handled testing.",
     ],
+    sysline: [
+      {
+        strong: "Data",
+        text: { label: "Public accident data", tip: "Time, day, junction and other public parameters" },
+      },
+      {
+        strong: "Model",
+        text: { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
+      },
+      { strong: "Readout", text: { label: "Accident-risk predictions" } },
+    ],
     contrib:
       "Built the full frontend using Claude Code and integrated it with the backend. The team handled testing.",
-    techline: [
-      { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
-      { label: "Python" },
-      { label: "Public accident data" },
-    ],
+    techline: [{ label: "Python" }],
     link: { label: "View repository", href: "https://github.com/abivan100-stack/C.R.A.S.H" },
   },
   {
@@ -243,28 +242,21 @@ export const PROJECTS: Project[] = [
       "I did the complete full-stack software implementation, including the hardware/software integration.",
     ],
     sysline: [
-      { text: { label: "DHT22 sensor" } },
-      { text: { label: "Arduino / ESP32" } },
+      { text: { label: "DHT22 sensor", tip: "Digital temperature + humidity sensor" } },
+      { text: { label: "Arduino / ESP32", tip: "Wi-Fi + Bluetooth microcontroller" } },
       { text: { label: "LCD" } },
-      { text: { label: "SHA-256 hashing" } },
+      { text: { label: "SHA-256 hashing", tip: "Cryptographic hash for tamper-evident records" } },
       { text: { label: "Supabase" } },
       { text: { label: "Web app" } },
     ],
-    syslineSmall: true,
     contrib:
       "Complete full-stack software implementation, including hardware/software integration.",
     link: { label: "View repository", href: "https://github.com/abivan100-stack/vault" },
     techline: [
-      { label: "Arduino" },
-      { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" },
-      { label: "DHT22", tip: "Digital temperature + humidity sensor" },
-      { label: "LCD" },
       { label: "React" },
       { label: "Next.js" },
       { label: "TypeScript" },
-      { label: "Supabase" },
       { label: "REST API" },
-      { label: "SHA-256", tip: "Cryptographic hash for tamper-evident records" },
     ],
   },
   {
@@ -278,12 +270,19 @@ export const PROJECTS: Project[] = [
       "Neighbours trade rooftop surplus at a community rate, and every trade is sealed into a tamper-evident SHA-256 hash chain computed in the browser; all data is simulated.",
       "My contribution was the frontend development and the competition pitch.",
     ],
+    sysline: [
+      { strong: "Data", text: { label: "Peer-to-peer solar trades" } },
+      {
+        strong: "Seal",
+        text: { label: "SHA-256 hash chain", tip: "Cryptographic hash for tamper-evident records" },
+      },
+      { strong: "Readout", text: { label: "Tamper-evident ledger in the browser" } },
+    ],
     contrib: "Frontend development and the competition pitch.",
     techline: [
       { label: "React" },
       { label: "TypeScript" },
       { label: "Tailwind CSS" },
-      { label: "SHA-256", tip: "Cryptographic hash for tamper-evident records" },
     ],
     link: { label: "View repository", href: "https://github.com/abivan100-stack/volt-ledger" },
     demo: { label: "Open live site", href: "https://volt-ledger.vercel.app" },
@@ -298,11 +297,15 @@ export const PROJECTS: Project[] = [
     details: [
       "Historical English football data goes into gradient-boosted trees exploring match-outcome prediction: an exercise in working with real datasets, testing simple prediction ideas, and learning what works and what doesn’t.",
     ],
-    techline: [
-      { label: "Python" },
-      { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
-      { label: "Historical match data" },
+    sysline: [
+      { strong: "Data", text: { label: "Historical English football data" } },
+      {
+        strong: "Model",
+        text: { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
+      },
+      { strong: "Readout", text: { label: "Match-outcome predictions" } },
     ],
+    techline: [{ label: "Python" }],
     link: { label: "View repository", href: "https://github.com/Raghav2012Code/epl-predictor" },
   },
   {

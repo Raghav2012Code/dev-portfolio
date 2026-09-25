@@ -221,30 +221,37 @@ a:focus-visible, button:focus-visible {
 .project-desc { color: var(--text-dim); margin-top: 12px; max-width: 40rem; font-size: 15.5px; }
 .project-details { color: var(--text-dim); margin-top: 12px; max-width: 40rem; font-size: 15.5px; }
 .project-details + .project-details { margin-top: 8px; }
-.sysline {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px;
-  margin-top: 18px; font-size: 14px; line-height: 1.6; color: var(--text-faint);
-}
-.sysline strong { color: var(--text-dim); font-weight: 600; }
-.sys-arrow { color: var(--line-faint); }
-.sysline-small { font-size: 13.5px; }
-.signal-flow {
+/* ---------- chain: one labelled-step language for every build ----------
+   `chain-full` is the featured winning build's bold three-cell strip;
+   `chain-quiet` is the same labelled steps, slimmer and monochrome. */
+.chain { list-style: none; margin-top: 20px; }
+.chain-full {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  list-style: none; margin-top: 22px; border-top: 1px solid var(--line-strong);
+  margin-top: 22px; border-top: 1px solid var(--line-strong);
   border-bottom: 1px solid var(--line-strong);
 }
-.signal-flow-step {
+.chain-full .chain-step {
   position: relative; display: flex; flex-direction: column; gap: 5px;
   min-width: 0; padding: 13px 18px 14px 0;
 }
-.signal-flow-step + .signal-flow-step { border-left: 1px solid var(--line); padding-left: 18px; }
-.signal-flow-step:not(:last-child)::after {
+.chain-full .chain-step + .chain-step { border-left: 1px solid var(--line); padding-left: 18px; }
+.chain-full .chain-step:not(:last-child)::after {
   content: ""; position: absolute; right: -3px; top: 50%; width: 5px; height: 5px;
   border-top: 1px solid var(--accent); border-right: 1px solid var(--accent);
   transform: translateY(-50%) rotate(45deg); background: var(--bg);
 }
-.signal-flow-label { color: var(--accent-text); font-size: 11px; font-weight: 650; letter-spacing: 0.04em; }
-.signal-flow-value { color: var(--text); font-size: 14px; font-weight: 550; overflow-wrap: anywhere; }
+.chain-full .chain-label { color: var(--accent-text); font-size: 11px; font-weight: 650; letter-spacing: 0.04em; }
+.chain-full .chain-value { color: var(--text); font-size: 14px; font-weight: 550; overflow-wrap: anywhere; }
+.chain-quiet { border-top: 1px solid var(--line); }
+.chain-quiet .chain-step {
+  display: flex; align-items: baseline; gap: 14px;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+}
+.chain-quiet .chain-label {
+  flex: 0 0 78px; color: var(--text-faint);
+  font-size: 11.5px; font-weight: 650; letter-spacing: 0.03em;
+}
+.chain-quiet .chain-value { color: var(--text-dim); font-size: 13.5px; line-height: 1.6; }
 .project-media { margin-top: 22px; }
 .project-media img { width: 100%; height: auto; border: 1px solid var(--line-strong); border-radius: var(--radius); }
 .project-media figcaption { margin-top: 7px; color: var(--text-faint); font-size: 12px; }
@@ -433,7 +440,9 @@ a:focus-visible, button:focus-visible {
 
 @media (max-width: 380px) {
   .robo-list li { grid-template-columns: minmax(0, 1fr); gap: 4px; align-items: start; }
-  .signal-flow { grid-template-columns: minmax(0, 1fr); }
-  .signal-flow-step, .signal-flow-step + .signal-flow-step { padding: 11px 0; border-left: 0; }
-  .signal-flow-step:not(:last-child)::after { right: 4px; top: auto; bottom: -3px; transform: rotate(135deg); }
+  .chain-full { grid-template-columns: minmax(0, 1fr); }
+  .chain-full .chain-step, .chain-full .chain-step + .chain-step { padding: 11px 0; border-left: 0; }
+  .chain-full .chain-step:not(:last-child)::after { right: 4px; top: auto; bottom: -3px; transform: rotate(135deg); }
+  .chain-quiet .chain-step { flex-direction: column; gap: 2px; }
+  .chain-quiet .chain-label { flex: none; }
 }
