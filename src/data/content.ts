@@ -127,23 +127,28 @@ export const CONTRIBUTION_TEASER = {
   lead: "public contributions in the past year",
 } as const;
 
+/** Outcome-led achievement: the result leads, the event and venue support. */
 export interface Achievement {
-  title: string;
-  sub: string;
+  outcome: string;
+  event: string;
+  venue?: string;
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
   {
-    title: "Robowunder International Robotics Championship 2026",
-    sub: "Overall Winner · Malaysia",
+    outcome: "Overall Winner",
+    event: "Robowunder International Robotics Championship 2026",
+    venue: "Malaysia",
   },
   {
-    title: "PEC Hacks 4.0",
-    sub: "Consolation Prize · High School Track · Panimalar Engineering College",
+    outcome: "Consolation Prize",
+    event: "PEC Hacks 4.0",
+    venue: "High School Track · Panimalar Engineering College",
   },
   {
-    title: "NRC Technoxian",
-    sub: "Qualified through Zonal Robotics Championship · SRM Chennai",
+    outcome: "Qualified for NRC Technoxian",
+    event: "Zonal Robotics Championship",
+    venue: "SRM Chennai",
   },
 ];
 
@@ -322,6 +327,11 @@ export const PROJECTS: Project[] = [
 /** The featured winning build: the hero's single proof point. */
 export const FEATURED_PROJECT = PROJECTS[0];
 
+/** Short display name for a build, for places where the full name is too long. */
+export function shortProjectName(name: string): string {
+  return name.split(" (")[0];
+}
+
 export interface StackRow {
   label: string;
   items: string;
@@ -356,10 +366,12 @@ export const ROBOTICS_ITEMS: RoboItem[] = [
   { title: "Physical computing", text: "Building things that interact with the physical world." },
 ];
 
+/** Sequence-led timeline entry: the year structures it, the build links out. */
 export interface TimelineItem {
   year: string;
   title: string;
-  sub: string;
+  venue: string;
+  build?: string;
   result?: string;
   minor?: boolean;
 }
@@ -368,32 +380,37 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: "2026",
     title: "Robowunder International Robotics Championship",
-    sub: "Malaysia · Door Hinge Safety System",
+    venue: "Malaysia",
+    build: "Door Hinge Safety System",
     result: "Overall Winner",
   },
   {
     year: "2026",
     title: "Zonal Robotics Championship",
-    sub: "SRM Chennai · CRASH",
+    venue: "SRM Chennai",
+    build: "CRASH (Chennai Road Accident Safety Hub)",
     result: "Qualified for NRC Technoxian",
   },
   {
     year: "2026",
     title: "PEC Hacks 4.0",
-    sub: "Panimalar Engineering College · High School Track · Vaccine Cold Chain Ledger",
+    venue: "Panimalar Engineering College · High School Track",
+    build: "Vaccine Cold Chain Ledger",
     result: "Consolation Prize",
   },
   {
     year: "2026",
     title: "Shark Tank Challenge",
-    sub: "Velammal · Volt Ledger",
+    venue: "Velammal",
+    build: "Volt Ledger",
     result: "Participated",
     minor: true,
   },
   {
     year: "2025",
     title: "Technoviz 2025",
-    sub: "SRM Ramapuram · School Category · Participated",
+    venue: "SRM Ramapuram · School Category",
+    result: "Participated",
     minor: true,
   },
 ];

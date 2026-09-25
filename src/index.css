@@ -181,11 +181,12 @@ a:focus-visible, button:focus-visible {
   padding: 18px 0; border-bottom: 1px solid var(--line);
 }
 .achieve-list li:last-child { border-bottom: none; }
-.achieve-title { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
-.achieve-sub {
-  color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-top: 3px;
+.achieve-outcome {
+  font-weight: 650; font-size: 15px; letter-spacing: -0.01em;
   border-left: 2px solid var(--accent); padding-left: 9px;
 }
+.achieve-event { font-size: 14px; color: var(--text-dim); margin-top: 5px; padding-left: 11px; }
+.achieve-venue { font-size: 13px; color: var(--text-faint); margin-top: 1px; padding-left: 11px; }
 
 /* ---------- about: stacked editorial ---------- */
 .about-grid { display: block; }
@@ -346,9 +347,16 @@ a:focus-visible, button:focus-visible {
 }
 .tl-year { font-family: var(--mono); font-size: 12.5px; color: var(--accent-text); }
 .tl-title { font-weight: 600; font-size: 15.5px; letter-spacing: -0.01em; }
-.tl-sub { color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-top: 2px; }
-.tl-sub strong { color: var(--text); font-weight: 600; }
-.timeline li:first-child .tl-sub strong { color: var(--accent-text); }
+.tl-venue { color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-top: 2px; }
+.tl-build { margin-top: 4px; font-size: 13.5px; }
+.tl-build a {
+  color: var(--text-dim); text-decoration: underline;
+  text-decoration-color: var(--line-faint); text-underline-offset: 4px; transition: var(--t);
+}
+.tl-build a:hover { color: var(--text); text-decoration-color: var(--accent); }
+.tl-result { margin-top: 4px; font-size: 13.5px; color: var(--text); }
+.tl-result strong { font-weight: 600; }
+.timeline li:first-child .tl-result strong { color: var(--accent-text); }
 .tl-minor { opacity: 0.65; }
 
 /* ---------- currently ---------- */

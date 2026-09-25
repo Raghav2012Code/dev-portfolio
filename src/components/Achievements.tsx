@@ -17,10 +17,11 @@ export function Achievements() {
           viewport={SCROLL_VIEWPORT}
         >
           {ACHIEVEMENTS.map((item) => (
-            <motion.li key={item.title} variants={itemVariants}>
+            <motion.li key={item.event} variants={itemVariants}>
               <div>
-                <p className="achieve-title">{item.title}</p>
-                <p className="achieve-sub">{item.sub}</p>
+                <p className="achieve-outcome">{item.outcome}</p>
+                <p className="achieve-event">{item.event}</p>
+                {item.venue ? <p className="achieve-venue">{item.venue}</p> : null}
               </div>
             </motion.li>
           ))}

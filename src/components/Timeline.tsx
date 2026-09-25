@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
-import { SECTION_COPY, TIMELINE } from "../data/content";
+import { SECTION_COPY, shortProjectName, TIMELINE } from "../data/content";
 import { itemVariants, listVariants, SCROLL_VIEWPORT } from "../lib/motion";
+import { buildHref } from "../lib/site";
 import { SectionHead } from "./ui";
 
 export function Timeline() {
@@ -25,15 +26,17 @@ export function Timeline() {
               <span className="tl-year">{item.year}</span>
               <div>
                 <p className="tl-title">{item.title}</p>
-                <p className="tl-sub">
-                  {item.sub}
-                  {item.result ? (
-                    <>
-                      {" · "}
-                      <strong>{item.result}</strong>
-                    </>
-                  ) : null}
-                </p>
+                <p className="tl-venue">{item.venue}</p>
+                {item.build ? (
+                  <p className="tl-build">
+                    <a href={buildHref(item.build)}>{shortProjectName(item.build)}</a>
+                  </p>
+                ) : null}
+                {item.result ? (
+                  <p className="tl-result">
+                    <strong>{item.result}</strong>
+                  </p>
+                ) : null}
               </div>
             </motion.li>
           ))}
