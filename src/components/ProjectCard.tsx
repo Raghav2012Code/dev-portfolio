@@ -26,16 +26,18 @@ const cardVariants: Variants = {
 
 function SignalLine({
   steps,
+  label,
   small = false,
   animateSteps = false,
 }: {
   steps: SignalStep[];
+  label: string;
   small?: boolean;
   animateSteps?: boolean;
 }) {
   if (animateSteps) {
     return (
-      <ol className="signal-flow" aria-label="Door Hinge Safety System response sequence">
+      <ol className="signal-flow" aria-label={label}>
         {steps.map((step, i) => (
           <motion.li className="signal-flow-step" key={`${step.text.label}-${i}`} {...reveal(i)}>
             {step.strong ? <span className="signal-flow-label">{step.strong}</span> : null}
@@ -131,6 +133,7 @@ export function ProjectCard({ project, index, detailed = true }: ProjectCardProp
       {project.sysline ? (
         <SignalLine
           steps={project.sysline}
+          label={`${project.name} response sequence`}
           small={project.syslineSmall}
           animateSteps={project.featured}
         />
