@@ -48,12 +48,19 @@ interface MetaLineProps {
   className?: string;
 }
 
-/** Structured fact line: hairline-separated segments instead of a dot-string. */
+/**
+ * Structured fact line: hairline-separated segments instead of a dot-string.
+ * Each segment keeps a real text separator inside it so the accessibility tree
+ * and copy-paste retain the boundary the hairline only implies visually.
+ */
 export function MetaLine({ facts, className }: MetaLineProps) {
   return (
     <p className={className ? `meta-line ${className}` : "meta-line"}>
-      {facts.map((fact) => (
-        <span key={fact}>{fact}</span>
+      {facts.map((fact, i) => (
+        <span key={fact}>
+          {i > 0 ? <span className="meta-sep" aria-hidden="true">{"·"}</span> : null}
+          {fact}
+        </span>
       ))}
     </p>
   );

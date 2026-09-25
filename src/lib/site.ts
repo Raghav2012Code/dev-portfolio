@@ -35,7 +35,9 @@ export function slugify(value: string): string {
 
 /** Anchor id for a build block on the projects page. */
 export function buildAnchorId(name: string): string {
-  return `build-${slugify(name)}`;
+  const slug = slugify(name);
+  if (!slug) throw new Error(`Cannot derive a build anchor from name: "${name}"`);
+  return `build-${slug}`;
 }
 
 /**

@@ -13,6 +13,8 @@ export const REVEAL_DURATION = 0.4;
 export const STAGGER_STEP = 0.05;
 export const INTERACTION_DURATION = 0.25;
 export const PRESS_DURATION = 0.12;
+/** Action feedback distance for the featured build's hover lift. */
+export const HOVER_LIFT_PX = 3;
 
 export function revealTransition(index = 0, baseDelay = 0): Transition {
   return {

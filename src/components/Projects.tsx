@@ -1,4 +1,10 @@
-import { PROJECTS, PROJECTS_PAGE_COPY, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
+import {
+  PROJECTS,
+  PROJECTS_PAGE_COPY,
+  PROJECTS_PAGE_PATH,
+  SECTION_COPY,
+  projectGist,
+} from "../data/content";
 import { buildHref } from "../lib/site";
 import { ProjectCard } from "./ProjectCard";
 import { SectionHead } from "./ui";
@@ -21,7 +27,9 @@ export function Projects({ preview = false }: { preview?: boolean }) {
                     <a className="project-gist-title" href={buildHref(project.name)}>
                       {project.name}
                     </a>
-                    {project.gist ? <p className="project-gist-sub">{project.gist}</p> : null}
+                    {projectGist(project) ? (
+                      <p className="project-gist-sub">{projectGist(project)}</p>
+                    ) : null}
                   </li>
                 ) : null,
               )}

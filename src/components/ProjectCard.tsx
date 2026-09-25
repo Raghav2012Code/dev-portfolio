@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import type { Project, SignalStep, TechMention } from "../data/content";
 import { UI_COPY } from "../data/content";
-import { EASE, INTERACTION_DURATION } from "../lib/motion";
+import { EASE, HOVER_LIFT_PX, INTERACTION_DURATION } from "../lib/motion";
 import { buildAnchorId } from "../lib/site";
 import { Badge, MetaLine, Tip } from "./ui";
 
@@ -54,7 +54,7 @@ export function ProjectCard({ project, detailed = true }: ProjectCardProps) {
     <motion.article
       id={buildAnchorId(project.name)}
       className={project.featured ? "featured" : "project"}
-      whileHover={project.featured ? { y: -3 } : undefined}
+      whileHover={project.featured ? { y: -HOVER_LIFT_PX } : undefined}
       transition={{ duration: INTERACTION_DURATION, ease: EASE }}
     >
       <Badge accent={project.badgeAccent}>{project.badge}</Badge>

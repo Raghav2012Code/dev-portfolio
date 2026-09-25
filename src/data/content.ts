@@ -137,7 +137,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   {
     outcome: "Consolation Prize",
     event: "PEC Hacks 4.0",
-    venue: "High School Track · Panimalar Engineering College",
+    venue: "Panimalar Engineering College",
   },
   {
     outcome: "Qualified for NRC Technoxian",
@@ -189,7 +189,6 @@ export const PROJECTS: Project[] = [
     badge: "Overall winner · Gold",
     badgeAccent: true,
     featured: true,
-    gist: "Overall Winner · Gold",
     meta: ["Robowunder International Robotics Championship 2026", "Malaysia"],
     description:
       "A hardware safety system designed to help prevent finger injuries around door hinges. Laser and IR sensors watch the hinge danger zone, and when something is detected inside it, the servo and solenoid actuators respond.",
@@ -206,7 +205,6 @@ export const PROJECTS: Project[] = [
   {
     name: "CRASH (Chennai Road Accident Safety Hub)",
     badge: "Zonal Robotics Championship · SRM Chennai",
-    gist: "Qualified for NRC Technoxian",
     result: "Qualified for NRC Technoxian through the zonal championship",
     description:
       "A robotics competition project that uses public accident data and XGBoost to predict where accidents may occur. It looks at parameters like time, day, junction information, and other relevant public-data parameters.",
@@ -233,7 +231,6 @@ export const PROJECTS: Project[] = [
   {
     name: "Vaccine Cold Chain Ledger",
     badge: "PEC Hacks 4.0 · Panimalar Engineering College · High School Track",
-    gist: "Consolation Prize",
     result: "Consolation Prize",
     description:
       "A hardware-integrated cold-chain monitoring system: a DHT22 sensor tracks vaccine storage temperature via Arduino/ESP32, shows readings on an LCD, and records SHA-256-hashed data to Supabase for display in a web application.",
@@ -322,7 +319,20 @@ export const PROJECTS: Project[] = [
 /** The featured winning build: the hero's single proof point. */
 export const FEATURED_PROJECT = PROJECTS[0];
 
-/** Short display name for a build, for places where the full name is too long. */
+/**
+ * One outcome line for the home preview, so every preview row shows the same
+ * kind of fact. Reuses the badge the page already shows rather than restating
+ * the same fact in a second field that could drift.
+ */
+export function projectGist(project: Project): string | undefined {
+  return project.badge ?? project.result ?? project.meta?.join(" · ");
+}
+
+/**
+ * Short display name for a build: the parenthetical alias is dropped where the
+ * full name is too long, e.g. in the timeline. `slugify` in lib/site.ts drops
+ * the same aside when deriving anchors.
+ */
 export function shortProjectName(name: string): string {
   return name.split(" (")[0];
 }
@@ -389,7 +399,7 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: "2026",
     title: "PEC Hacks 4.0",
-    venue: "Panimalar Engineering College · High School Track",
+    venue: "Panimalar Engineering College",
     build: "Vaccine Cold Chain Ledger",
     result: "Consolation Prize",
   },
@@ -404,7 +414,7 @@ export const TIMELINE: TimelineItem[] = [
   {
     year: "2025",
     title: "Technoviz 2025",
-    venue: "SRM Ramapuram · School Category",
+    venue: "SRM Ramapuram",
     result: "Participated",
     minor: true,
   },
