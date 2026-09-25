@@ -8,7 +8,7 @@ export function Skills() {
   return (
     <section className="section" id="technologies">
       <div className="container">
-        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
+        <SectionHead title={copy.title} />
         <motion.div {...reveal(2)} className="stack-list">
           {STACK_ROWS.map((row) => (
             <div className="stack-row" key={row.label}>

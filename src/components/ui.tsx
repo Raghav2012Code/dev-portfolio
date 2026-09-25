@@ -29,7 +29,8 @@ export function Tip({ label, tip }: TipProps) {
 }
 
 interface SectionHeadProps {
-  eyebrow: string;
+  /** Optional kicker. Omit it where the title already says the job. */
+  eyebrow?: string;
   title: string;
   base?: number;
 }
@@ -37,10 +38,28 @@ interface SectionHeadProps {
 export function SectionHead({ eyebrow, title, base = 0 }: SectionHeadProps) {
   return (
     <>
-      <motion.p {...reveal(base)} className="section-eyebrow">
-        {eyebrow}
-      </motion.p>
-      <motion.h2 {...reveal(base + 1)}>{title}</motion.h2>
+      {eyebrow ? (
+        <motion.p {...reveal(base)} className="section-eyebrow">
+          {eyebrow}
+        </motion.p>
+      ) : null}
+      <motion.h2 {...reveal(eyebrow ? base + 1 : base)}>{title}</motion.h2>
     </>
+  );
+}
+
+interface MetaLineProps {
+  facts: readonly string[];
+  className?: string;
+}
+
+/** Structured fact line: hairline-separated segments instead of a dot-string. */
+export function MetaLine({ facts, className }: MetaLineProps) {
+  return (
+    <p className={className ? `meta-line ${className}` : "meta-line"}>
+      {facts.map((fact) => (
+        <span key={fact}>{fact}</span>
+      ))}
+    </p>
   );
 }

@@ -17,7 +17,7 @@ export function Contact() {
   return (
     <section className="section" id="contact">
       <div className="container narrow">
-        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
+        <SectionHead title={copy.title} />
         <motion.p {...reveal(2)} className="section-lead">
           {copy.lead}
         </motion.p>

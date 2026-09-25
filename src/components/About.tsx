@@ -9,7 +9,7 @@ export function About() {
     <section className="section" id="about">
       <div className="container about-grid">
         <div>
-          <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
+          <SectionHead title={copy.title} />
         </div>
         <motion.div {...reveal(2)} className="about-copy">
           {copy.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}

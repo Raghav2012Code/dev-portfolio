@@ -39,9 +39,9 @@ export const HERO_COPY = {
   buildLink: "See the winning build",
 } as const;
 
+/** Sections whose titles are self-sufficient drop their redundant kicker. */
 export const SECTION_COPY = {
   about: {
-    eyebrow: "About",
     title: "I learn by building things.",
     paragraphs: [
       "Most of what I’ve learned has come from building. I’m especially interested in hardware projects with ESP32s, sensors, and actuators, and in connecting them to software.",
@@ -49,7 +49,6 @@ export const SECTION_COPY = {
     ],
   },
   projects: {
-    eyebrow: "Projects",
     title: "Selected work",
     lead: "Hardware-first projects, built for real competitions.",
   },
@@ -61,25 +60,20 @@ export const SECTION_COPY = {
     more: "More",
   },
   stack: {
-    eyebrow: "Technologies",
     title: "Technologies I build with",
   },
   robotics: {
-    eyebrow: "Robotics",
     title: "Builds that touch the real world.",
     lead:
       "Software is great, but my favourite moment is when code moves something physical: a servo turns, a sensor fires, a mechanism responds.",
   },
   timeline: {
-    eyebrow: "Competitions",
     title: "Competition timeline",
   },
   currently: {
-    eyebrow: "Currently",
     title: "Building / exploring now",
   },
   contact: {
-    eyebrow: "Contact",
     title: "Say hello.",
     lead: "Always happy to talk robotics, hardware, or builds in progress.",
   },
@@ -175,7 +169,8 @@ export interface Project {
   featured?: boolean;
   /** One outcome fact, shown under the title in the home preview. */
   gist?: string;
-  meta?: string;
+  /** Structured context facts: venue and event, rendered as a fact line. */
+  meta?: string[];
   result?: string;
   resultMuted?: boolean;
   description: string;
@@ -195,7 +190,7 @@ export const PROJECTS: Project[] = [
     badgeAccent: true,
     featured: true,
     gist: "Overall Winner · Gold",
-    meta: "Robowunder International Robotics Championship 2026 · Malaysia",
+    meta: ["Robowunder International Robotics Championship 2026", "Malaysia"],
     description:
       "A hardware safety system designed to help prevent finger injuries around door hinges. Laser and IR sensors watch the hinge danger zone, and when something is detected inside it, the servo and solenoid actuators respond.",
     details: [

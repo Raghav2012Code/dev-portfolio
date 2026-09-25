@@ -9,7 +9,7 @@ export function Robotics() {
     <section className="section" id="robotics">
       <div className="container robotics-grid">
         <div>
-          <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
+          <SectionHead title={copy.title} />
           <motion.p {...reveal(2)} className="section-lead">
             {copy.lead}
           </motion.p>

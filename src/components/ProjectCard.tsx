@@ -12,7 +12,7 @@ import {
   reveal,
 } from "../lib/motion";
 import { buildAnchorId } from "../lib/site";
-import { Badge, Tip } from "./ui";
+import { Badge, MetaLine, Tip } from "./ui";
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: RISE_PX },
@@ -98,7 +98,7 @@ export function ProjectCard({ project, index, detailed = true }: ProjectCardProp
     >
       <Badge accent={project.badgeAccent}>{project.badge}</Badge>
       <h3>{project.name}</h3>
-      {project.meta ? <p className="project-meta">{project.meta}</p> : null}
+      {project.meta ? <MetaLine facts={project.meta} className="project-meta" /> : null}
       {project.result ? (
         <p className={project.resultMuted ? "project-result muted" : "project-result"}>
           {project.result}

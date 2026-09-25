@@ -11,7 +11,7 @@ export function Projects({ preview = false }: { preview?: boolean }) {
   return (
     <section className="section" id="projects">
       <div className="container">
-        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
+        <SectionHead title={copy.title} />
         <motion.p {...reveal(2)} className="section-lead">
           {copy.lead}
         </motion.p>

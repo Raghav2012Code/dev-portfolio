@@ -8,7 +8,7 @@ export function Currently() {
   return (
     <section className="section" id="currently">
       <div className="container narrow">
-        <SectionHead eyebrow={copy.eyebrow} title={copy.title} />
+        <SectionHead title={copy.title} />
         <motion.ul
           className="currently-list"
           variants={listVariants}
