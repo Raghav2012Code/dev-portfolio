@@ -18,7 +18,7 @@ export const HOVER_LIFT_PX = 3;
 export const SCROLL_VIEWPORT: ViewportOptions = { once: true, amount: 0.1, margin: "20% 0px" };
 
 /**
- * Parent variant for row-lists (achievements, robotics, timeline, currently).
+ * Parent variant for row-lists (achievements, timeline, currently).
  * Children using `itemVariants` cascade with one shared stagger.
  * No per-item delay math in components.
  */

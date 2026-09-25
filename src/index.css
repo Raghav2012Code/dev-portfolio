@@ -336,17 +336,6 @@ a:focus-visible, button:focus-visible {
 .stack-row p:last-child { color: var(--text-dim); line-height: 1.7; }
 .stack-label { font-size: 12.5px; font-weight: 600; letter-spacing: 0.01em; color: var(--text-faint); padding-top: 3px; }
 
-/* ---------- robotics ---------- */
-.robotics-grid { display: block; }
-.robo-list { list-style: none; margin-top: 32px; border-top: 1px solid var(--line); }
-.robo-list li {
-  display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: 24px; padding: 17px 0; border-bottom: 1px solid var(--line); align-items: baseline;
-}
-.robo-list li > div { display: contents; }
-.robo-list strong { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
-.robo-list p { color: var(--text-dim); font-size: 13.5px; line-height: 1.6; }
-
 /* ---------- timeline ---------- */
 .timeline {
   position: relative; list-style: none; margin-top: 36px; padding-left: 22px;
@@ -459,14 +448,12 @@ a:focus-visible, button:focus-visible {
   .featured { padding: 24px 0 32px 18px; }
   .stack-row { grid-template-columns: 1fr; gap: 4px; }
   .timeline li { grid-template-columns: 48px minmax(0, 1fr); gap: 12px; }
-  .robo-list li { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 14px; }
   .contribution-scroll-hint { display: block; margin-top: 5px; color: var(--text-faint); font-size: 11px; }
   .contact-list li { grid-template-columns: 1fr; gap: 2px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
 
 @media (max-width: 380px) {
-  .robo-list li { grid-template-columns: minmax(0, 1fr); gap: 4px; align-items: start; }
   .chain-full { grid-template-columns: minmax(0, 1fr); }
   .chain-full .chain-step, .chain-full .chain-step + .chain-step { padding: 11px 0; border-left: 0; }
   .chain-full .chain-step:not(:last-child)::after { right: 4px; top: auto; bottom: -3px; transform: rotate(135deg); }
