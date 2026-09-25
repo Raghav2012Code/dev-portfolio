@@ -36,8 +36,7 @@ export const HERO_COPY = {
   description:
     "14-year-old builder exploring software, AI-assisted development, and hardware projects with ESP32, Arduino, sensors, and more.",
   avatarAlt: `Profile image of ${PROFILE_NAME}`,
-  projectsLink: "View Projects",
-  githubLink: "GitHub",
+  buildLink: "See the winning build",
 } as const;
 
 export const SECTION_COPY = {
@@ -316,6 +315,9 @@ export const PROJECTS: Project[] = [
     link: { label: "View repository", href: "https://github.com/Raghav2012Code/urbania" },
   },
 ];
+
+/** The featured winning build: the hero's single proof point. */
+export const FEATURED_PROJECT = PROJECTS[0];
 
 export interface StackRow {
   label: string;
