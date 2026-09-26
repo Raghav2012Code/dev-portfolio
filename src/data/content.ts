@@ -26,8 +26,7 @@ export const PROJECTS_PAGE_PATH = "/project";
 
 export const HERO_COPY = {
   name: PROFILE_NAME,
-  statement:
-    "I build hardware with ESP32s, sensors and actuators, and write the software that ties it together.",
+  statement: "I build hardware and software for robotics competitions.",
   avatarAlt: `Profile image of ${PROFILE_NAME}`,
   projectsLink: "View projects",
 } as const;
