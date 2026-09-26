@@ -90,3 +90,23 @@
   .closing-list { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
   .closing-link { padding: 18px 0 8px; }
 }
+
+
+/* ---------- layout: a centred finale ----------
+   Every other section on the page is left-aligned, so the closing statement
+   centers itself to mark the end. */
+.section--closing { text-align: center; }
+.section--closing .section-lead { margin-inline: auto; }
+.closing-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 56px;
+}
+.closing-item { flex: 0 1 auto; min-width: 15rem; }
+.closing-link { justify-content: center; padding: 20px 0 6px; }
+
+@media (max-width: 640px) {
+  .closing-list { display: block; }
+  .closing-item { min-width: 0; }
+}

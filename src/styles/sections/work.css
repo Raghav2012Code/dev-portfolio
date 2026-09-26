@@ -272,3 +272,37 @@
   font-size: clamp(1rem, 1.4vw, 1.25rem);
   max-width: 30em;
 }
+
+
+/* ---------- layout: a lead entry, then a two-column matrix ----------
+   Not a stack of full-width rows. The winning build takes the full width as a
+   lead, and the remaining five form an asymmetric 2-column matrix beneath it,
+   with each tile carrying its outcome under the summary. */
+.index-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 56px;
+}
+.index-item:first-child { grid-column: 1 / -1; }
+.index-item:first-child .index-name { font-size: clamp(2rem, 4.6vw, 3.5rem); }
+
+.index-row {
+  grid-template-columns: minmax(0, 3.25rem) minmax(0, 1fr);
+  gap: 6px 24px;
+  align-items: start;
+  padding: 26px 0 30px;
+}
+.index-ordinal { grid-row: 1 / span 2; }
+.index-main { grid-column: 2; }
+.index-outcome {
+  grid-column: 2;
+  justify-self: start;
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  .index-list { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+  .index-item { grid-column: 1 / -1; }
+  .index-row { grid-template-columns: minmax(0, 2.5rem) minmax(0, 1fr); }
+  .index-item:first-child .index-name { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+}
