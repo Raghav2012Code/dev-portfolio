@@ -1,60 +1,63 @@
 # AGENTS.md for dev-portfolio
 
-Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
-`README.md` ("Project content rules"). Read them before touching copy.
+Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html` → `src/App.tsx`) and projects (`project.html` → `src/pages/ProjectPage.tsx`, served at `/project`). Content rules live in `README.md` ("Project content rules"); read them before touching copy.
 
-## Commands
+## Verify
 
-- `npm run build` runs `tsc -b && vite build` (typecheck first. Fix type errors, never `any`-cast or `@ts-ignore` to silence them).
-- `npm run typecheck` / `npm run dev` (port 5173) / `npm run preview` (serves `dist/`).
-- No lint, no tests, no CI. Verify visually + `build` green + zero console errors.
+- There are no tests, lint, or CI. Done means: `npm run build` green (it typechecks first), zero console errors, and a browser check.
+- Fix type errors at the source; the build stays free of `any` casts and `@ts-ignore`.
+- Browser matrix when layout or behaviour changes: desktop + 390px phone, light + dark, horizontal overflow (`scrollWidth` vs `clientWidth`), menu + Escape, `reducedMotion: reduce`.
+- Dev server: `npm run dev` on port 5173. The projects page is `/project.html` in dev and `/project` in production.
+- Browser tooling: `file://` is blocked, so serve over localhost from a detached process (see Shell). If the Playwright MCP is down, `playwright-core` driving the cached Chromium at `%LOCALAPPDATA%\ms-playwright\chromium-*\chrome-win64\chrome.exe` works; install it in a scratch folder, outside the repo.
 
-## Shell gotchas (Windows PowerShell 5.1)
+## Shell (Windows PowerShell 5.1)
 
-- No `&&`. Chain with `; if ($?) { ... }`.
-- `Select-Object` has `-First`/`-Last`, NOT `-FirstLine`/`-LastLine`.
-- Each shell call is a fresh session: background jobs die with the call. For persistent servers use `Start-Process ... -WindowStyle Hidden`, then probe with `Invoke-WebRequest`.
-- Plain `python -m http.server` serves `.js` as `text/plain`, which blocks ES-module scripts. For static checks use `F:\Temp\opencode\serve-dist.py` (sets the JS MIME type); prefer `npm run dev` / `preview` otherwise.
+- Chain with `; if ($?) { ... }` (there is no `&&`). `Select-Object` takes `-First` / `-Last`.
+- Each call is a fresh session. Start long-running servers with `Start-Process ... -WindowStyle Hidden`, then probe with `Invoke-WebRequest`.
+- Write commit messages to a file and use `git commit -F <file>`; here-strings passed to native commands get split into pathspecs.
+- The working tree mixes CRLF and LF files (`core.autocrlf=true`). Use the Edit tool for multi-line replacements; `` `n ``-based string replaces silently miss CRLF files.
+- Noise to ignore: `LF will be replaced by CRLF` warnings, and `git push` progress on stderr surfacing as `NativeCommandError`.
 
-## Browser checks (Playwright MCP)
+## Motion (one language)
 
-- `file://` URLs are blocked. Serve over `http://localhost` first.
-- Localhost works only if the server is a detached process (see above).
-- Test matrix when it matters: desktop + 390px mobile, console errors, horizontal overflow via `scrollWidth` vs `clientWidth`, Escape/menu behavior, `reducedMotion: reduce` emulation.
-
-## Motion system (single language, keep it that way)
-
-- All timing lives in `src/lib/motion.ts`: one ease, 8px rise, 50ms stagger.
-- One orchestrated moment only: the hero entrance (name, statement, actions, title block). Sections do not animate on scroll; content is static and readable on arrival.
-- Interaction motion (mobile menu, button press) answers the user's action. Never hardcode timing in components.
-- Reduced motion is global (`MotionConfig reducedMotion="user"` in `components/SiteShell.tsx` + CSS query). Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
-- `SiteShell` wraps every page in `LazyMotion features={domAnimation} strict`: animate with `m.*` from `motion/react-m`. A `motion.*` component throws under `strict` and would pull the full bundle back in.
-- Pages go through `SiteShell` (skip link, nav, `main`, footer, deep-link hash scroll). Don't rebuild that frame per page.
+- All timing lives in `src/lib/motion.ts`: one ease, 8px rise, 50ms stagger. Components import it rather than hardcoding durations.
+- One orchestrated moment: the hero entrance (name, statement, actions, title block). Sections are static and readable on arrival.
+- Interaction motion (mobile menu, button press) answers the user's action. Transform/opacity only, calm easing.
+- `SiteShell` wraps every page in `LazyMotion features={domAnimation} strict` and `MotionConfig reducedMotion="user"`. Animate with `m.*` from `motion/react-m`; a `motion.*` component throws under `strict` and pulls the full bundle back in.
+- Under reduced motion, `MotionConfig` drops transforms but keeps opacity fades; the CSS query covers the rest.
 
 ## Design system
 
-- Datasheet on drafting paper: tokens on `:root` in `src/index.css` (paper, ink, ink-2/3, rule, one PCB-green `--trace`), dark variant via `prefers-color-scheme`. Keep text contrast at WCAG AA.
-- One family: Archivo (Google Fonts, `wdth` + `wght` axes). Display type uses `font-stretch`; no second face, no monospace labels, no all-caps eyebrows.
-- Sections use `Section` (`components/ui.tsx`): heading in the margin column, body on the right. Facts go in `dl.spec` rows, not `·`-joined strings.
-- Green means connected or achieved: traces, links, awarded/qualified results. Don't use it as decoration.
-- The hero is type only: the name, one statement, and a drafting title block (square, ruled) for the facts. No diagram or figure there; the real signal chain lives on the Door Hinge entry.
-- Each result appears once on the home page, in Competitions. The home project index shows name + `summary`, not results. Section headings match their nav labels.
+- Datasheet on drafting paper: tokens on `:root` in `src/index.css` (paper, ink, ink-2/3, rule, `--frame`, one PCB-green `--trace`), dark variant via `prefers-color-scheme`. Text contrast stays at WCAG AA.
+- One family: Archivo (Google Fonts, `wdth` + `wght` axes). Display type uses `font-stretch`; labels are sentence case in the same face.
+- Sections use `Section` (`components/ui.tsx`): heading in the margin column, body on the right, heading text matching its nav label. Facts go in `dl.spec` rows.
+- Green means connected or achieved: traces, links, awarded/qualified results.
+- The hero is type only: the name, one statement, and a drafting title block (square, ruled) for the facts. The real signal chain lives on the Door Hinge entry.
+- Each result appears once on the home page, in Competitions. The home project index shows name + `summary`.
 
 ## Components
 
-- Watermelon UI is ported natively (`Tip` in `components/ui.tsx`, nav, buttons). It is NOT an npm package here. Don't `npm install` it (React+Tailwind+shadcn registry, incompatible with this Vite stack).
-- Don't add component/animation libraries (KokonutUI, React Bits, Motion Primitives, 21st.dev were evaluated and rejected. Smallest footprint wins).
-- All section copy lives in `src/data/content.ts`. Edit text there, not in components.
+- Pages go through `SiteShell` (skip link, nav, `main`, footer, deep-link hash scroll, motion setup).
+- All copy lives in `src/data/content.ts`; components render it.
+- Watermelon UI is ported natively (`Tip` in `components/ui.tsx`, nav, buttons); it is a React + Tailwind + shadcn registry, so it never gets `npm install`ed here.
+- Build UI with React + CSS only. Component and animation libraries (KokonutUI, React Bits, Motion Primitives, 21st.dev) were evaluated and rejected: smallest footprint wins.
+
+## Contributions API
+
+- `api/github-contributions.ts` is a Vercel function; the Vite dev server runs the same handler and passes it `.env.local` values. Setup and the public-only policy are in `README.md` ("GitHub contribution graph").
+- Any unavailable answer hides the section and the hero count; failures log a short reason in the Vercel function logs.
 
 ## Deploy
 
-- Vercel CLI is installed and logged in. Project `van-89de/dev-portfolio`, live at `https://raghavkrishna-dev.vercel.app` (alias; `raghav-dev.vercel.app` and `raghavdev.vercel.app` were already taken). GitHub is connected, so pushes to `main` auto-deploy. CLI deploys are rarely needed.
-- `.vercelignore` must keep excluding `.playwright-mcp/` and `dist/`. Uploading them aborts the deploy on slow networks.
-- Keep the canonical URL (`https://raghavkrishna-dev.vercel.app`, projects page at `/project`, no trailing slash) in sync across `index.html` and `project.html` (canonical + `og:url`), `public/robots.txt`, and `public/sitemap.xml`. `vercel.json` sets `trailingSlash: false` so `/project/` redirects there.
+- Vercel project `van-89de/dev-portfolio`, live at `https://raghavkrishna-dev.vercel.app` (the `raghav-dev` and `raghavdev` aliases were taken). Merges to upstream `main` auto-deploy; the CLI is logged in for the rare manual deploy.
+- `.vercelignore` keeps `.playwright-mcp/` and `dist/` out of uploads; including them aborts deploys on slow networks.
+- The canonical URL (`https://raghavkrishna-dev.vercel.app`, projects at `/project`, no trailing slash) stays in sync across `index.html` and `project.html` (canonical + `og:url`), `public/robots.txt`, and `public/sitemap.xml`. `vercel.json` sets `trailingSlash: false`.
 
 ## Git
 
-- Commit + push to `main` after green build unless the user says otherwise. Never force-push, never commit secrets. The `LF will be replaced by CRLF` warnings are harmless noise.
+- Remotes: `origin` is upstream `Raghav2012Code/dev-portfolio`; `fork` is `abivan100-stack/raghav-dev-portfolio`. Work on a branch, push it to `fork`, and open or update a PR into upstream `main`.
+- Commit after a green build unless the user says otherwise. History only moves forward (no force-push), and secrets stay out of the repo.
+- A global pre-commit hook runs a Codex bug check on the staged patch and can block the commit. Fix what it flags, then commit again with hooks enabled.
 
 ## Agent skills
 
