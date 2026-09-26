@@ -9,9 +9,10 @@
    WM Tooltip (.tip). Intentionally NOT used: cards, tabs,
    dialogs. The editorial layout already solves those cases with less UI.
    Motion (motion/react): hero entrance, grouped scroll reveals,
-   featured-build hover lift, button press feedback. One ease, one
-   rise, short staggers; transform/opacity only. Reduced motion is
-   disabled globally via MotionConfig reducedMotion="user".
+   featured-build hover lift, button press feedback today — and open
+   to more; animation is uncapped, see AGENTS.md. Shared timing tokens
+   live in src/lib/motion.ts. Reduced motion is disabled globally via
+   MotionConfig reducedMotion="user".
    ============================================================ */
 :root {
   --bg: #0a0a0b;

@@ -22,17 +22,19 @@ Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
 - Localhost works only if the server is a detached process (see above).
 - Test matrix when it matters: desktop + 390px mobile, console errors, horizontal overflow via `scrollWidth` vs `clientWidth`, Escape/menu behavior, `reducedMotion: reduce` emulation.
 
-## Motion system (single language, keep it that way)
+## Motion (no budget, no variety cap)
 
-- All timing lives in `src/lib/motion.ts`: one calm ease-out, one 8px rise, 50ms staggers, `SCROLL_VIEWPORT` with a 20% pre-entry margin so fast scrolls land on settled content. Never hardcode timing in components.
-- Motion budget, two moments: the hero `entrance()` on load, and one grouped reveal per section/list (`reveal(i)` spread, `listVariants`/`itemVariants` for row-lists). Nothing more.
-- Everything else answers an action: mobile menu (Navbar), tooltips (CSS), press feedback, featured-build hover lift, nav scroll-progress hairline, smooth-vs-instant anchors.
-- Reduced motion is global (`MotionConfig reducedMotion="user"` in `App.tsx` + CSS query). Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
+- `motion/react` (Motion for React) is the animation library. Animate as much as you want, anywhere: there is no per-section budget, no cap on the number of animated elements, and no "this must stay still" list. Adding, extending, or removing animation is always in scope.
+- Anything goes effect-wise: layout animation, scroll-linked animation, parallax, springs, bouncy or custom easings, keyframes, gestures, shared-layout transitions, looping/ambient motion. None of it is off-limits.
+- `src/lib/motion.ts` is the home of the shared tokens (`EASE`, `RISE_PX`, `SCROLL_VIEWPORT`, `reveal()`, `entrance()`, `listVariants`/`itemVariants`). Reuse them where they fit and add new ones as needed, so repeated effects stay consistent. Don't route every value through it when a one-off reads better inline.
+- The standard is coherence, not austerity: the page should read as one designed system, but a rich, varied motion layer is welcome. Existing motion to be aware of: hero `entrance()`, section/list scroll reveals, mobile menu, tooltips (CSS), press feedback, featured-build hover lift, nav scroll-progress hairline, smooth-vs-instant anchors.
+- Accessibility is the one hard requirement, not a budget item. Reduced motion stays global (`MotionConfig reducedMotion="user"` in `App.tsx` and `ProjectPage.tsx`, plus the CSS media query) — anything you animate must respect it. Never make motion the only way information is conveyed. Keep `npm run build` green and check `reducedMotion: reduce` in the browser matrix.
+- Performance is the other one: prefer transform/opacity, and make scroll-linked work cheap (avoid layout thrash and per-frame `setState` on large subtrees).
 
 ## Components
 
 - Watermelon UI is ported natively (`Badge`, `Tip` in `components/ui.tsx`, nav, buttons). It is NOT an npm package here. Don't `npm install` it (React+Tailwind+shadcn registry, incompatible with this Vite stack).
-- Don't add component/animation libraries (KokonutUI, React Bits, Motion Primitives, 21st.dev were evaluated and rejected. Smallest footprint wins).
+- Don't add component/animation libraries (KokonutUI, React Bits, Motion Primitives, 21st.dev were evaluated and rejected. Smallest footprint wins). This is about new dependencies only, not about how much you animate — see Motion above, `motion/react` is expected to carry all of it.
 - All section copy lives in `src/data/content.ts`. Edit text there, not in components.
 
 ## Deploy

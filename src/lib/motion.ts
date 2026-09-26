@@ -1,5 +1,8 @@
-// Shared motion language (motion/react v13).
-// One calm ease-out, one 8px rise, 50ms staggers. Transform/opacity only.
+// Shared motion tokens (motion/react v13).
+// These are the repeat-effect defaults, NOT a cap: add whatever motion the
+// page needs, inline or as new tokens here. Reuse these where they fit so
+// repeated effects stay consistent.
+// Current set: one calm ease-out, one 8px rise, 50ms staggers.
 // Reveals trigger 20% BEFORE entry (viewport margin) and finish fast, so
 // even flick-scrolls land on settled content instead of chasing animation.
 // Reduced motion is handled globally via MotionConfig reducedMotion="user"
