@@ -1,42 +1,21 @@
-// Shared motion tokens (motion/react v13).
-// These are the repeat-effect defaults, NOT a cap: add whatever motion the
-// page needs, inline or as new tokens here. Reuse these where they fit so
-// repeated effects stay consistent.
-// Current set: one calm ease-out, one 8px rise, 50ms staggers.
-// Reveals trigger 20% BEFORE entry (viewport margin) and finish fast, so
-// even flick-scrolls land on settled content instead of chasing animation.
-// Reduced motion is handled globally via MotionConfig reducedMotion="user"
-// in App, plus the CSS media query that hides ambient UI like the progress bar.
-import type { Transition, Variants, ViewportOptions } from "motion/react";
+// Shared motion language (motion/react v13).
+// One orchestrated moment: the hero settles in on load (name, statement,
+// actions, title block). Nothing else animates on its own; sections are
+// static so content is readable the instant it scrolls into view.
+// Interaction motion (menu, button press) answers the user's action.
+// Transform/opacity only. Reduced motion is handled globally via
+// MotionConfig reducedMotion="user" in SiteShell, which also wraps pages in
+// LazyMotion: animate with `m.*` from "motion/react-m", never `motion.*`.
+import type { Transition } from "motion/react";
 
 export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const RISE_PX = 8;
-export const REVEAL_DURATION = 0.4;
-export const STAGGER_STEP = 0.05;
+const REVEAL_DURATION = 0.4;
+const STAGGER_STEP = 0.05;
 export const INTERACTION_DURATION = 0.25;
 export const PRESS_DURATION = 0.12;
-/** Action feedback distance for the featured build's hover lift. */
-export const HOVER_LIFT_PX = 3;
 
-export const SCROLL_VIEWPORT: ViewportOptions = { once: true, amount: 0.1, margin: "20% 0px" };
-
-/**
- * Parent variant for row-lists (achievements, timeline, currently).
- * Children using `itemVariants` cascade with one shared stagger.
- * No per-item delay math in components.
- */
-export const listVariants: Variants = {
-  hidden: {},
-  shown: { transition: { staggerChildren: STAGGER_STEP } },
-};
-
-/** Child variant for `listVariants` parents. Inherits list animate state. */
-export const itemVariants: Variants = {
-  hidden: { opacity: 0, y: RISE_PX },
-  shown: { opacity: 1, y: 0, transition: { duration: REVEAL_DURATION, ease: EASE } },
-};
-
-export function revealTransition(index = 0, baseDelay = 0): Transition {
+function revealTransition(index = 0, baseDelay = 0): Transition {
   return {
     duration: REVEAL_DURATION,
     ease: EASE,
@@ -44,24 +23,7 @@ export function revealTransition(index = 0, baseDelay = 0): Transition {
   };
 }
 
-export interface RevealMotionProps {
-  initial: { opacity: number; y: number };
-  whileInView: { opacity: number; y: number };
-  viewport: ViewportOptions;
-  transition: Transition;
-}
-
-/** Spread onto a motion element for the section scroll-reveal pattern. */
-export function reveal(index = 0, baseDelay = 0): RevealMotionProps {
-  return {
-    initial: { opacity: 0, y: RISE_PX },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: SCROLL_VIEWPORT,
-    transition: revealTransition(index, baseDelay),
-  };
-}
-
-export interface EntranceMotionProps {
+interface EntranceMotionProps {
   initial: { opacity: number; y: number };
   animate: { opacity: number; y: number };
   transition: Transition;

@@ -1,64 +1,53 @@
-import { motion } from "motion/react";
-import {
-  PROJECTS,
-  PROJECTS_PAGE_COPY,
-  PROJECTS_PAGE_PATH,
-  SECTION_COPY,
-  projectGist,
-} from "../data/content";
-import { itemVariants, listVariants, reveal, SCROLL_VIEWPORT } from "../lib/motion";
-import { buildHref } from "../lib/site";
-import { ProjectCard } from "./ProjectCard";
-import { SectionHead } from "./ui";
+import * as m from "motion/react-m";
+import { PROJECTS, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
+import { ProjectCard, entryNumber, revealProps } from "./ProjectCard";
+import { Section } from "./ui";
 
-export function Projects({ preview = false }: { preview?: boolean }) {
-  const [featured, ...rest] = PROJECTS;
+/**
+ * Home page: every project as one full-width index row — a large ordinal, the
+ * name at display size with its summary beneath, and the outcome at the right.
+ * The whole row links to the project's deep link.
+ */
+export function ProjectIndex() {
   const copy = SECTION_COPY.projects;
   return (
-    <section className="section" id="projects">
-      <div className="container">
-        <SectionHead title={copy.title} base={0} />
-        <motion.p {...reveal(2)} className="section-lead">
-          {copy.lead}
-        </motion.p>
-
-        {preview ? (
-          <>
-            <motion.ul
-              className="project-gist-list"
-              variants={listVariants}
-              initial="hidden"
-              whileInView="shown"
-              viewport={SCROLL_VIEWPORT}
-            >
-              {[featured, ...rest.slice(0, 2)].map((project) =>
-                project ? (
-                  <motion.li key={project.name} variants={itemVariants}>
-                    <a className="project-gist-title" href={buildHref(project.name)}>
-                      {project.name}
-                    </a>
-                    {projectGist(project) ? (
-                      <p className="project-gist-sub">{projectGist(project)}</p>
-                    ) : null}
-                  </motion.li>
-                ) : null,
-              )}
-            </motion.ul>
-            <a className="card-link" href={PROJECTS_PAGE_PATH}>
-              {PROJECTS_PAGE_COPY.viewAll}
+    <Section id="projects" title={copy.title} lead={copy.lead} variant="index">
+      <ol className="index-list">
+        {PROJECTS.map((project, i) => (
+          <m.li key={project.slug} className="index-item" {...revealProps()}>
+            <a className="index-row" href={`${PROJECTS_PAGE_PATH}#${project.slug}`}>
+              <span className="index-ordinal" aria-hidden="true">
+                {entryNumber(i)}
+              </span>
+              <span className="index-main">
+                <span className="index-name">{project.name}</span>
+                <span className="index-summary">{project.summary}</span>
+              </span>
+              <span className={`index-outcome tone-${project.resultTone}`}>{project.result}</span>
             </a>
-          </>
-        ) : (
-          <>
-            {featured ? <ProjectCard project={featured} detailed index={3} /> : null}
+          </m.li>
+        ))}
+      </ol>
+      <a className="text-link index-all" href={PROJECTS_PAGE_PATH}>
+        {copy.viewAll}
+      </a>
+    </Section>
+  );
+}
 
-            <div className="project-grid">
-              {rest.map((project, i) => (
-                <ProjectCard key={project.name} project={project} detailed index={4 + i} />
-              ))}
-            </div>
-          </>
-        )}
+/** Projects page: page title, then every project as a full-width band. */
+export function ProjectList() {
+  const copy = SECTION_COPY.projectsPage;
+  return (
+    <section className="page" id="projects" aria-labelledby="projects-title">
+      <div className="container">
+        <header className="page-head">
+          <h1 id="projects-title">{copy.title}</h1>
+          <p className="page-lead">{copy.lead}</p>
+        </header>
+        {PROJECTS.map((project, i) => (
+          <ProjectCard key={project.slug} project={project} index={i} />
+        ))}
       </div>
     </section>
   );

@@ -1,0 +1,9 @@
+/* ============================================================
+   SECTIONS — one file per surface, imported after index.css so a
+   section can override the shared shell without touching it.
+   ============================================================ */
+
+@import "./sections/work.css";
+@import "./sections/record.css";
+@import "./sections/notes.css";
+@import "./sections/closing.css";

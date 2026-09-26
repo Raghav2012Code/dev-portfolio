@@ -1,0 +1,281 @@
+/* ============================================================
+   SECTIONS — record
+   Owns: the competitions record (#timeline, variant `record`) and the
+   activity chart (#contributions, variant `activity`).
+   Composition: a real full-width data table — aligned columns, not a list —
+   and the contribution chart as a full-width ruled figure.
+   Loaded after index.css, so equal-specificity rules here win.
+   ============================================================ */
+
+/* Screen-reader-only text: the table caption. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- record: competitions (#timeline) -------------------- */
+
+/* Head small and above-left; the table is the substance. */
+.section--record .section-head {
+  max-width: 42rem;
+}
+
+.section--record .section-body {
+  margin-top: 32px;
+}
+
+/* Safety net only: the table fits at every width, and stacks below 40rem. */
+.record-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.record-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.record-table th,
+.record-table td {
+  padding: 16px 12px;
+  text-align: left;
+  vertical-align: baseline;
+  overflow-wrap: break-word;
+}
+
+/* The table runs edge to edge, so the outer cells carry no side padding. */
+.record-table th:first-child,
+.record-table td:first-child {
+  padding-left: 0;
+}
+
+.record-table th:last-child,
+.record-table td:last-child {
+  padding-right: 0;
+}
+
+.record-table thead th {
+  border-bottom: 1px solid var(--rule-strong);
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.record-table tbody tr {
+  border-top: 1px solid var(--rule);
+}
+
+.record-table tbody tr:last-child {
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.record-col-year {
+  width: 5.5rem;
+}
+
+.record-col-result {
+  width: 12rem;
+}
+
+/* Year: display-scale numeral, tabular so digits align down the column. */
+.record-year {
+  color: var(--ink-3);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+/* Event: the strongest type in the row; its build links beneath. */
+.record-event-title {
+  display: block;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.record-build {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--ink-2);
+  font-size: 14px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: var(--t);
+}
+
+a.record-build:hover,
+a.record-build:focus-visible {
+  color: var(--trace);
+  text-decoration-color: var(--trace);
+}
+
+.record-venue {
+  color: var(--ink-2);
+}
+
+/* Result: green when earned, muted when only participated. Participated rows
+   still read "Participated" in text, so colour is never the only signal. */
+.record-result {
+  color: var(--ink-3);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.record-result-earned {
+  color: var(--trace);
+}
+
+/* Specificity beats the shared cell rule above so the column lines up. */
+.record-table .record-col-result,
+.record-table .record-result {
+  text-align: right;
+}
+
+/* Stack the record below 40rem rather than scrolling sideways: four columns
+   cannot be read on a phone, and Result is the point of the table. The header
+   row stays in the accessibility tree (clipped, never display:none), and the
+   roles on the elements are restated because changing `display` drops the
+   implicit table roles. */
+@media (max-width: 40rem) {
+  .record-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .record-table,
+  .record-table tbody,
+  .record-table tr,
+  .record-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .record-table tbody tr {
+    padding: 20px 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .record-table tbody tr:last-child {
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .record-table td {
+    padding: 0;
+  }
+
+  .record-year {
+    margin-bottom: 6px;
+    font-size: 1.125rem;
+  }
+
+  .record-venue {
+    margin-top: 4px;
+  }
+
+  .record-result {
+    margin-top: 10px;
+  }
+
+  .record-table .record-result {
+    text-align: left;
+  }
+}
+
+/* ---------- activity: contribution chart (#contributions) ------- */
+
+.section--activity .section-head {
+  max-width: 42rem;
+}
+
+.section--activity .section-body {
+  margin-top: 24px;
+}
+
+.contribution-summary {
+  color: var(--ink-2);
+}
+
+.contribution-total {
+  color: var(--ink);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Ruled frame around the chart: square and hairline, never a card. */
+.contribution-figure {
+  margin-top: 20px;
+  border: 1px solid var(--rule);
+}
+
+/* The chart keeps its own geometry and may overflow and scroll; it becomes a
+   focusable region only when it genuinely overflows (see Contributions.tsx). */
+.contribution-chart-scroll {
+  max-width: 100%;
+  padding: 16px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.contribution-chart {
+  max-width: none;
+}
+
+.contribution-legend-caption {
+  border-top: 1px solid var(--rule);
+}
+
+/* .contribution-legend is a real list (index.css gives it the flex row). */
+.contribution-legend {
+  margin-top: 0;
+  padding: 12px 16px;
+}
+
+.contribution-legend li {
+  display: flex;
+  align-items: center;
+}
+
+
+/* ---------- a banded region, not another stacked block ----------
+   The record sits on a raised sheet spanning the viewport with its label pushed
+   to the right and no opening rule: the band edge is the divider. This is the
+   only section that changes surface, so scrolling through it feels like passing
+   through a different region rather than another block of the same page. */
+.section--record {
+  /* A margin, not padding: the band's top border is on the section element
+     itself, so only space OUTSIDE it lifts the border clear of the section
+     above. Without this the border sat flush against the last link of the
+     projects index — a measured gap of 0px, where every other boundary on the
+     page has 96px or more. */
+  margin-top: var(--section-pad);
+  padding-block: 72px;
+  background: var(--paper-raised);
+  border-block: 1px solid var(--rule);
+}
+.section--record .section-rule { display: none; }
+/* `max-width: none` because an earlier rule caps this head at 42rem, which put
+   the right-aligned label near the middle of the shell rather than at its edge. */
+.section--record .section-head { margin-top: 0; max-width: none; text-align: right; }
+.section--record h2 { font-size: 20px; }
+.section--record .section-lead { margin-left: auto; }

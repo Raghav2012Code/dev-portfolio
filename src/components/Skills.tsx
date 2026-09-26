@@ -1,23 +1,33 @@
-import { motion } from "motion/react";
 import { SECTION_COPY, STACK_ROWS } from "../data/content";
-import { reveal } from "../lib/motion";
-import { SectionHead } from "./ui";
+import { Section } from "./ui";
 
+/**
+ * `board` composition: the five tool categories set as display type, with their
+ * tools as a small run beneath and a count in tabular figures. The scale
+ * contrast between the two is the whole device — a 14px label over 15px items
+ * is what made the previous version read as an unstyled form.
+ */
 export function Skills() {
-  const copy = SECTION_COPY.stack;
   return (
-    <section className="section" id="technologies">
-      <div className="container">
-        <SectionHead title={copy.title} base={0} />
-        <motion.div {...reveal(2)} className="stack-list">
-          {STACK_ROWS.map((row) => (
-            <div className="stack-row" key={row.label}>
-              <p className="stack-label">{row.label}</p>
-              <p>{row.items}</p>
+    <Section id="technologies" title={SECTION_COPY.stack.title} variant="board">
+      <div className="kit">
+        {STACK_ROWS.map((row) => (
+          <div className="kit-group" key={row.label}>
+            <div className="kit-head">
+              <h3 className="kit-name">{row.label}</h3>
+              {/* Derived from the list below it, so it is presentational. */}
+              <span className="kit-count num" aria-hidden="true">
+                {row.items.length}
+              </span>
             </div>
-          ))}
-        </motion.div>
+            <ul className="kit-list">
+              {row.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }

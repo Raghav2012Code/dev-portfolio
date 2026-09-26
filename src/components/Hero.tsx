@@ -1,22 +1,26 @@
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import type { ReactEventHandler } from "react";
 import { useEffect, useState } from "react";
 import {
   CONTRIBUTION_TEASER,
-  FEATURED_PROJECT,
   GITHUB_AVATAR_URL,
-  GITHUB_URL,
   HERO_COPY,
+  PROJECTS_PAGE_PATH,
+  TITLE_BLOCK,
 } from "../data/content";
 import { getContributions } from "../lib/contributions";
 import { EASE, entrance, PRESS_DURATION } from "../lib/motion";
-import { buildHref } from "../lib/site";
-import { GitHubIcon } from "./icons";
 
 const hideOnError: ReactEventHandler<HTMLImageElement> = (event) => {
   event.currentTarget.style.display = "none";
 };
 
+const press = { whileTap: { scale: 0.98 }, transition: { duration: PRESS_DURATION, ease: EASE } };
+
+/**
+ * Type-only hero: the name as the sheet title, one plain statement, and a
+ * drafting title block holding the facts, set in the corner like on a drawing.
+ */
 export function Hero() {
   const [contributionTotal, setContributionTotal] = useState<number | null>(null);
 
@@ -29,77 +33,49 @@ export function Hero() {
       active = false;
     };
   }, []);
+
   return (
-    <section className="hero">
-      <div className="container hero-inner">
-        {/* PROFILE PHOTO: swap src for assets/profile.jpg to use a real photograph. */}
-        <motion.img
-          {...entrance(0)}
-          className="profile-img"
-          src={GITHUB_AVATAR_URL}
-          alt={HERO_COPY.avatarAlt}
-          width={72}
-          height={72}
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-          onError={hideOnError}
-        />
-        <motion.p
-          {...entrance(1)}
-          className="eyebrow"
-        >
-          {HERO_COPY.eyebrow}
-        </motion.p>
-        <motion.h1
-          {...entrance(2)}
-        >
+    <section className="hero" id="intro" aria-labelledby="hero-name">
+      <div className="container hero-grid">
+        <m.h1 {...entrance(0)} className="hero-name" id="hero-name">
           {HERO_COPY.name}
-        </motion.h1>
-        <motion.p
-          {...entrance(3)}
-          className="hero-role"
-        >
-          {HERO_COPY.role}
-        </motion.p>
-        <motion.p
-          {...entrance(4)}
-          className="hero-desc"
-        >
-          {HERO_COPY.description}
-        </motion.p>
-        <motion.div
-          {...entrance(5)}
-          className="hero-actions"
-        >
-          <motion.a
-            className="btn btn-primary"
-            href={buildHref(FEATURED_PROJECT.name)}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: PRESS_DURATION, ease: EASE }}
-          >
-            {HERO_COPY.buildLink}
-          </motion.a>
-          <motion.a
-            className="btn btn-secondary"
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener"
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: PRESS_DURATION, ease: EASE }}
-          >
-            <GitHubIcon size={16} />
-            {HERO_COPY.githubLink}
-          </motion.a>
-        </motion.div>
-        {contributionTotal !== null ? (
-          <motion.p {...entrance(6)} className="hero-teaser">
-            <a href="#contributions">
-              <span className="hero-teaser-count">{contributionTotal.toLocaleString()}</span>{" "}
-              {CONTRIBUTION_TEASER.lead}
-            </a>
-          </motion.p>
-        ) : null}
+        </m.h1>
+        <div className="hero-copy">
+          <m.p {...entrance(1)} className="hero-statement">
+            {HERO_COPY.statement}
+          </m.p>
+          <m.div {...entrance(2)} className="hero-actions">
+            <m.a className="btn btn-primary" href={PROJECTS_PAGE_PATH} {...press}>
+              {HERO_COPY.projectsLink}
+            </m.a>
+            {contributionTotal !== null ? (
+              <a className="hero-teaser" href="#contributions">
+                <span className="hero-teaser-count">{contributionTotal.toLocaleString()}</span>{" "}
+                {CONTRIBUTION_TEASER.lead}
+              </a>
+            ) : null}
+          </m.div>
+        </div>
+        <m.div {...entrance(3)} className="title-block">
+          {/* PROFILE PHOTO: swap src for assets/profile.jpg to use a real photograph. */}
+          <img
+            className="profile-img"
+            src={GITHUB_AVATAR_URL}
+            alt={HERO_COPY.avatarAlt}
+            width={96}
+            height={96}
+            decoding="async"
+            onError={hideOnError}
+          />
+          <dl className="title-block-facts">
+            {TITLE_BLOCK.map((fact) => (
+              <div key={fact.label}>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </m.div>
       </div>
     </section>
   );

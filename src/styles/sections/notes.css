@@ -1,0 +1,155 @@
+/* ============================================================
+   SECTIONS — notes
+   Owns: about (#about, variant `prose`) and the stack board
+   (#technologies, variant `board`).
+   Loaded after index.css, so equal-specificity rules here win.
+
+   These two sections are deliberately different SHAPES, not different styling:
+   about sets two textual columns side by side, stack is a mosaic of uneven
+   cells. Neither is a heading stacked over full-width content.
+   ============================================================ */
+
+/* ---------- prose: about — a two-column split ----------
+   Prose on the left, the "right now" rail on the right. The only section on the
+   page that runs text in two columns. No visible heading: the section keeps its
+   accessible name, so it reads as a pause rather than another labelled block. */
+.section--prose { padding-top: 120px; }
+.section--prose .section-rule { display: none; }
+.section--prose .section-head {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.section--prose .section-body { margin-top: 0; }
+
+.about-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  column-gap: 72px;
+  align-items: start;
+}
+
+.about-prose p {
+  font-size: 18px;
+  line-height: 1.7;
+}
+/* Two grotesque display habits had to be undone for the serif, and both are
+   what make a swapped-in serif look like a mistake. The -0.015em tracking is a
+   grotesque tightening — a serif at 25px needs normal tracking or the letters
+   collide at the joins. And 500 goes muddy at this size: Newsreader is drawn for
+   400, and its optical-size axis handles the scale instead of added weight.
+   Line height drops to 1.32, tighter than a sans body but looser than the 1.1
+   a grotesque can take, because the serif's serifs need the room. */
+.about-prose .about-lede {
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.32;
+}
+.about-prose .about-lede + p { margin-top: 26px; }
+
+/* The rail: a ruled list, set apart from the prose by its own top rule. */
+.about-now {
+  border-top: 1px solid var(--rule-strong);
+  padding-top: 14px;
+}
+.about-now-title {
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 700;
+  font-stretch: 108%;
+  line-height: 1.4;
+}
+.about-now-list { margin-top: 16px; }
+.about-now-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 13px 0;
+  border-top: 1px solid var(--rule);
+}
+.about-now-item:first-child { border-top: 0; padding-top: 0; }
+.about-now-name { color: var(--ink); font-size: 16px; font-weight: 650; }
+.about-now-sub { color: var(--ink-2); font-size: 15px; line-height: 1.5; }
+
+@media (max-width: 860px) {
+  .section--prose { padding-top: 88px; }
+  .about-split {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 48px;
+  }
+}
+
+/* ---------- board: stack — the categories as display type ----------
+   The category names carry the section: set at display scale, the tools become
+   a small run beneath them. The scale contrast is the whole device — the
+   previous version had 14px labels and 15px tools, which is why it read as an
+   unstyled form with nothing to look at. Two columns, rules aligned across each
+   row so the grid reads as deliberate. */
+.section--board { padding-top: 64px; }
+.section--board .section-rule { display: none; }
+.section--board .section-head { margin-top: 0; margin-bottom: 30px; }
+.section--board h2 {
+  color: var(--ink-3);
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: 100%;
+  letter-spacing: 0;
+}
+
+.kit {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 72px;
+}
+.kit-group {
+  padding: 20px 0 32px;
+  border-top: 1px solid var(--rule);
+}
+
+.kit-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+.kit-name {
+  font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+  font-weight: 760;
+  font-stretch: 112%;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+.kit-count {
+  flex: none;
+  color: var(--ink-3);
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The run of tools: a plain comma-separated list, not a middot string and not
+   hairline ticks, which would leave stray marks at the start of wrapped lines. */
+.kit-list {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.6em;
+  row-gap: 2px;
+  margin-top: 18px;
+  color: var(--ink-2);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+.kit-list li:not(:last-child)::after {
+  content: ",";
+}
+
+@media (max-width: 900px) {
+  .kit { grid-template-columns: minmax(0, 1fr); }
+  .kit-name { font-size: clamp(1.5rem, 6vw, 2.1rem); }
+  .kit-group { padding-bottom: 26px; }
+}

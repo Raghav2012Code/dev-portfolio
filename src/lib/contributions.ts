@@ -18,6 +18,8 @@ export interface ContributionCalendar {
   weeks: ContributionDay[][];
 }
 
+const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
+
 function isContributionLevel(value: unknown): value is ContributionLevel {
   return value === 0 || value === 1 || value === 2 || value === 3 || value === 4;
 }
@@ -42,6 +44,8 @@ function isContributionCalendar(value: unknown): value is ContributionCalendar {
           typeof day === "object" &&
           day !== null &&
           typeof (day as Record<string, unknown>).date === "string" &&
+          // A malformed date would make Intl.DateTimeFormat throw mid-render.
+          ISO_DAY.test((day as Record<string, unknown>).date as string) &&
           typeof (day as Record<string, unknown>).count === "number" &&
           Number.isInteger((day as Record<string, unknown>).count) &&
           ((day as Record<string, unknown>).count as number) >= 0 &&

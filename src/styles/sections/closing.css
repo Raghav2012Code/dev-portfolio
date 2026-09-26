@@ -1,0 +1,112 @@
+/* ============================================================
+   SECTIONS — closing
+   Owns: contact (#contact, variant `closing`).
+   Composition: a confident ending — the heading set as a statement,
+   then three ruled columns of large inline contact links.
+   Loaded after index.css, so equal-specificity rules here win.
+   ============================================================ */
+
+/* ---------- head: a statement, not a 24px label ---------- */
+.section--closing .section-head {
+  margin-top: 18px;
+  margin-bottom: 0;
+}
+.section--closing h2 {
+  /* Display scale — the end of the page should land, not whisper. */
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 780;
+  font-stretch: 114%;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+.section--closing .section-lead {
+  margin-top: 16px;
+  max-width: 36em;
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  line-height: 1.5;
+}
+
+/* ---------- body: three contacts across the full width ---------- */
+.section--closing .section-body { margin-top: 44px; }
+
+.closing-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 44px;
+}
+.closing-item {
+  min-width: 0;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.closing-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 0 10px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.closing-link-icon {
+  flex: none;
+  margin-top: 3px;
+  color: var(--ink-3);
+  transition: var(--t);
+}
+.closing-link-value {
+  min-width: 0;
+  /* Sized so the longest value (the email, 25 characters) fits a third of the
+     shell without breaking: at 1.6rem it needed ~325px against ~295px
+     available, which is what produced mid-word breaks like "…@gma / il.com". */
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  font-weight: 650;
+  font-stretch: 104%;
+  letter-spacing: -0.015em;
+  line-height: 1.28;
+  /* break-word only breaks when it must; anywhere breaks mid-word eagerly. */
+  overflow-wrap: break-word;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+  transition: var(--t);
+}
+
+/* The trace appears only when the link is live: pointer hover or keyboard focus.
+   The global :focus-visible outline in index.css keeps focus visible either way. */
+.closing-link:hover .closing-link-value,
+.closing-link:focus-visible .closing-link-value {
+  text-decoration-color: var(--trace);
+}
+.closing-link:hover .closing-link-icon,
+.closing-link:focus-visible .closing-link-icon { color: var(--trace); }
+
+@media (max-width: 960px) {
+  .closing-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
+}
+
+@media (max-width: 640px) {
+  .section--closing .section-body { margin-top: 36px; }
+  .closing-list { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+  .closing-link { padding: 18px 0 8px; }
+}
+
+
+/* ---------- layout: a centred finale ----------
+   Every other section on the page is left-aligned, so the closing statement
+   centers itself to mark the end. */
+.section--closing { text-align: center; }
+.section--closing .section-lead { margin-inline: auto; }
+.closing-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 56px;
+}
+.closing-item { flex: 0 1 auto; min-width: 15rem; }
+.closing-link { justify-content: center; padding: 20px 0 6px; }
+
+@media (max-width: 640px) {
+  .closing-list { display: block; }
+  .closing-item { min-width: 0; }
+}

@@ -1,20 +1,37 @@
-import { motion } from "motion/react";
-import { SECTION_COPY } from "../data/content";
-import { reveal } from "../lib/motion";
-import { SectionHead } from "./ui";
+import { CURRENTLY, SECTION_COPY } from "../data/content";
+import { Section } from "./ui";
 
+/**
+ * `prose` composition: a two-column split. The prose runs in the left column
+ * and the "right now" list forms a rail on the right, so this is the only
+ * section on the page that sets text side by side. It keeps its accessible name
+ * without showing a heading.
+ */
 export function About() {
   const copy = SECTION_COPY.about;
+  const now = SECTION_COPY.currently;
   return (
-    <section className="section" id="about">
-      <div className="container about-grid">
-        <div>
-          <SectionHead title={copy.title} base={0} />
+    <Section id="about" title={copy.title} variant="prose">
+      <div className="about-split">
+        <div className="prose about-prose">
+          {copy.paragraphs.map((paragraph, index) => (
+            <p className={index === 0 ? "about-lede" : undefined} key={paragraph}>
+              {paragraph}
+            </p>
+          ))}
         </div>
-        <motion.div {...reveal(2)} className="about-copy">
-          {copy.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-        </motion.div>
+        <aside className="about-now">
+          <h3 className="about-now-title">{now.title}</h3>
+          <ul className="about-now-list">
+            {CURRENTLY.map((item) => (
+              <li className="about-now-item" key={item.title}>
+                <span className="about-now-name">{item.title}</span>
+                <span className="about-now-sub">{item.sub}</span>
+              </li>
+            ))}
+          </ul>
+        </aside>
       </div>
-    </section>
+    </Section>
   );
 }

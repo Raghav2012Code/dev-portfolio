@@ -1,51 +1,33 @@
-import { motion } from "motion/react";
-import type { ComponentType } from "react";
 import { CONTACT_ITEMS, SECTION_COPY } from "../data/content";
-import type { ContactIconName } from "../data/content";
-import { reveal } from "../lib/motion";
-import { DiscordIcon, GitHubIcon, MailIcon } from "./icons";
-import { SectionHead } from "./ui";
+import { LinkIcon, Section } from "./ui";
 
-const CONTACT_ICONS: Record<ContactIconName, ComponentType> = {
-  github: GitHubIcon,
-  email: MailIcon,
-  discord: DiscordIcon,
-};
-
+/**
+ * The end of the page: the heading is set as a statement, then the three
+ * addresses sit across the full width as large inline links on ruled columns.
+ * Email stays a real mailto:; external links open in a new tab.
+ */
 export function Contact() {
   const copy = SECTION_COPY.contact;
   return (
-    <section className="section" id="contact">
-      <div className="container narrow">
-        <SectionHead title={copy.title} base={0} />
-        <motion.p {...reveal(2)} className="section-lead">
-          {copy.lead}
-        </motion.p>
-        <motion.ul {...reveal(3)} className="contact-list">
-          {CONTACT_ITEMS.map((item) => {
-            const Icon = CONTACT_ICONS[item.icon];
-            return (
-              <li key={item.label}>
-                <span className="contact-label">
-                  <Icon />
-                  {item.label}
-                </span>
-                {item.href ? (
-                  <a
-                    href={item.href}
-                    target={item.external ? "_blank" : undefined}
-                    rel={item.external ? "noopener" : undefined}
-                  >
-                    {item.value}
-                  </a>
-                ) : (
-                  <span>{item.value}</span>
-                )}
-              </li>
-            );
-          })}
-        </motion.ul>
-      </div>
-    </section>
+    <Section id="contact" title={copy.title} lead={copy.lead} variant="closing">
+      <ul className="closing-list">
+        {CONTACT_ITEMS.map((item) => (
+          <li className="closing-item" key={item.label}>
+            <a
+              className="closing-link"
+              href={item.href}
+              aria-label={`${item.label}: ${item.value}`}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noopener" : undefined}
+            >
+              <span className="closing-link-icon">
+                <LinkIcon label={item.label} size={22} />
+              </span>
+              <span className="closing-link-value">{item.value}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Section>
   );
 }
