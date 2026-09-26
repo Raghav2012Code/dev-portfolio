@@ -254,3 +254,21 @@
     content: none;
   }
 }
+
+
+/* ---------- head: a chapter title, not a 24px label ----------
+   The showpiece opens with display type so it reads as the page's main event,
+   not as one more labelled block. */
+.section--index .section-head { margin-top: 22px; }
+.section--index h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 780;
+  font-stretch: 112%;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+.section--index .section-lead {
+  margin-top: 14px;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  max-width: 30em;
+}

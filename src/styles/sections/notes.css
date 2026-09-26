@@ -137,3 +137,29 @@
     gap: 24px;
   }
 }
+
+
+/* ---------- about: no label at all ----------
+   The section keeps its accessible name but shows no heading, so it reads as a
+   pause in the page rather than one more labelled block. */
+.section--prose { padding-top: 160px; }
+.section--prose .section-rule { display: none; }
+.section--prose .section-head {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- stack: a dense board, opening tight with a small label ---------- */
+.section--board { padding-top: 56px; }
+.section--board .section-rule { display: none; }
+.section--board .section-head { margin-top: 0; margin-bottom: 20px; }
+.section--board h2 {
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: 100%;
+  letter-spacing: 0;
+  color: var(--ink-3);
+}

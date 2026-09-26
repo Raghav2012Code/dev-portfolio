@@ -255,3 +255,21 @@ a.record-build:focus-visible {
   display: flex;
   align-items: center;
 }
+
+
+/* ---------- a banded region, not another stacked block ----------
+   The record sits on a raised sheet spanning the viewport with its label pushed
+   to the right and no opening rule: the band edge is the divider. This is the
+   only section that changes surface, so scrolling through it feels like passing
+   through a different region rather than another block of the same page. */
+.section--record {
+  padding-block: 72px;
+  background: var(--paper-raised);
+  border-block: 1px solid var(--rule);
+}
+.section--record .section-rule { display: none; }
+/* `max-width: none` because an earlier rule caps this head at 42rem, which put
+   the right-aligned label near the middle of the shell rather than at its edge. */
+.section--record .section-head { margin-top: 0; max-width: none; text-align: right; }
+.section--record h2 { font-size: 20px; }
+.section--record .section-lead { margin-left: auto; }

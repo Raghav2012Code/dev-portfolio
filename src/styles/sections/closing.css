@@ -12,11 +12,12 @@
   margin-bottom: 0;
 }
 .section--closing h2 {
-  font-size: clamp(2rem, 5vw, 3.25rem);
-  font-weight: 760;
-  font-stretch: 112%;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  /* Display scale — the end of the page should land, not whisper. */
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 780;
+  font-stretch: 114%;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
 }
 .section--closing .section-lead {
   margin-top: 16px;
