@@ -18,13 +18,15 @@ Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html`
 - The working tree mixes CRLF and LF files (`core.autocrlf=true`). Use the Edit tool for multi-line replacements; `` `n ``-based string replaces silently miss CRLF files.
 - Noise to ignore: `LF will be replaced by CRLF` warnings, and `git push` progress on stderr surfacing as `NativeCommandError`.
 
-## Motion (one language)
+## Motion (no budget, no variety cap)
 
-- All timing lives in `src/lib/motion.ts`: one ease, 8px rise, 50ms stagger. Components import it rather than hardcoding durations.
-- One orchestrated moment: the hero entrance (name, statement, actions, title block). Sections are static and readable on arrival.
-- Interaction motion (mobile menu, button press) answers the user's action. Transform/opacity only, calm easing.
-- `SiteShell` wraps every page in `LazyMotion features={domAnimation} strict` and `MotionConfig reducedMotion="user"`. Animate with `m.*` from `motion/react-m`; a `motion.*` component throws under `strict` and pulls the full bundle back in.
-- Under reduced motion, `MotionConfig` drops transforms but keeps opacity fades; the CSS query covers the rest.
+- `motion/react` is the animation library. Animate as much as you want, anywhere: there is no per-section budget, no cap on the number of animated elements, and no "this must stay still" list. Adding, extending, or removing animation is always in scope.
+- Anything goes effect-wise: layout animation, scroll-linked animation, parallax, springs, bouncy or custom easings, keyframes, gestures, shared-layout transitions, looping/ambient motion. None of it is off-limits.
+- `src/lib/motion.ts` is the home of the shared tokens. Reuse them where they fit and add new ones as needed, so repeated effects stay consistent. Don't route every value through it when a one-off reads better inline.
+- `SiteShell` wraps every page in `LazyMotion features={domAnimation} strict` and `MotionConfig reducedMotion="user"`. Animate with `m.*` from `motion/react-m`; under `strict` a `motion.*` component throws and pulls the full bundle back in, so keep new motion on `m.*`.
+- Accessibility is the one hard requirement, not a budget item. Anything you animate must respect reduced motion — `MotionConfig` drops transforms while opacity fades remain, and the CSS query covers the rest. Never make motion the only way information is conveyed.
+- Performance is the other one: prefer transform/opacity, and make scroll-linked work cheap (avoid layout thrash and per-frame `setState` on large subtrees).
+- What ships today is restrained — a hero entrance, action feedback, and sections that are static on arrival. That is the current design, not a rule. Changing it is allowed.
 
 ## Design system
 
