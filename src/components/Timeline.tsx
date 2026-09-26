@@ -8,7 +8,7 @@ export function Timeline() {
         {TIMELINE.map((item) => (
           <li key={item.title} className={item.minor ? "tl-minor" : undefined}>
             <span className="tl-year">{item.year}</span>
-            <div className="tl-body">
+            <div>
               <p className="tl-title">{item.title}</p>
               <p className="tl-sub">{item.place}</p>
               {item.project ? <p className="tl-project">{item.project}</p> : null}

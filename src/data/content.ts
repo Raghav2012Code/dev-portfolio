@@ -58,7 +58,6 @@ export const SECTION_COPY = {
   },
   contributions: {
     title: "Public contributions",
-    scrollHint: "Scroll to see the full year.",
     less: "Less",
     more: "More",
   },
@@ -86,7 +85,7 @@ export interface ContactItem {
 
 export const CONTACT_ITEMS: ContactItem[] = [
   { label: "Email", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
-  { label: "GitHub", value: "github.com/Raghav2012Code", href: GITHUB_URL, external: true },
+  { label: "GitHub", value: `github.com/${GITHUB_USERNAME}`, href: GITHUB_URL, external: true },
   {
     label: "Discord",
     value: "thegamer3559",
@@ -141,7 +140,6 @@ export interface Project {
 
 export const PROJECT_SPEC_LABELS = {
   event: "Built for",
-  result: "Result",
   contrib: "My part",
   tech: "Built with",
   flow: "Signal chain",

@@ -1,9 +1,10 @@
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { useEffect, useRef, useState } from "react";
-import type { MouseEvent } from "react";
 import { GITHUB_URL, NAV_GITHUB_LABEL, NAV_LINKS, PROFILE_NAME, PROJECTS_PAGE_PATH } from "../data/content";
 import { EASE, INTERACTION_DURATION, RISE_PX } from "../lib/motion";
-import { resolveHref, isHomePage } from "../lib/site";
+import { isHomePage, resolveHref, scrollToTop } from "../lib/site";
+import { useMediaQuery } from "../lib/useMediaQuery";
 import { LinkIcon } from "./ui";
 
 /** Section links scroll on home; off home, Projects is this page itself. */
@@ -12,35 +13,44 @@ function navTarget(href: string): { href: string; current?: "page" } {
   return { href: resolveHref(href) };
 }
 
+const NAV_HREFS = new Set(NAV_LINKS.map((link) => link.href));
+
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string | null>(null);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
+  const mobile = useMediaQuery("(max-width: 640px)");
+  const home = isHomePage();
 
-  const scrollToTop = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
-  };
-
+  // Scroll-spy (home only): highlight the section crossing the middle band.
+  // Every section is observed, so the hero or an unlisted section clears the
+  // highlight instead of leaving the last one lit. Sections that mount late
+  // (contributions) clear it when their neighbour leaves the band.
   useEffect(() => {
-    const sections = NAV_LINKS.map((link) => document.querySelector(link.href)).filter(
-      (el): el is Element => el !== null,
-    );
-    if (sections.length === 0) return;
+    if (!home) return;
     const spy = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveHref(`#${entry.target.id}`);
-          }
+          if (entry.isIntersecting) continue;
+          const href = `#${entry.target.id}`;
+          setActiveHref((current) => (current === href ? null : current));
+        }
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const href = `#${entry.target.id}`;
+          setActiveHref(NAV_HREFS.has(href) ? href : null);
         }
       },
       { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
     );
-    sections.forEach((section) => spy.observe(section));
+    document.querySelectorAll("main section[id]").forEach((section) => spy.observe(section));
     return () => spy.disconnect();
-  }, []);
+  }, [home]);
+
+  // The menu only exists on small screens; widening the window closes it.
+  useEffect(() => {
+    if (!mobile) setOpen(false);
+  }, [mobile]);
 
   useEffect(() => {
     if (!open) return;
@@ -54,25 +64,29 @@ export function Navbar() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const links = NAV_LINKS.map((link) => {
+    const target = navTarget(link.href);
+    return {
+      label: link.label,
+      href: target.href,
+      current: target.current ?? (activeHref === link.href ? ("true" as const) : undefined),
+    };
+  });
+
   return (
     <header className="nav" id="top">
       <div className="nav-inner">
-        {isHomePage() ? (
-          <a className="brand" href="#top" aria-label={`${PROFILE_NAME} home`} onClick={scrollToTop}>
-            <span className="brand-text">{PROFILE_NAME}</span>
-          </a>
-        ) : (
-          <a className="brand" href="/" aria-label={`${PROFILE_NAME} home`}>
-            <span className="brand-text">{PROFILE_NAME}</span>
-          </a>
-        )}
+        <a
+          className="brand"
+          href={home ? "#top" : "/"}
+          aria-label={`${PROFILE_NAME} home`}
+          onClick={home ? scrollToTop : undefined}
+        >
+          <span className="brand-text">{PROFILE_NAME}</span>
+        </a>
         <nav className="nav-links" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={navTarget(link.href).href}
-              aria-current={navTarget(link.href).current ?? (activeHref === link.href ? "true" : undefined)}
-            >
+          {links.map((link) => (
+            <a key={link.href} href={link.href} aria-current={link.current}>
               {link.label}
             </a>
           ))}
@@ -84,12 +98,11 @@ export function Navbar() {
           </a>
           <button
             className="nav-toggle"
-            id="navToggle"
             ref={toggleRef}
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            aria-controls="mobileMenu"
+            aria-controls={open ? "mobileMenu" : undefined}
             onClick={() => setOpen((value) => !value)}
           >
             <span />
@@ -100,7 +113,7 @@ export function Navbar() {
       </div>
       <AnimatePresence initial={false}>
         {open ? (
-          <motion.nav
+          <m.nav
             key="mobile-menu"
             className="mobile-menu"
             id="mobileMenu"
@@ -110,17 +123,17 @@ export function Navbar() {
             exit={{ opacity: 0, y: -RISE_PX }}
             transition={{ duration: INTERACTION_DURATION, ease: EASE }}
           >
-            {NAV_LINKS.map((link) => (
+            {links.map((link) => (
               <a
                 key={link.href}
-                href={navTarget(link.href).href}
-                aria-current={navTarget(link.href).current}
+                href={link.href}
+                aria-current={link.current}
                 onClick={() => setOpen(false)}
               >
                 {link.label}
               </a>
             ))}
-          </motion.nav>
+          </m.nav>
         ) : null}
       </AnimatePresence>
     </header>

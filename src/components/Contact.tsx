@@ -4,7 +4,7 @@ import { LinkIcon, Section } from "./ui";
 export function Contact() {
   const copy = SECTION_COPY.contact;
   return (
-    <Section id="contact" title={copy.title} lead={copy.lead} className="section-contact">
+    <Section id="contact" title={copy.title} lead={copy.lead}>
       <ul className="contact-list">
         {CONTACT_ITEMS.map((item) => (
           <li key={item.label}>

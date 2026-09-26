@@ -9,8 +9,9 @@ robotics builder from Chennai.
 
 React 19 + TypeScript + Vite, `motion/react` for animation. Designed as a
 builder's datasheet: drafting-paper background, one typeface (Archivo), one
-PCB-green accent, light and dark themes. The hero figure draws the
-sense, process, actuate loop once on load; everything else stays still.
+PCB-green accent, light and dark themes. The hero is type only (the name,
+one statement, a drafting title block) and settles in once on load;
+everything else stays still.
 
 ## Project content rules (keep them)
 
@@ -49,8 +50,12 @@ For the deployed graph, set `GITHUB_CONTRIBUTIONS_TOKEN` in the Vercel project's
 Environment Variables and redeploy. Use a classic personal access token with no
 scopes; do not grant `read:user`, so the graph stays limited to public activity.
 Never prefix this variable with `VITE_` or put its value in the repository.
-The local Vite server uses the same endpoint and shows the profile link if this
-environment variable is unset.
+The local Vite server runs the same handler; put the token in `.env.local`
+(git-ignored) or export it in your shell to see the graph locally.
 
 The graph shows a one-year public contribution calendar for `Raghav2012Code`.
-The page links directly to GitHub if the API is unavailable or unconfigured.
+If the API is unavailable or unconfigured, or the GitHub profile has **private
+contributions** turned on (Settings, Public profile, Contributions), the section
+and the hero count stay hidden, since private counts would otherwise be mixed
+into a graph labelled public. Failures are logged in the Vercel function logs
+with a short reason.

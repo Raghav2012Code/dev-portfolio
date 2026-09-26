@@ -10,7 +10,7 @@ import { Section } from "./ui";
 export function ProjectIndex() {
   const copy = SECTION_COPY.projects;
   return (
-    <Section id="projects" title={copy.title} lead={copy.lead} className="section-projects">
+    <Section id="projects" title={copy.title} lead={copy.lead}>
       <ul className="project-index">
         {PROJECTS.map((project) => (
           <li key={project.slug}>

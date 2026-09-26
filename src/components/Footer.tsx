@@ -1,13 +1,7 @@
-import type { MouseEvent } from "react";
 import { FOOTER_COPY, PROFILE_NAME } from "../data/content";
+import { scrollToTop } from "../lib/site";
 
 export function Footer() {
-  const scrollToTop = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
-  };
-
   return (
     <footer className="footer">
       <div className="container footer-inner">

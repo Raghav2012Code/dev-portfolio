@@ -4,17 +4,18 @@
 // static so content is readable the instant it scrolls into view.
 // Interaction motion (menu, button press) answers the user's action.
 // Transform/opacity only. Reduced motion is handled globally via
-// MotionConfig reducedMotion="user" in App.
+// MotionConfig reducedMotion="user" in SiteShell, which also wraps pages in
+// LazyMotion: animate with `m.*` from "motion/react-m", never `motion.*`.
 import type { Transition } from "motion/react";
 
 export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const RISE_PX = 8;
-export const REVEAL_DURATION = 0.4;
-export const STAGGER_STEP = 0.05;
+const REVEAL_DURATION = 0.4;
+const STAGGER_STEP = 0.05;
 export const INTERACTION_DURATION = 0.25;
 export const PRESS_DURATION = 0.12;
 
-export function revealTransition(index = 0, baseDelay = 0): Transition {
+function revealTransition(index = 0, baseDelay = 0): Transition {
   return {
     duration: REVEAL_DURATION,
     ease: EASE,
@@ -22,7 +23,7 @@ export function revealTransition(index = 0, baseDelay = 0): Transition {
   };
 }
 
-export interface EntranceMotionProps {
+interface EntranceMotionProps {
   initial: { opacity: number; y: number };
   animate: { opacity: number; y: number };
   transition: Transition;

@@ -27,7 +27,9 @@ Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
 - All timing lives in `src/lib/motion.ts`: one ease, 8px rise, 50ms stagger.
 - One orchestrated moment only: the hero entrance (name, statement, actions, title block). Sections do not animate on scroll; content is static and readable on arrival.
 - Interaction motion (mobile menu, button press) answers the user's action. Never hardcode timing in components.
-- Reduced motion is global (`MotionConfig reducedMotion="user"` in `App.tsx` + CSS query). Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
+- Reduced motion is global (`MotionConfig reducedMotion="user"` in `components/SiteShell.tsx` + CSS query). Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
+- `SiteShell` wraps every page in `LazyMotion features={domAnimation} strict`: animate with `m.*` from `motion/react-m`. A `motion.*` component throws under `strict` and would pull the full bundle back in.
+- Pages go through `SiteShell` (skip link, nav, `main`, footer, deep-link hash scroll). Don't rebuild that frame per page.
 
 ## Design system
 
@@ -48,7 +50,7 @@ Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
 
 - Vercel CLI is installed and logged in. Project `van-89de/dev-portfolio`, live at `https://raghavkrishna-dev.vercel.app` (alias; `raghav-dev.vercel.app` and `raghavdev.vercel.app` were already taken). GitHub is connected, so pushes to `main` auto-deploy. CLI deploys are rarely needed.
 - `.vercelignore` must keep excluding `.playwright-mcp/` and `dist/`. Uploading them aborts the deploy on slow networks.
-- Keep the canonical URL (`https://dev-portfolio-azure-nine.vercel.app/`) in sync across `index.html`, `public/robots.txt`, and `public/sitemap.xml`.
+- Keep the canonical URL (`https://raghavkrishna-dev.vercel.app`, projects page at `/project`, no trailing slash) in sync across `index.html` and `project.html` (canonical + `og:url`), `public/robots.txt`, and `public/sitemap.xml`. `vercel.json` sets `trailingSlash: false` so `/project/` redirects there.
 
 ## Git
 

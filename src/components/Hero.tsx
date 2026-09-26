@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import type { ReactEventHandler } from "react";
 import { useEffect, useState } from "react";
 import {
@@ -35,37 +35,35 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="hero" aria-labelledby="hero-name">
+    <section className="hero" id="intro" aria-labelledby="hero-name">
       <div className="container hero-grid">
-        <motion.h1 {...entrance(0)} className="hero-name" id="hero-name">
+        <m.h1 {...entrance(0)} className="hero-name" id="hero-name">
           {HERO_COPY.name}
-        </motion.h1>
+        </m.h1>
         <div className="hero-copy">
-          <motion.p {...entrance(1)} className="hero-statement">
+          <m.p {...entrance(1)} className="hero-statement">
             {HERO_COPY.statement}
-          </motion.p>
-          <motion.div {...entrance(2)} className="hero-actions">
-            <motion.a className="btn btn-primary" href={PROJECTS_PAGE_PATH} {...press}>
+          </m.p>
+          <m.div {...entrance(2)} className="hero-actions">
+            <m.a className="btn btn-primary" href={PROJECTS_PAGE_PATH} {...press}>
               {HERO_COPY.projectsLink}
-            </motion.a>
+            </m.a>
             {contributionTotal !== null ? (
               <a className="hero-teaser" href="#contributions">
                 <span className="hero-teaser-count">{contributionTotal.toLocaleString()}</span>{" "}
                 {CONTRIBUTION_TEASER.lead}
               </a>
             ) : null}
-          </motion.div>
+          </m.div>
         </div>
-        <motion.div {...entrance(3)} className="title-block">
+        <m.div {...entrance(3)} className="title-block">
           {/* PROFILE PHOTO: swap src for assets/profile.jpg to use a real photograph. */}
           <img
             className="profile-img"
             src={GITHUB_AVATAR_URL}
             alt={HERO_COPY.avatarAlt}
-            width={72}
-            height={72}
-            loading="eager"
-            fetchPriority="high"
+            width={96}
+            height={96}
             decoding="async"
             onError={hideOnError}
           />
@@ -77,7 +75,7 @@ export function Hero() {
               </div>
             ))}
           </dl>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

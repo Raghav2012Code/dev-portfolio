@@ -23,7 +23,6 @@
   --rule-strong: #9aa5a0;
   --frame: var(--ink);
   --trace: #0e6b4c;
-  --trace-hover: #0a5a3f;
   --trace-soft: rgba(14, 107, 76, 0.14);
   --cal-0: #dde4df;
   --cal-1: #a9d3bf;
@@ -55,7 +54,6 @@
     --rule-strong: #4a5861;
     --frame: #74827d;
     --trace: #4fc592;
-    --trace-hover: #7ad8ae;
     --trace-soft: rgba(79, 197, 146, 0.16);
       --cal-0: #1d272e;
     --cal-1: #1b4a37;
@@ -159,9 +157,15 @@ ul, ol { list-style: none; }
 .nav-toggle span { display: block; width: 18px; height: 1.5px; background: currentColor; margin: 4px 0; }
 .nav-toggle span:first-child { margin-top: 0; }
 .nav-toggle span:last-child { margin-bottom: 0; }
+/* Overlays the page instead of pushing it down: a menu link's scroll target is
+   measured while the menu is open, so an in-flow menu would land it one
+   menu-height too far once the menu closes. */
 .mobile-menu {
+  position: absolute; top: 100%; left: 0; right: 0;
   display: flex; flex-direction: column;
-  padding: 4px var(--gutter) 12px; border-top: 1px solid var(--rule);
+  padding: 4px var(--gutter) 12px;
+  background: var(--paper);
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule-strong);
 }
 .mobile-menu a {
   color: var(--ink-2); text-decoration: none; padding: 13px 0;
@@ -334,11 +338,8 @@ ul, ol { list-style: none; }
 /* ---------- GitHub contributions ---------- */
 .contribution-summary { font-size: 16px; }
 .contribution-figure { margin-top: 20px; }
+/* Scales down to its column rather than scrolling; phones get the recent half-year. */
 .contribution-chart { display: block; max-width: 100%; height: auto; overflow: visible; }
-.contribution-chart-scroll {
-  max-width: 100%; overflow-x: auto; padding-bottom: 4px;
-  scrollbar-color: var(--rule-strong) transparent; scrollbar-width: thin;
-}
 .contribution-axis-label { fill: var(--ink-3); font-family: var(--font); font-size: 9px; }
 .contribution-cell { fill: var(--cal-0); }
 .contribution-level-1 { fill: var(--cal-1); }
@@ -352,8 +353,6 @@ ul, ol { list-style: none; }
 .contribution-legend .contribution-level-2 { background: var(--cal-2); }
 .contribution-legend .contribution-level-3 { background: var(--cal-3); }
 .contribution-legend .contribution-level-4 { background: var(--cal-4); }
-.contribution-scroll-hint { display: none; margin-top: 6px; color: var(--ink-3); font-size: 14px; }
-@media (min-width: 641px) and (max-width: 1080px) { .contribution-scroll-hint { display: block; } }
 
 /* ---------- timeline ---------- */
 .timeline { border-bottom: 1px solid var(--rule); }
@@ -393,32 +392,32 @@ ul, ol { list-style: none; }
 .footer-top { margin-left: auto; color: var(--ink-2); font-size: 14px; text-decoration: none; transition: var(--t); }
 .footer-top:hover { color: var(--ink); }
 
-/* ---------- WM Tooltip, adapted: dotted affordance, ink bubble, hover-gated ---------- */
+/* ---------- WM Tooltip, adapted: dotted affordance, ink bubble ----------
+   The bubble is a real element (aria-describedby target). It shows on hover
+   where hover exists, and on focus everywhere, which covers keyboard and tap. */
 .tip {
   position: relative; cursor: help;
   text-decoration: underline dotted; text-decoration-color: var(--rule-strong); text-underline-offset: 3px;
 }
+.tip-bubble {
+  position: absolute; left: 50%; bottom: calc(100% + 8px);
+  transform: translateX(-50%) translateY(2px);
+  width: max-content; max-width: 230px; padding: 8px 10px;
+  font-size: 14px; font-weight: 500; font-stretch: 100%; letter-spacing: normal; line-height: 1.45;
+  white-space: normal; text-align: left;
+  color: var(--paper); background: var(--ink);
+  border-radius: var(--radius);
+  opacity: 0; visibility: hidden; pointer-events: none; z-index: 50;
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
+}
+.tip:focus .tip-bubble { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 @media (hover: hover) {
-  .tip::after {
-    content: attr(data-tip);
-    position: absolute; left: 50%; bottom: calc(100% + 8px);
-    transform: translateX(-50%) translateY(2px);
-    width: max-content; max-width: 230px; padding: 8px 10px;
-    font-size: 14px; font-weight: 500; line-height: 1.45;
-    white-space: normal; text-align: left;
-    color: var(--paper); background: var(--ink);
-    border-radius: var(--radius);
-    opacity: 0; visibility: hidden; pointer-events: none; z-index: 50;
-    transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
-  }
-  .tip:hover::after, .tip:focus-visible::after {
-    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
-  }
+  .tip:hover .tip-bubble { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .tip::after { transition: none; }
+  .tip-bubble { transition: none; }
 }
 
 /* ---------- responsive ---------- */
@@ -437,7 +436,6 @@ ul, ol { list-style: none; }
   :root { --gutter: 20px; --section-pad: 64px; }
   .nav-links { display: none; }
   .nav-toggle { display: block; }
-  .nav-github { font-size: 14px; }
   .hero { padding-top: 40px; }
   .hero-name { margin-bottom: 28px; font-size: clamp(2.75rem, 15vw, 4.5rem); font-stretch: 108%; }
   .hero-statement { font-size: 20px; }
@@ -445,7 +443,6 @@ ul, ol { list-style: none; }
   .profile-img { width: 80px; }
   .title-block-facts div { grid-template-columns: minmax(0, 4.5rem) minmax(0, 1fr); gap: 10px; padding: 9px 12px; }
 
-  .section h2, .entry-head h2 { font-size: 24px; }
   .entry-featured .entry-head h2 { font-size: 30px; }
   .page { padding-top: 48px; }
   .page-head { margin-bottom: 48px; }
@@ -463,7 +460,7 @@ ul, ol { list-style: none; }
   }
   .contact-list a { grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .contact-value { font-size: 19px; }
-  .tip::after { max-width: 180px; }
+  .tip-bubble { max-width: 180px; }
 }
 
 /* Smallest phones: the GitHub link keeps its icon; the label stays for screen readers.

@@ -1,12 +1,12 @@
 // Shared primitives: section shell, tooltip gloss, brand icons.
 // Watermelon UI's Tooltip and Button are ported natively in index.css.
 import type { ReactNode } from "react";
+import { useId } from "react";
 
 interface SectionProps {
   id: string;
   title: string;
   lead?: string;
-  className?: string;
   children: ReactNode;
 }
 
@@ -14,11 +14,11 @@ interface SectionProps {
  * Datasheet section: the heading sits in the margin column on wide
  * screens and stacks above the body on narrow ones.
  */
-export function Section({ id, title, lead, className, children }: SectionProps) {
+export function Section({ id, title, lead, children }: SectionProps) {
   const headingId = `${id}-title`;
   return (
     <section
-      className={className ? `section ${className}` : "section"}
+      className="section"
       id={id}
       aria-labelledby={headingId}
     >
@@ -38,11 +38,27 @@ interface TipProps {
   tip?: string;
 }
 
+/**
+ * A term with a short gloss. The bubble is a real element tied to the term by
+ * aria-describedby, so screen readers announce it on focus; it shows on hover,
+ * on keyboard focus and on tap (touch focuses the term), and Escape dismisses it.
+ */
 export function Tip({ label, tip }: TipProps) {
+  const id = useId();
   if (!tip) return <>{label}</>;
   return (
-    <span className="tip" tabIndex={0} data-tip={tip}>
+    <span
+      className="tip"
+      tabIndex={0}
+      aria-describedby={id}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") event.currentTarget.blur();
+      }}
+    >
       {label}
+      <span className="tip-bubble" role="tooltip" id={id}>
+        {tip}
+      </span>
     </span>
   );
 }
