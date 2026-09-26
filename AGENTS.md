@@ -24,10 +24,10 @@ Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
 
 ## Motion system (single language, keep it that way)
 
-- All timing lives in `src/lib/motion.ts`: one ease, 8px rise, 50ms stagger, plus the build-loop timeline (`LOOP_*`, `loop*Delay`).
-- One orchestrated moment only: the hero text entrance, then the `BuildLoop` figure draws once (blocks, traces, one pulse, actuator lights). Sections do not animate on scroll; content is static and readable on arrival.
+- All timing lives in `src/lib/motion.ts`: one ease, 8px rise, 50ms stagger.
+- One orchestrated moment only: the hero entrance (name, statement, actions, title block). Sections do not animate on scroll; content is static and readable on arrival.
 - Interaction motion (mobile menu, button press) answers the user's action. Never hardcode timing in components.
-- Reduced motion is global (`MotionConfig reducedMotion="user"` in `App.tsx` + CSS query). `BuildLoop` also reads `useReducedMotion` and renders its finished state. Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
+- Reduced motion is global (`MotionConfig reducedMotion="user"` in `App.tsx` + CSS query). Transform/opacity only. No layout animation, no scroll-linked parallax, no bouncy easings.
 
 ## Design system
 
@@ -35,6 +35,8 @@ Vite + React 19 + strict TypeScript single-page portfolio. Content rules live in
 - One family: Archivo (Google Fonts, `wdth` + `wght` axes). Display type uses `font-stretch`; no second face, no monospace labels, no all-caps eyebrows.
 - Sections use `Section` (`components/ui.tsx`): heading in the margin column, body on the right. Facts go in `dl.spec` rows, not `·`-joined strings.
 - Green means connected or achieved: traces, links, awarded/qualified results. Don't use it as decoration.
+- The hero is type only: the name, one statement, and a drafting title block (square, ruled) for the facts. No diagram or figure there; the real signal chain lives on the Door Hinge entry.
+- Each result appears once on the home page, in Competitions. The home project index shows name + `summary`, not results. Section headings match their nav labels.
 
 ## Components
 

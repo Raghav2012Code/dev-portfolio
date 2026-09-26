@@ -2,18 +2,21 @@ import { PROJECTS, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
 import { ProjectCard } from "./ProjectCard";
 import { Section } from "./ui";
 
-/** Home page: every project as one index row linking to its full entry. */
+/**
+ * Home page: every project as one index row (name and what it does) linking
+ * to its full entry. Results live in the competitions list, so each win
+ * appears once on the page.
+ */
 export function ProjectIndex() {
   const copy = SECTION_COPY.projects;
   return (
-    <Section id="projects" title={copy.title} lead={copy.lead}>
+    <Section id="projects" title={copy.title} lead={copy.lead} className="section-projects">
       <ul className="project-index">
         {PROJECTS.map((project) => (
           <li key={project.slug}>
             <a href={`${PROJECTS_PAGE_PATH}#${project.slug}`}>
               <span className="index-name">{project.name}</span>
-              <span className="index-event">{project.event}</span>
-              <span className={`index-result tone-${project.resultTone}`}>{project.result}</span>
+              <span className="index-summary">{project.summary}</span>
             </a>
           </li>
         ))}

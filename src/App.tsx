@@ -1,9 +1,7 @@
 import { MotionConfig } from "motion/react";
 import { About } from "./components/About";
-import { Achievements } from "./components/Achievements";
 import { Contact } from "./components/Contact";
 import { Contributions } from "./components/Contributions";
-import { Currently } from "./components/Currently";
 import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 import { Navbar } from "./components/Navbar";
@@ -20,13 +18,11 @@ export function App() {
       <Navbar />
       <main id="main">
         <Hero />
-        <Achievements />
+        <ProjectIndex />
+        <Timeline />
         <About />
         <Contributions />
-        <ProjectIndex />
         <Skills />
-        <Timeline />
-        <Currently />
         <Contact />
       </main>
       <Footer />

@@ -15,7 +15,7 @@ sense, process, actuate loop once on load; everything else stays still.
 ## Project content rules (keep them)
 
 - Projects, in order: Door Hinge Safety System, CRASH, Vaccine Cold Chain Ledger, Volt Ledger, EPL Predictor, Urbania
-- Participated-only entries (Technoviz, Shark Tank) stay muted in the timeline; they never enter the achievements strip
+- Participated-only entries (Technoviz, Shark Tank) stay muted in the competitions list; each result appears once on the home page
 - No Habit Tracker anywhere
 - No invented awards, jobs, stats, testimonials, or technical details
 - No proficiency percentages or expertise claims

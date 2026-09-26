@@ -6,11 +6,12 @@ export interface NavLink {
   href: string;
 }
 
+// Labels match the section headings they jump to.
 export const NAV_LINKS: NavLink[] = [
-  { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
+  { label: "Competitions", href: "#timeline" },
+  { label: "About", href: "#about" },
   { label: "Stack", href: "#technologies" },
-  { label: "Timeline", href: "#timeline" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -25,44 +26,29 @@ export const PROJECTS_PAGE_PATH = "/project";
 
 export const HERO_COPY = {
   name: PROFILE_NAME,
-  role: "Student, developer and robotics builder",
-  facts: "Grade 9 at Velammal Academy Nolambur, Chennai, India",
-  description:
-    "14-year-old builder exploring software, AI-assisted development, and hardware projects with ESP32, Arduino, sensors, and more.",
+  statement:
+    "I build hardware with ESP32s, sensors and actuators, and write the software that ties it together.",
   avatarAlt: `Profile image of ${PROFILE_NAME}`,
   projectsLink: "View projects",
-  githubLink: "GitHub",
 } as const;
 
-/** One stage of the hero build-loop figure. */
-export interface BuildStage {
-  stage: string;
-  part: string;
-  examples: string;
-}
-
-export const BUILD_LOOP: { caption: string; stages: BuildStage[] } = {
-  caption: "Sense, process, actuate: the loop behind my hardware builds.",
-  stages: [
-    { stage: "Sense", part: "Sensors", examples: "IR, laser, temperature" },
-    { stage: "Process", part: "Microcontroller", examples: "ESP32, Arduino" },
-    { stage: "Actuate", part: "Actuators", examples: "Servos, solenoids, displays" },
-  ],
-};
+/** Hero title block: the fact box in the corner of a drawing sheet. */
+export const TITLE_BLOCK: { label: string; value: string }[] = [
+  { label: "School", value: "Grade 9, Velammal Academy Nolambur" },
+  { label: "Based in", value: "Chennai, India" },
+  { label: "Age", value: "14" },
+];
 
 export const SECTION_COPY = {
-  record: {
-    title: "Results",
-  },
   about: {
-    title: "I learn by building things.",
+    title: "About",
     paragraphs: [
       "Most of what I’ve learned has come from building. I’m especially interested in hardware projects with ESP32s, sensors, and actuators, and in connecting them to software.",
       "I use AI coding tools such as Claude Code and OpenAI Codex to prototype, implement, and debug projects.",
     ],
   },
   projects: {
-    title: "Selected work",
+    title: "Projects",
     lead: "Hardware-first projects, built for real competitions.",
     viewAll: "Read every project in full",
   },
@@ -77,16 +63,16 @@ export const SECTION_COPY = {
     more: "More",
   },
   stack: {
-    title: "Technologies I build with",
+    title: "Stack",
   },
   timeline: {
-    title: "Competition timeline",
+    title: "Competitions",
   },
   currently: {
-    title: "Building and exploring now",
+    title: "Right now",
   },
   contact: {
-    title: "Say hello.",
+    title: "Contact",
     lead: "Always happy to talk robotics, hardware, or builds in progress.",
   },
 } as const;
@@ -118,31 +104,6 @@ export const CONTRIBUTION_TEASER = {
   lead: "public GitHub contributions in the past year",
 } as const;
 
-/** Awarded or qualifying results only. Participation stays in the timeline. */
-export interface Achievement {
-  result: string;
-  event: string;
-  detail: string;
-}
-
-export const ACHIEVEMENTS: Achievement[] = [
-  {
-    result: "Overall Winner",
-    event: "Robowunder International Robotics Championship 2026",
-    detail: "Malaysia",
-  },
-  {
-    result: "Consolation Prize",
-    event: "PEC Hacks 4.0",
-    detail: "High School Track, Panimalar Engineering College",
-  },
-  {
-    result: "Qualified",
-    event: "NRC Technoxian",
-    detail: "Through the Zonal Robotics Championship, SRM Chennai",
-  },
-];
-
 /** A technology mention; `tip` adds the hover/focus tooltip gloss. */
 export interface TechMention {
   label: string;
@@ -166,6 +127,8 @@ export interface Project {
   slug: string;
   name: string;
   featured?: boolean;
+  /** One line for the home index, condensed from `description`. */
+  summary: string;
   event: string;
   result: string;
   resultTone: ResultTone;
@@ -188,6 +151,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "door-hinge-safety-system",
     name: "Door Hinge Safety System",
+    summary: "Laser and IR sensors watch the hinge; a servo and solenoid respond to help prevent finger injuries.",
     featured: true,
     event: "Robowunder International Robotics Championship 2026, Malaysia",
     result: "Overall Winner, Gold",
@@ -210,6 +174,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "crash",
     name: "CRASH (Chennai Road Accident Safety Hub)",
+    summary: "Predicts where road accidents may occur, using public accident data and XGBoost.",
     event: "Zonal Robotics Championship, SRM Chennai",
     result: "Qualified for NRC Technoxian",
     resultTone: "win",
@@ -227,6 +192,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "vaccine-cold-chain-ledger",
     name: "Vaccine Cold Chain Ledger",
+    summary: "A DHT22 sensor tracks vaccine storage temperature, with SHA-256-hashed records in a web app.",
     event: "PEC Hacks 4.0, High School Track, Panimalar Engineering College",
     result: "Consolation Prize",
     resultTone: "win",
@@ -259,6 +225,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "volt-ledger",
     name: "Volt Ledger",
+    summary: "A tamper-evident ledger for peer-to-peer rooftop solar trading, hashed in the browser.",
     event: "Shark Tank Challenge, Velammal",
     result: "Participated, 2026",
     resultTone: "muted",
@@ -279,6 +246,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "epl-predictor",
     name: "EPL Predictor",
+    summary: "Match-outcome prediction from historical English football data with XGBoost.",
     event: "Personal project",
     result: "Work in progress",
     resultTone: "muted",
@@ -294,6 +262,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "urbania",
     name: "Urbania",
+    summary: "A 2D city simulation for exploring how simulated systems behave.",
     event: "Personal project",
     result: "Experimental",
     resultTone: "muted",
