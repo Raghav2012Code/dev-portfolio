@@ -375,3 +375,21 @@
   .index-item:first-child .index-name,
   .index-name { font-size: 1.125rem; }
 }
+
+
+/* ---------- de-stripe the index ----------
+   Measured before this: the section carried EIGHT horizontal elements for six
+   short rows — the section rule, the list wrapper, and a border above and below
+   every row. Boxing every row is what made it read as a generated table, and it
+   is where the "too many spacers" impression came from: each rule came with
+   padding on both sides, so the page looked like alternating empty bands.
+
+   One rule opens the index. Separation between rows is spacing, not a line. */
+.index-list {
+  border-top: 1px solid var(--rule);
+  border-bottom: 0;
+}
+.index-item { border-top: 0; }
+.index-row { padding: 12px 0; }
+.section--index .section-body { margin-top: 18px; }
+.section--index .section-head { margin-top: 14px; }
