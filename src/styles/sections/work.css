@@ -1,0 +1,256 @@
+/* ============================================================
+   SECTIONS — work
+   Owns: the home project index (#projects, variant `index`) and the
+   project-pages entries (.entry, #projects on /project).
+   Composition: full-bleed editorial index — large names, large ordinals.
+   Loaded after index.css, so equal-specificity rules here win.
+   ============================================================ */
+
+/* ---------- home index: variant `index` ---------- */
+
+/* The head sits above the index, left, at the shared small size — it is not a
+   margin column. */
+.section--index .section-head {
+  max-width: 42rem;
+}
+.section--index .section-body {
+  margin-top: 44px;
+}
+
+.index-list {
+  border-bottom: 1px solid var(--rule);
+}
+.index-item {
+  border-top: 1px solid var(--rule);
+}
+
+/* One row per project: ordinal, name + summary, outcome. */
+.index-row {
+  display: grid;
+  grid-template-columns: minmax(0, 4rem) minmax(0, 1fr) minmax(0, 13rem);
+  gap: 32px;
+  align-items: baseline;
+  padding: 32px 0;
+  text-decoration: none;
+}
+
+.index-ordinal {
+  color: var(--ink-3);
+  font-size: clamp(1.25rem, 2.2vw, 1.875rem);
+  font-weight: 350;
+  font-stretch: 100%;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.index-main {
+  min-width: 0;
+}
+
+.index-name {
+  display: block;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 760;
+  font-stretch: 112%;
+  letter-spacing: -0.032em;
+  line-height: 1.02;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+  transition: var(--t);
+}
+.index-row:hover .index-name,
+.index-row:focus-visible .index-name {
+  text-decoration-color: var(--trace);
+}
+
+.index-summary {
+  display: block;
+  max-width: 48ch;
+  margin-top: 10px;
+  color: var(--ink-2);
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+/* Tone (`tone-win` / `tone-muted`) comes from index.css; this places it. */
+.index-outcome {
+  justify-self: end;
+  text-align: right;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.index-all {
+  margin-top: 28px;
+}
+
+/* Mid widths: keep the ordinal beside the name, move the outcome under it. */
+@media (max-width: 900px) {
+  .index-row {
+    grid-template-columns: minmax(0, 3.5rem) minmax(0, 1fr);
+    gap: 12px 20px;
+  }
+  .index-outcome {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 6px;
+    text-align: left;
+  }
+}
+
+/* ---------- project page: entries as full-width bands ---------- */
+
+.entry {
+  display: block;
+  padding: 40px 0 64px;
+  border-top: 1px solid var(--rule-strong);
+}
+.entry-featured {
+  padding-top: 56px;
+}
+
+.entry-head {
+  position: static;
+  display: grid;
+  grid-template-columns: minmax(0, 3.5rem) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin: 0 0 28px;
+}
+.entry-ordinal {
+  color: var(--ink-3);
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
+  font-weight: 350;
+  font-stretch: 100%;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  padding-top: 0.18em;
+}
+.entry-heading {
+  min-width: 0;
+}
+
+.entry-head .entry-name {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 760;
+  font-stretch: 112%;
+  letter-spacing: -0.032em;
+  line-height: 1.03;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+.entry-featured .entry-head .entry-name {
+  font-size: clamp(1.9rem, 5.5vw, 3.75rem);
+  line-height: 0.98;
+}
+
+.entry-result {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.entry-desc {
+  max-width: 42em;
+  font-size: 18px;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+.entry-body .entry-spec {
+  margin-top: 32px;
+}
+.entry-spec dd {
+  max-width: 46em;
+}
+.entry-body .entry-links {
+  margin-top: 24px;
+}
+
+/* Signal chain: a flat ruled flow, not boxed cards. The featured project's
+   staged chain keeps its trace connectors; every other chain stays inline. */
+.chain-staged {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 36px;
+  margin-top: 32px;
+}
+.chain-staged li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 0 0;
+  background: none;
+  border: 0;
+  border-top: 2px solid var(--trace);
+  border-radius: 0;
+}
+.chain-staged li + li::before {
+  content: none;
+}
+.chain-staged li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 100%;
+  width: 36px;
+  height: 2px;
+  margin: 0;
+  background: var(--trace);
+}
+.chain-staged .chain-part {
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+/* ---------- narrow screens ---------- */
+
+@media (max-width: 640px) {
+  .index-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 26px 0;
+  }
+  .index-outcome {
+    grid-column: auto;
+    justify-self: start;
+    margin-top: 4px;
+    text-align: left;
+  }
+  .index-all {
+    margin-top: 24px;
+  }
+
+  .entry {
+    padding: 32px 0 48px;
+  }
+  .entry-featured {
+    padding-top: 40px;
+  }
+  .entry-head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .entry-ordinal {
+    padding-top: 0;
+  }
+
+  .chain-staged {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 20px;
+  }
+  .chain-staged li:not(:last-child)::after {
+    content: none;
+  }
+}

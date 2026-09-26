@@ -7,22 +7,25 @@ interface SectionProps {
   id: string;
   title: string;
   lead?: string;
+  /**
+   * Composition. Each variant places the head and body differently so no two
+   * sections share bones; the markup stays identical and only the CSS differs.
+   * See src/styles/sections/.
+   */
+  variant?: "default" | "index" | "record" | "prose" | "board" | "closing" | "activity";
   children: ReactNode;
 }
 
 /**
- * Datasheet section: the heading sits in the margin column on wide
- * screens and stacks above the body on narrow ones.
+ * Section shell: a rule, a heading block, a body. Where those three sit is
+ * decided per variant in CSS — not by a single shared grid.
  */
-export function Section({ id, title, lead, children }: SectionProps) {
+export function Section({ id, title, lead, variant = "default", children }: SectionProps) {
   const headingId = `${id}-title`;
   return (
-    <section
-      className="section"
-      id={id}
-      aria-labelledby={headingId}
-    >
-      <div className="container section-grid">
+    <section className={`section section--${variant}`} id={id} aria-labelledby={headingId}>
+      <div className="container">
+        <hr className="section-rule" />
         <header className="section-head">
           <h2 id={headingId}>{title}</h2>
           {lead ? <p className="section-lead">{lead}</p> : null}

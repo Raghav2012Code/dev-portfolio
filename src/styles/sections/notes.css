@@ -1,0 +1,139 @@
+/* ============================================================
+   SECTIONS — notes
+   Owns: about (#about, variant `prose`) and the stack board
+   (#technologies, variant `board`).
+   Composition: offset airy prose; a multi-column board of tool categories.
+   Loaded after index.css, so equal-specificity rules here win.
+   ============================================================ */
+
+/* ---------- prose: about ----------
+   The head is small and sits directly above the prose, and both share one
+   narrow column pushed into the right two-thirds. The left third stays empty,
+   so the section reads as a pause rather than another margin/body split. */
+.section--prose {
+  padding-top: calc(var(--section-pad) + 32px);
+}
+.section--prose .section-head,
+.section--prose .section-body {
+  max-width: 34em;
+  margin-inline-start: 33%;
+}
+.section--prose h2 {
+  font-size: 18px;
+  font-weight: 650;
+  font-stretch: 104%;
+  letter-spacing: -0.015em;
+}
+
+.section--prose .section-body {
+  padding-top: 36px;
+}
+
+.about-prose p {
+  font-size: 18px;
+  line-height: 1.65;
+}
+.about-prose .about-lede {
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  line-height: 1.5;
+}
+.about-prose .about-lede + p {
+  margin-top: 22px;
+}
+
+.about-now-title {
+  margin-top: 44px;
+  font-size: 16px;
+  font-weight: 700;
+  font-stretch: 108%;
+  line-height: 1.3;
+}
+.about-now {
+  margin-top: 8px;
+}
+.about-now-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 12px;
+  padding: 11px 0;
+  border-top: 1px solid var(--rule);
+}
+.about-now-item:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+.about-now-name {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 650;
+}
+.about-now-sub {
+  color: var(--ink-2);
+  font-size: 16px;
+}
+
+@media (max-width: 760px) {
+  .section--prose .section-head,
+  .section--prose .section-body {
+    max-width: none;
+    margin-inline-start: 0;
+  }
+}
+@media (max-width: 640px) {
+  .about-prose .about-lede {
+    font-size: 19px;
+  }
+}
+
+/* ---------- board: stack ----------
+   Five tool categories sit as columns of a materials board: a small category
+   label over a wrapped list of real items, with a hairline rule over each
+   column. No label/value alignment. */
+.section--board h2 {
+  font-size: 20px;
+  font-weight: 700;
+  font-stretch: 108%;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 36px 48px;
+  margin-top: 36px;
+  align-items: start;
+}
+.board-col {
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+}
+.board-label {
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.board-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-top: 10px;
+}
+.board-list li {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .board {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}

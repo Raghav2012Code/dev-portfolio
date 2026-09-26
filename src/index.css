@@ -226,30 +226,23 @@ ul, ol { list-style: none; }
 .title-block-facts dt { color: var(--ink-2); font-size: 14px; font-weight: 600; line-height: 1.45; }
 .title-block-facts dd { font-size: 15px; font-weight: 550; line-height: 1.45; }
 
-/* ---------- sections: heading in the margin column ---------- */
+/* ---------- sections: one shell, many compositions ----------
+   The head/body placement is per-variant, in src/styles/sections/*.css.
+   This block only sets the neutral default and the shared type. */
 .section { padding: var(--section-pad) 0 0; }
-.section-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  column-gap: 64px;
-  position: relative;
-  /* Small enough that the heading sits just under the rule above rather than
-     floating in the gap. */
-  padding-top: 14px;
-}
-/* Rule spans the content width, not the container's gutters. */
-.section-grid::before {
-  content: ""; position: absolute; top: 0; left: var(--gutter); right: var(--gutter);
-  border-top: 1px solid var(--rule-strong);
-}
-.section-head { align-self: start; position: sticky; top: calc(var(--nav-h) + 28px); }
+.section:last-of-type { padding-bottom: var(--section-pad); }
+
+/* Every section opens with the same rule, so the page reads as one document
+   even though each section below it is composed differently. */
+.section-rule { border: 0; border-top: 1px solid var(--rule-strong); margin: 0; }
+
+.section-head { margin-top: 14px; }
 .section h2 {
   font-size: 24px; font-weight: 700; font-stretch: 108%;
   letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance;
 }
 .section-lead { margin-top: 12px; color: var(--ink-2); font-size: 16px; line-height: 1.6; text-wrap: pretty; }
 .section-body { min-width: 0; }
-.section:last-of-type { padding-bottom: var(--section-pad); }
 
 .prose p { font-size: 18px; line-height: 1.65; max-width: 36em; text-wrap: pretty; }
 .prose p + p { margin-top: 16px; }
