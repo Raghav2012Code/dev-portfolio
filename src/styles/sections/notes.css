@@ -33,13 +33,20 @@
 
 .about-prose p {
   font-size: 18px;
-  line-height: 1.65;
+  line-height: 1.7;
 }
+/* Two grotesque display habits had to be undone for the serif, and both are
+   what make a swapped-in serif look like a mistake. The -0.015em tracking is a
+   grotesque tightening — a serif at 25px needs normal tracking or the letters
+   collide at the joins. And 500 goes muddy at this size: Newsreader is drawn for
+   400, and its optical-size axis handles the scale instead of added weight.
+   Line height drops to 1.32, tighter than a sans body but looser than the 1.1
+   a grotesque can take, because the serif's serifs need the room. */
 .about-prose .about-lede {
   font-size: clamp(1.25rem, 2vw, 1.6rem);
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.32;
 }
 .about-prose .about-lede + p { margin-top: 26px; }
 

@@ -30,7 +30,13 @@
   --cal-3: #2d8962;
   --cal-4: #0e6b4c;
 
+  /* Two voices, not two fonts. Archivo sets everything structural — the sheet
+     title, headings, labels, nav, buttons, ordinals, data — and reads as the
+     drafting side of the page. Newsreader is for running prose only, so the
+     person speaking is typographically distinct from the sheet describing
+     them. One family doing both jobs is what made the prose read as a field. */
   --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-prose: "Newsreader", Georgia, "Times New Roman", serif;
   --radius: 4px;
   --max: 1160px;
   --gutter: 40px;
@@ -252,7 +258,19 @@ ul, ol { list-style: none; }
 .section-lead { margin-top: 12px; color: var(--ink-2); font-size: 16px; line-height: 1.6; text-wrap: pretty; }
 .section-body { min-width: 0; }
 
-.prose p { font-size: 18px; line-height: 1.65; max-width: 36em; text-wrap: pretty; }
+/* Running prose is the only serif on the site. Line height is up from the
+   grotesque's 1.65 to 1.7 because a serif carries more vertical detail and a
+   smaller x-height against its em, so it needs more leading at the same size.
+   The measure is capped in ems on the serif, not carried over: 36em of Archivo
+   and 36em of Newsreader are different lengths, and this lands near 72
+   characters. */
+.prose p {
+  font-family: var(--font-prose);
+  font-size: 18px; font-weight: 400;
+  line-height: 1.7;
+  max-width: 34em;
+  text-wrap: pretty;
+}
 .prose p + p { margin-top: 16px; }
 
 /* ---------- about: right now ---------- */
@@ -302,7 +320,7 @@ ul, ol { list-style: none; }
   font-size: clamp(2.75rem, 6vw, 4.5rem); font-weight: 780; font-stretch: 116%;
   letter-spacing: -0.035em; line-height: 1;
 }
-.page-lead { margin-top: 18px; color: var(--ink-2); font-size: 21px; line-height: 1.45; text-wrap: pretty; }
+.page-lead { margin-top: 18px; color: var(--ink-2); font-family: var(--font-prose); font-size: 21px; line-height: 1.5; text-wrap: pretty; }
 
 .entry {
   display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: 64px;
@@ -313,7 +331,7 @@ ul, ol { list-style: none; }
 .entry-featured .entry-head h2 { font-size: 36px; line-height: 1.1; }
 .entry-result { margin-top: 8px; font-size: 16px; font-weight: 600; line-height: 1.45; }
 .entry-body { min-width: 0; }
-.entry-desc { font-size: 18px; line-height: 1.65; max-width: 36em; text-wrap: pretty; }
+.entry-desc { font-family: var(--font-prose); font-size: 18px; line-height: 1.7; max-width: 34em; text-wrap: pretty; }
 .entry-body .spec { margin-top: 28px; }
 .entry-links { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 20px; }
 

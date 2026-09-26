@@ -31,7 +31,8 @@ Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html`
 ## Design system
 
 - Datasheet on drafting paper: tokens on `:root` in `src/index.css` (paper, ink, ink-2/3, rule, `--frame`, one PCB-green `--trace`), dark variant via `prefers-color-scheme`. Text contrast stays at WCAG AA.
-- One family: Archivo (Google Fonts, `wdth` + `wght` axes). Display type uses `font-stretch`; labels are sentence case in the same face.
+- Two families, split by role, not by whim. `--font` is Archivo (Google Fonts, `wdth` + `wght`) and sets everything structural: the sheet title, headings, nav, buttons, labels, ordinals, spec rows, and the contribution graph axis. `--font-prose` is Newsreader and is for running prose only — About paragraphs, `.page-lead`, `.entry-desc`. Never put prose in Archivo or a label in Newsreader; the split is the point, since one family doing both jobs is what made the prose read as a form field.
+- Serif prose needs different settings from the grotesque it replaced: no negative letter-spacing, weight 400 (not 500) at display sizes, body leading 1.7 rather than 1.65, and a measure capped in the serif's own ems. Copying grotesque values onto Newsreader is what makes a swapped-in serif look amateur.
 - Sections use `Section` (`components/ui.tsx`): heading in the margin column, body on the right, heading text matching its nav label. Facts go in `dl.spec` rows.
 - Green means connected or achieved: traces, links, awarded/qualified results.
 - The hero is type only: the name, one statement, and a drafting title block (square, ruled) for the facts. The real signal chain lives on the Door Hinge entry.

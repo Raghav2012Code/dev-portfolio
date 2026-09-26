@@ -36,8 +36,11 @@ the [projects page](https://raghavkrishna-dev.vercel.app/project).
 
 ## Highlights
 
-- **One typeface, one accent.** Archivo's width axis carries the display type;
-  a single PCB green marks what is connected or achieved.
+- **Two voices, one accent.** Archivo carries every structural job — display
+  type, headings, labels, data — and its width axis does the display work;
+  Newsreader is reserved for running prose, so the person writing is
+  typographically distinct from the sheet describing them. A single PCB green
+  marks what is connected or achieved.
 - **Light and dark themes** that follow the operating system, with text at
   WCAG AA contrast in both.
 - **Calm motion.** One entrance on load, then the page stays still. Reduced
