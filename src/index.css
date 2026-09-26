@@ -233,7 +233,9 @@ ul, ol { list-style: none; }
   grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
   column-gap: 64px;
   position: relative;
-  padding-top: 28px;
+  /* Small enough that the heading sits just under the rule above rather than
+     floating in the gap. */
+  padding-top: 14px;
 }
 /* Rule spans the content width, not the container's gutters. */
 .section-grid::before {
@@ -261,9 +263,13 @@ ul, ol { list-style: none; }
 
 /* ---------- spec rows (datasheet dt/dd) ---------- */
 .spec { border-bottom: 1px solid var(--rule); }
+/* Rows of the roomier spec list (the Stack section on home). Entries on the
+   project pages use `.spec-compact`, which overrides both values below.
+   The label column is 10.5rem because the longest label ("Robotics and
+   hardware") measures 149px at 14px/600 — 9rem wrapped it to two lines. */
 .spec-row {
-  display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: 24px;
-  padding: 14px 0; border-top: 1px solid var(--rule);
+  display: grid; grid-template-columns: minmax(0, 10.5rem) minmax(0, 1fr); gap: 24px;
+  padding: 10px 0; border-top: 1px solid var(--rule);
 }
 .spec dt { color: var(--ink-2); font-size: 14px; font-weight: 600; padding-top: 2px; }
 .spec dd { font-size: 16px; line-height: 1.6; }
