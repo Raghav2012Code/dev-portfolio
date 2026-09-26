@@ -75,13 +75,15 @@
   }
 }
 
-/* ---------- board: stack — a mosaic of uneven cells ----------
-   Five categories as tiles of different widths: the two largest take two
-   columns, the smaller ones take one. Uneven spans are the point — this is a
-   mosaic, not a column layout. */
+/* ---------- board: stack — the categories as display type ----------
+   The category names carry the section: set at display scale, the tools become
+   a small run beneath them. The scale contrast is the whole device — the
+   previous version had 14px labels and 15px tools, which is why it read as an
+   unstyled form with nothing to look at. Two columns, rules aligned across each
+   row so the grid reads as deliberate. */
 .section--board { padding-top: 64px; }
 .section--board .section-rule { display: none; }
-.section--board .section-head { margin-top: 0; margin-bottom: 26px; }
+.section--board .section-head { margin-top: 0; margin-bottom: 30px; }
 .section--board h2 {
   color: var(--ink-3);
   font-size: 15px;
@@ -90,44 +92,57 @@
   letter-spacing: 0;
 }
 
-.board {
+.kit {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 48px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 72px;
 }
-.board-col {
-  padding: 16px 0 22px;
+.kit-group {
+  padding: 20px 0 32px;
   border-top: 1px solid var(--rule);
 }
-/* Robotics and Web each own a double cell; Tools closes the second row. */
-.board-col:nth-child(1),
-.board-col:nth-child(2),
-.board-col:nth-child(5) { grid-column: span 2; }
 
-.board-label {
-  color: var(--ink-2);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.4;
+.kit-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
 }
-.board-list {
+.kit-name {
+  font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+  font-weight: 760;
+  font-stretch: 112%;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+.kit-count {
+  flex: none;
+  color: var(--ink-3);
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The run of tools: a plain comma-separated list, not a middot string and not
+   hairline ticks, which would leave stray marks at the start of wrapped lines. */
+.kit-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 18px;
-  margin-top: 10px;
+  column-gap: 0.6em;
+  row-gap: 2px;
+  margin-top: 18px;
+  color: var(--ink-2);
+  font-size: 1.0625rem;
+  line-height: 1.55;
 }
-.board-list li {
-  color: var(--ink);
-  font-size: 15px;
-  line-height: 1.5;
+.kit-list li:not(:last-child)::after {
+  content: ",";
 }
 
 @media (max-width: 900px) {
-  .board { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 36px; }
-  .board-col:nth-child(1),
-  .board-col:nth-child(2),
-  .board-col:nth-child(5) { grid-column: span 1; }
-}
-@media (max-width: 560px) {
-  .board { grid-template-columns: minmax(0, 1fr); }
+  .kit { grid-template-columns: minmax(0, 1fr); }
+  .kit-name { font-size: clamp(1.5rem, 6vw, 2.1rem); }
+  .kit-group { padding-bottom: 26px; }
 }
