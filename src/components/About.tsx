@@ -1,20 +1,23 @@
-import { motion } from "motion/react";
-import { SECTION_COPY } from "../data/content";
-import { reveal } from "../lib/motion";
-import { SectionHead } from "./ui";
+import { CURRENTLY, SECTION_COPY } from "../data/content";
+import { Section } from "./ui";
 
+/** Who I am, then a short list of what's on the bench right now. */
 export function About() {
   const copy = SECTION_COPY.about;
+  const now = SECTION_COPY.currently;
   return (
-    <section className="section" id="about">
-      <div className="container about-grid">
-        <div>
-          <SectionHead title={copy.title} base={0} />
-        </div>
-        <motion.div {...reveal(2)} className="about-copy">
-          {copy.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-        </motion.div>
+    <Section id="about" title={copy.title}>
+      <div className="prose">
+        {copy.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </div>
-    </section>
+      <h3 className="now-title">{now.title}</h3>
+      <ul className="now-list">
+        {CURRENTLY.map((item) => (
+          <li key={item.title}>
+            <span className="now-item">{item.title}.</span> {item.sub}
+          </li>
+        ))}
+      </ul>
+    </Section>
   );
 }

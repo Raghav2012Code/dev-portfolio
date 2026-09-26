@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://dev-portfolio-azure-nine.vercel.app/sitemap.xml
+Sitemap: https://raghavkrishna-dev.vercel.app/sitemap.xml

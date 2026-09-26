@@ -1,12 +1,9 @@
-// Cross-page anchor resolution. Section hashes live on the home page;
-// from any other page they need a root-relative prefix, while on home the
-// bare hash preserves smooth scrolling and the nav scroll-spy.
-//
-// Coupling note: the bare `#top` hash used by the footer/brand back-to-top
-// links works on both pages because both `Navbar` instances carry `id="top"`
-// on the sticky header. Keep those in sync if the header id ever changes.
-
-import { PROJECTS_PAGE_PATH } from "../data/content";
+// Cross-page anchor resolution and page-level scroll helpers. Section hashes
+// live on the home page; from any other page they need a root-relative
+// prefix, while on home the bare hash preserves smooth scrolling and the nav
+// scroll-spy.
+import type { MouseEvent } from "react";
+import { useEffect } from "react";
 
 export function isHomePage(): boolean {
   const path = window.location.pathname;
@@ -18,32 +15,34 @@ export function resolveHref(hash: string): string {
   return isHomePage() ? hash : `/${hash}`;
 }
 
-/**
- * Stable slug for a build, derived from its name (no extra content field).
- * Parenthetical asides are dropped so `CRASH (Chennai Road Accident Safety
- * Hub)` anchors as `crash`, keeping URLs short and predictable.
- */
-export function slugify(value: string): string {
-  return value
-    .replace(/\([^)]*\)/g, " ")
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-/** Anchor id for a build block on the projects page. */
-export function buildAnchorId(name: string): string {
-  const slug = slugify(name);
-  if (!slug) throw new Error(`Cannot derive a build anchor from name: "${name}"`);
-  return `build-${slug}`;
+function prefersReducedMotion(): boolean {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 /**
- * Projects-page URL for a single build. Used by the home preview and the
- * timeline so both share one anchor convention.
+ * `#top` sits on the sticky header, so the native jump does nothing. Scroll in
+ * JS (CSS `scroll-behavior` doesn't cover `scrollTo`), then move keyboard
+ * focus to the brand link so the next Tab starts from the top of the page.
  */
-export function buildHref(name: string): string {
-  return `${PROJECTS_PAGE_PATH}#${buildAnchorId(name)}`;
+export function scrollToTop(event: MouseEvent<HTMLAnchorElement>) {
+  event.preventDefault();
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  document.querySelector<HTMLElement>(".brand")?.focus({ preventScroll: true });
+}
+
+/**
+ * The page renders after load, so the browser's own jump to a `#fragment`
+ * finds nothing and stays at the top. Repeat it once the content is mounted.
+ */
+export function useInitialHashScroll() {
+  useEffect(() => {
+    let id = "";
+    try {
+      id = decodeURIComponent(window.location.hash.slice(1));
+    } catch {
+      return;
+    }
+    // "instant" overrides the CSS smooth scroll: a deep link should land, not glide.
+    if (id) document.getElementById(id)?.scrollIntoView({ block: "start", behavior: "instant" });
+  }, []);
 }

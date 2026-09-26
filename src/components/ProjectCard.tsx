@@ -1,42 +1,15 @@
-import { motion } from "motion/react";
-import type { Variants } from "motion/react";
 import type { Project, SignalStep, TechMention } from "../data/content";
-import { UI_COPY } from "../data/content";
-import {
-  EASE,
-  HOVER_LIFT_PX,
-  INTERACTION_DURATION,
-  REVEAL_DURATION,
-  RISE_PX,
-  SCROLL_VIEWPORT,
-  STAGGER_STEP,
-} from "../lib/motion";
-import { buildAnchorId } from "../lib/site";
-import { Badge, MetaLine, Tip } from "./ui";
+import { PROJECT_SPEC_LABELS } from "../data/content";
+import { Tip } from "./ui";
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: RISE_PX },
-  shown: (index: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: REVEAL_DURATION, ease: EASE, delay: index * STAGGER_STEP },
-  }),
-  hover: { y: -HOVER_LIFT_PX, transition: { duration: INTERACTION_DURATION, ease: EASE } },
-};
-
-/**
- * One step language for every build. `full` is the featured winning build's
- * bold three-cell strip; every other applicable build gets the same labelled
- * steps in the quiet, monochrome variant. Labels and plain-language tips are
- * optional per step and always come from the project's structured data.
- */
-function Chain({ steps, label, full }: { steps: SignalStep[]; label: string; full: boolean }) {
+/** Signal chain as a row of parts joined by traces (drawn in CSS). */
+function SignalChain({ steps, staged = false }: { steps: SignalStep[]; staged?: boolean }) {
   return (
-    <ol className={full ? "chain chain-full" : "chain chain-quiet"} aria-label={label}>
+    <ol className={staged ? "chain chain-staged" : "chain"}>
       {steps.map((step, i) => (
-        <li className="chain-step" key={`${step.text.label}-${i}`}>
-          {step.strong ? <span className="chain-label">{step.strong}</span> : null}
-          <span className="chain-value">
+        <li key={`${step.text.label}-${i}`}>
+          {step.strong ? <span className="chain-stage">{step.strong}</span> : null}
+          <span className="chain-part">
             <Tip label={step.text.label} tip={step.text.tip} />
           </span>
         </li>
@@ -47,86 +20,77 @@ function Chain({ steps, label, full }: { steps: SignalStep[]; label: string; ful
 
 function TechLine({ items }: { items: TechMention[] }) {
   return (
-    <p className="techline">
+    <>
       {items.map((item, i) => (
         <span key={`${item.label}-${i}`}>
           <Tip label={item.label} tip={item.tip} />
           {i < items.length - 1 ? ", " : ""}
         </span>
       ))}
-    </p>
+    </>
   );
 }
 
-interface ProjectCardProps {
-  project: Project;
-  detailed?: boolean;
-  /** Continues the section's reveal stagger. */
-  index?: number;
-}
-
 /**
- * Editorial project block. The card reveals once as it enters the viewport,
- * and the featured build adds a transform-only hover lift. Both read timing
- * from the shared motion language; badges and tooltips stay in CSS.
+ * One project as a datasheet entry: name and result in the margin
+ * column, description and spec rows in the body. The featured project
+ * shows its signal chain as staged blocks above the spec.
  */
-export function ProjectCard({ project, detailed = true, index = 0 }: ProjectCardProps) {
+export function ProjectCard({ project }: { project: Project }) {
+  const labels = PROJECT_SPEC_LABELS;
   return (
-    <motion.article
-      id={buildAnchorId(project.name)}
-      className={project.featured ? "featured" : "project"}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="shown"
-      whileHover={project.featured ? "hover" : undefined}
-      viewport={SCROLL_VIEWPORT}
-      custom={index}
+    <article
+      className={project.featured ? "entry entry-featured" : "entry"}
+      id={project.slug}
+      aria-labelledby={`${project.slug}-name`}
     >
-      <Badge accent={project.badgeAccent}>{project.badge}</Badge>
-      <h3>{project.name}</h3>
-      {project.meta ? <MetaLine facts={project.meta} className="project-meta" /> : null}
-      {project.result ? (
-        <p className={project.resultMuted ? "project-result muted" : "project-result"}>
-          {project.result}
-        </p>
-      ) : null}
-      <p className="project-desc">{project.description}</p>
-      {detailed && project.details
-        ? project.details.map((paragraph) => (
-            <p key={paragraph} className="project-details">
-              {paragraph}
-            </p>
-          ))
-        : null}
-      {project.media ? (
-        <figure className="project-media">
-          <img src={project.media.src} alt={project.media.alt} loading="lazy" decoding="async" />
-          <figcaption>{project.media.caption}</figcaption>
-        </figure>
-      ) : null}
-      {project.sysline ? (
-        <Chain
-          steps={project.sysline}
-          label={`${project.name} response sequence`}
-          full={Boolean(project.featured)}
-        />
-      ) : null}
-      {project.contrib ? (
-        <p className="contrib">
-          <span>{UI_COPY.contributionLabel}</span>: {project.contrib}
-        </p>
-      ) : null}
-      {project.techline ? <TechLine items={project.techline} /> : null}
-      {project.link ? (
-        <a className="card-link" href={project.link.href} target="_blank" rel="noopener">
-          {project.link.label}
-        </a>
-      ) : null}
-      {project.demo ? (
-        <a className="card-link" href={project.demo.href} target="_blank" rel="noopener">
-          {project.demo.label}
-        </a>
-      ) : null}
-    </motion.article>
+      <header className="entry-head">
+        <h2 id={`${project.slug}-name`}>{project.name}</h2>
+        <p className={`entry-result tone-${project.resultTone}`}>{project.result}</p>
+      </header>
+      <div className="entry-body">
+        <p className="entry-desc">{project.description}</p>
+        {project.featured && project.sysline ? (
+          <SignalChain steps={project.sysline} staged />
+        ) : null}
+        <dl className="spec spec-compact">
+          <div className="spec-row">
+            <dt>{labels.event}</dt>
+            <dd>{project.event}</dd>
+          </div>
+          {project.contrib ? (
+            <div className="spec-row">
+              <dt>{labels.contrib}</dt>
+              <dd>{project.contrib}</dd>
+            </div>
+          ) : null}
+          {!project.featured && project.sysline ? (
+            <div className="spec-row">
+              <dt>{labels.flow}</dt>
+              <dd>
+                <SignalChain steps={project.sysline} />
+              </dd>
+            </div>
+          ) : null}
+          {project.techline ? (
+            <div className="spec-row">
+              <dt>{labels.tech}</dt>
+              <dd>
+                <TechLine items={project.techline} />
+              </dd>
+            </div>
+          ) : null}
+        </dl>
+        {project.links ? (
+          <p className="entry-links">
+            {project.links.map((link) => (
+              <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noopener">
+                {link.label}
+              </a>
+            ))}
+          </p>
+        ) : null}
+      </div>
+    </article>
   );
 }

@@ -2,3 +2,6 @@
 .playwright-mcp/
 dist/
 node_modules/
+.env
+.env.*
+qa-*.png

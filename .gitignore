@@ -7,3 +7,10 @@ dist/
 *.local
 
 .vercel
+
+# Secrets (GITHUB_CONTRIBUTIONS_TOKEN lives in Vercel, never in the repo)
+.env
+.env.*
+
+# Stray QA screenshots
+qa-*.png
