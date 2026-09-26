@@ -263,6 +263,12 @@ a.record-build:focus-visible {
    only section that changes surface, so scrolling through it feels like passing
    through a different region rather than another block of the same page. */
 .section--record {
+  /* A margin, not padding: the band's top border is on the section element
+     itself, so only space OUTSIDE it lifts the border clear of the section
+     above. Without this the border sat flush against the last link of the
+     projects index — a measured gap of 0px, where every other boundary on the
+     page has 96px or more. */
+  margin-top: var(--section-pad);
   padding-block: 72px;
   background: var(--paper-raised);
   border-block: 1px solid var(--rule);
