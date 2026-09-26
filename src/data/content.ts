@@ -31,11 +31,17 @@ export const HERO_COPY = {
   projectsLink: "View projects",
 } as const;
 
-/** Hero title block: the fact box in the corner of a drawing sheet. */
+/**
+ * Hero title block: the fact box in the corner of a drawing sheet.
+ * Order is reading order and is deliberate — loudest fact first, school last.
+ * It is the least identifying of the three, and because its value wraps to two
+ * lines it is also the tallest row, so leading with it made the grade the
+ * heaviest thing in the hero.
+ */
 export const TITLE_BLOCK: { label: string; value: string }[] = [
-  { label: "School", value: "Grade 9, Velammal Academy Nolambur" },
   { label: "Based in", value: "Chennai, India" },
   { label: "Age", value: "14" },
+  { label: "School", value: "Grade 9, Velammal Academy Nolambur" },
 ];
 
 export const SECTION_COPY = {

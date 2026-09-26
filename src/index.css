@@ -205,7 +205,15 @@ ul, ol { list-style: none; }
 .hero-teaser:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--trace); text-underline-offset: 4px; }
 .hero-teaser-count { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; }
 
-/* Drafting title block: ruled, square-cornered, photo in the first cell. */
+/* Drafting title block: ruled, square-cornered, photo in the first cell.
+   The photo is square against the block's height, not a sliver. At 96px wide
+   with `align-self: stretch` it rendered 96x151 — a crop of the avatar rather
+   than a portrait, and too small to read as a face at all.
+   Desktop only: the cell is a share of a 423px block, so 152px keeps the
+   school value to two lines. Widening it further starves the value column —
+   at 104px on a 350px block the school wrapped to four lines, the block grew,
+   and `stretch` pulled the photo back out of square. Below 960 the photo stays
+   at its old size for the same reason. */
 .title-block {
   grid-area: block;
   display: flex;
@@ -214,7 +222,7 @@ ul, ol { list-style: none; }
 }
 .profile-img {
   flex: none; align-self: stretch;
-  width: 96px; height: auto; object-fit: cover;
+  width: 152px; height: auto; object-fit: cover;
   border-right: 1.5px solid var(--frame);
 }
 .title-block-facts { flex: 1; min-width: 0; }
