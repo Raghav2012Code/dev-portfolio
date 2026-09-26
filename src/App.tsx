@@ -8,7 +8,6 @@ import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 import { Navbar } from "./components/Navbar";
 import { ProjectIndex } from "./components/Projects";
-import { Robotics } from "./components/Robotics";
 import { Skills } from "./components/Skills";
 import { Timeline } from "./components/Timeline";
 
@@ -26,7 +25,6 @@ export function App() {
         <Contributions />
         <ProjectIndex />
         <Skills />
-        <Robotics />
         <Timeline />
         <Currently />
         <Contact />

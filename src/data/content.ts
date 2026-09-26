@@ -10,7 +10,6 @@ export const NAV_LINKS: NavLink[] = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
   { label: "Stack", href: "#technologies" },
-  { label: "Robotics", href: "#robotics" },
   { label: "Timeline", href: "#timeline" },
   { label: "Contact", href: "#contact" },
 ];
@@ -79,11 +78,6 @@ export const SECTION_COPY = {
   },
   stack: {
     title: "Technologies I build with",
-  },
-  robotics: {
-    title: "Builds that touch the real world.",
-    lead:
-      "Software is great, but my favourite moment is when code moves something physical: a servo turns, a sensor fires, a mechanism responds.",
   },
   timeline: {
     title: "Competition timeline",
@@ -334,23 +328,6 @@ export const STACK_ROWS: StackRow[] = [
   { label: "Backend and data", items: ["Supabase", "REST APIs", "SHA-256"] },
   { label: "Programming", items: ["Python"] },
   { label: "Tools", items: ["Git", "GitHub", "Claude Code", "OpenAI Codex"] },
-];
-
-export interface RoboItem {
-  title: string;
-  text: string;
-}
-
-export const ROBOTICS_ITEMS: RoboItem[] = [
-  { title: "ESP32 and Arduino", text: "Microcontrollers at the centre of every hardware build." },
-  { title: "Sensors", text: "IR, laser, temperature: reading the physical world." },
-  { title: "Actuators", text: "Servos, solenoids, displays: acting on the physical world." },
-  { title: "Electronics", text: "Circuits, wiring, and making it all actually work together." },
-  {
-    title: "Hardware and software integration",
-    text: "Connecting physical hardware to software. That's the whole point.",
-  },
-  { title: "Physical computing", text: "Building things that interact with the physical world." },
 ];
 
 export interface TimelineItem {
