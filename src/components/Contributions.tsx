@@ -65,7 +65,12 @@ export function Contributions() {
   // scrolls inside its own region rather than shrinking below its viewBox.
   const visibleWeeks = compact ? calendar.weeks.slice(-26) : calendar.weeks;
   const rangeLabel = compact ? "recent months" : "the past year";
-  const total = calendar.totalContributions.toLocaleString();
+  // The compact chart shows only the recent slice, so its caption reports that
+  // slice's total: the year total would describe a range the reader can't see.
+  const visibleTotal = compact
+    ? visibleWeeks.reduce((sum, week) => sum + week.reduce((weekSum, day) => weekSum + day.count, 0), 0)
+    : calendar.totalContributions;
+  const total = visibleTotal.toLocaleString();
 
   const chartWidth = LABEL_WIDTH + Math.max(visibleWeeks.length * STEP - GAP, 1);
   const chartHeight = LABEL_HEIGHT + 7 * STEP - GAP;
@@ -81,7 +86,7 @@ export function Contributions() {
   return (
     <Section id="contributions" title={copy.title} variant="activity">
       <p className="contribution-summary">
-        <span className="contribution-total">{total}</span> public contributions in the past year.
+        <span className="contribution-total">{total}</span> public contributions in {rangeLabel}.
       </p>
       <figure className="contribution-figure">
         <div
@@ -96,7 +101,7 @@ export function Contributions() {
             style={{ width: chartWidth }}
             viewBox={`0 0 ${chartWidth} ${chartHeight}`}
             role="img"
-            aria-label={`GitHub public contribution calendar for ${rangeLabel}: ${total} contributions in the past year. Darker squares mean more contributions that day.`}
+            aria-label={`GitHub public contribution calendar for ${rangeLabel}: ${total} contributions. Darker squares mean more contributions that day.`}
           >
             {monthLabels.map((month) => (
               <text
