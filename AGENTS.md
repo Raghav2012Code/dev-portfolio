@@ -35,7 +35,7 @@ Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html`
 - Serif prose needs different settings from the grotesque it replaced: no negative letter-spacing, weight 400 (not 500) at display sizes, body leading 1.7 rather than 1.65, and a measure capped in the serif's own ems. Copying grotesque values onto Newsreader is what makes a swapped-in serif look amateur.
 - Sections use `Section` (`components/ui.tsx`): heading in the margin column, body on the right, heading text matching its nav label. Facts go in `dl.spec` rows.
 - Green means connected or achieved: traces, links, awarded/qualified results.
-- The hero is type only: the name, one statement, and a drafting title block (square, ruled) for the facts. The real signal chain lives on the Door Hinge entry.
+- The hero is the name, one statement, and a drafting title block (square, ruled) holding the avatar photo and the facts. The real signal chain lives on the Door Hinge entry.
 - Each result appears once on the home page, in Competitions. The home project index shows name + `summary`.
 
 ## Components
