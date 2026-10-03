@@ -1,8 +1,9 @@
 /* ============================================================
    SECTIONS — closing
    Owns: contact (#contact, variant `closing`).
-   Composition: a confident ending — the heading set as a statement,
-   then three ruled columns of large inline contact links.
+   Composition: a confident ending — the heading set as a statement, then
+   the contact links centered as a finale. Every other section is
+   left-aligned, so this one centers itself to mark the end of the page.
    Loaded after index.css, so equal-specificity rules here win.
    ============================================================ */
 
@@ -21,29 +22,38 @@
 }
 .section--closing .section-lead {
   margin-top: 16px;
+  margin-inline: auto;
   max-width: 36em;
   font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
   line-height: 1.5;
 }
 
-/* ---------- body: three contacts across the full width ---------- */
-.section--closing .section-body { margin-top: 44px; }
+/* ---------- body: the contacts centered across the width ---------- */
+.section--closing {
+  text-align: center;
+}
+.section--closing .section-body {
+  margin-top: 44px;
+}
 
 .closing-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 56px;
 }
 .closing-item {
-  min-width: 0;
+  flex: 0 1 auto;
+  min-width: 15rem;
   border-top: 1px solid var(--rule-strong);
 }
 
 .closing-link {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   gap: 16px;
-  padding: 22px 0 10px;
+  padding: 20px 0 6px;
   color: var(--ink);
   text-decoration: none;
 }
@@ -81,32 +91,8 @@
 .closing-link:hover .closing-link-icon,
 .closing-link:focus-visible .closing-link-icon { color: var(--trace); }
 
-@media (max-width: 960px) {
-  .closing-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
-}
-
 @media (max-width: 640px) {
   .section--closing .section-body { margin-top: 36px; }
-  .closing-list { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
-  .closing-link { padding: 18px 0 8px; }
-}
-
-
-/* ---------- layout: a centred finale ----------
-   Every other section on the page is left-aligned, so the closing statement
-   centers itself to mark the end. */
-.section--closing { text-align: center; }
-.section--closing .section-lead { margin-inline: auto; }
-.closing-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  column-gap: 56px;
-}
-.closing-item { flex: 0 1 auto; min-width: 15rem; }
-.closing-link { justify-content: center; padding: 20px 0 6px; }
-
-@media (max-width: 640px) {
   .closing-list { display: block; }
   .closing-item { min-width: 0; }
 }

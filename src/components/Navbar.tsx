@@ -19,7 +19,9 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string | null>(null);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
-  const mobile = useMediaQuery("(max-width: 640px)");
+  // Matches the CSS nav breakpoint (index.css): below 720px the hamburger is
+  // shown and the horizontal links are hidden.
+  const mobile = useMediaQuery("(max-width: 720px)");
   const home = isHomePage();
 
   // Scroll-spy (home only): highlight the section crossing the middle band.
