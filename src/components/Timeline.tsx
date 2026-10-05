@@ -1,14 +1,6 @@
 import { PROJECTS, PROJECTS_PAGE_PATH, SECTION_COPY, TIMELINE } from "../data/content";
 import { Section } from "./ui";
 
-/** Column labels. Structural table headers, paired with `<th scope="col">`. */
-const COLUMN = {
-  year: "Year",
-  event: "Event",
-  venue: "Venue",
-  result: "Result",
-} as const;
-
 // TIMELINE names a build in its short form ("CRASH"), while a project name may
 // carry a parenthetical aside ("CRASH (Chennai Road Accident Safety Hub)").
 // Match on the short form so a year's build links to its project-page entry.
@@ -38,16 +30,16 @@ export function Timeline() {
           <thead role="rowgroup">
             <tr role="row">
               <th scope="col" role="columnheader" className="record-col-year">
-                {COLUMN.year}
+                Year
               </th>
               <th scope="col" role="columnheader">
-                {COLUMN.event}
+                Event
               </th>
               <th scope="col" role="columnheader">
-                {COLUMN.venue}
+                Venue
               </th>
               <th scope="col" role="columnheader" className="record-col-result">
-                {COLUMN.result}
+                Result
               </th>
             </tr>
           </thead>

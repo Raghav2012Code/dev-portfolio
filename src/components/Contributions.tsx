@@ -68,7 +68,7 @@ export function Contributions() {
   // The compact chart shows only the recent slice, so its caption reports that
   // slice's total: the year total would describe a range the reader can't see.
   const visibleTotal = compact
-    ? visibleWeeks.reduce((sum, week) => sum + week.reduce((weekSum, day) => weekSum + day.count, 0), 0)
+    ? visibleWeeks.flat().reduce((sum, day) => sum + day.count, 0)
     : calendar.totalContributions;
   const total = visibleTotal.toLocaleString();
 
