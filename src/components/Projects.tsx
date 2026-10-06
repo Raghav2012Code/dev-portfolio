@@ -1,11 +1,11 @@
 import * as m from "motion/react-m";
 import { PROJECTS, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
-import { ProjectCard, entryNumber, revealProps } from "./ProjectCard";
+import { ProjectCard, revealProps } from "./ProjectCard";
 import { Section } from "./ui";
 
 /**
- * Home page: every project as one full-width index row — a large ordinal, the
- * name at display size with its summary beneath, and the outcome at the right.
+ * Home page: every project as one full-width index row — the name at display
+ * size with its summary beneath, and the outcome at the right.
  * The whole row links to the project's deep link.
  */
 export function ProjectIndex() {
@@ -13,12 +13,9 @@ export function ProjectIndex() {
   return (
     <Section id="projects" title={copy.title} lead={copy.lead} variant="index">
       <ol className="index-list">
-        {PROJECTS.map((project, i) => (
+        {PROJECTS.map((project) => (
           <m.li key={project.slug} className="index-item" {...revealProps()}>
             <a className="index-row" href={`${PROJECTS_PAGE_PATH}#${project.slug}`}>
-              <span className="index-ordinal" aria-hidden="true">
-                {entryNumber(i)}
-              </span>
               <span className="index-main">
                 <span className="index-name">{project.name}</span>
                 <span className="index-summary">{project.summary}</span>
@@ -47,8 +44,8 @@ export function ProjectList() {
           </h1>
           <p className="page-lead">{copy.lead}</p>
         </header>
-        {PROJECTS.map((project, i) => (
-          <ProjectCard key={project.slug} project={project} index={i} />
+        {PROJECTS.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
     </section>

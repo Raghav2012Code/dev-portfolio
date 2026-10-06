@@ -14,8 +14,8 @@
 
   --floor: #eceef1;
   --floor-2: #e0e3e8;
-  --grid: rgba(13, 14, 16, 0.05);
-  --ink: #0d0e10;
+  --grid: rgba(0, 0, 0, 0.05);
+  --ink: #000000;
   --ink-2: #3b3f47;
   --ink-3: #575c66;
   --rule: #c2c7cf;
@@ -28,14 +28,14 @@
   --cal-4: #a98400;
 
   /* always dark: the scoreboard and the robot */
-  --panel: #0d0e10;
+  --panel: #000000;
   --panel-ink: #f3f3ef;
   --panel-ink-2: #b4b8c1;
   --panel-rule: rgba(255, 255, 255, 0.2);
-  --black: #0d0e10;
+  --black: #000000;
 
   --font-display: "Anybody", "Arial Black", system-ui, sans-serif;
-  --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --radius: 8px;
   --max: 1160px;
   --gutter: 40px;
@@ -55,15 +55,15 @@
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --floor: #0c0d0f;
-    --floor-2: #17191d;
+    --floor: #0e1830;
+    --floor-2: #182650;
     --tile: rgba(255, 255, 255, 0.032);
     --seam: rgba(255, 255, 255, 0.14);
     --ink: #f3f3ef;
-    --ink-2: #c3c6cd;
-    --ink-3: #9a9fab;
-    --rule: #2c2f36;
-    --cal-0: #1a1c21;
+    --ink-2: #c6cde0;
+    --ink-3: #9ca7c4;
+    --rule: #2b3b66;
+    --cal-0: #1c2b52;
     --cal-1: #4d4300;
     --cal-2: #8c7a00;
     --cal-3: #d4b800;
@@ -163,11 +163,11 @@ ul, ol { list-style: none; }
   font-family: inherit; font-weight: 700; font-size: 17px; line-height: 1;
   border: 3px solid var(--ink); border-radius: 10px;
   text-decoration: none; cursor: pointer; white-space: nowrap;
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  transition: var(--t);
 }
 .btn svg { flex: none; }
-.btn-primary { background: var(--yellow); color: var(--black); box-shadow: 5px 5px 0 var(--ink); }
-.btn-primary:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--ink); }
+.btn-primary { background: var(--yellow); color: var(--black); }
+.btn-primary:hover { background: var(--ink); color: var(--floor); }
 
 /* ---------- nav: a strip of tape ---------- */
 .nav {
@@ -306,13 +306,15 @@ ul, ol { list-style: none; }
 .about-now-sub { display: block; color: var(--ink-2); font-size: 17px; line-height: 1.5; }
 
 /* ---------- stack: a parts organiser ---------- */
-.kit { display: grid; gap: 18px; }
+.kit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.kit-group:first-child { grid-column: 1 / -1; }
 .kit-group { border: 3px solid var(--ink); border-radius: 14px; background: var(--floor); overflow: hidden; }
 .kit-head {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 7px 16px 8px; background: var(--yellow); color: var(--black);
   border-bottom: 3px solid var(--ink);
 }
+.kit-group:not(:first-child) .kit-head { background: var(--ink); color: var(--floor); }
 .kit-name, .kit-count { font-family: var(--font-display); font-size: 14px; font-weight: 850; font-stretch: 130%; line-height: 1.3; }
 .kit-list { display: flex; flex-wrap: wrap; gap: 10px; padding: 18px 16px 20px; }
 .kit-list li {
@@ -354,12 +356,10 @@ ul, ol { list-style: none; }
 .index-row:hover::before, .index-row:focus-visible::before,
 .closing-link:hover::before, .closing-link:focus-visible::before { transform: scaleX(1); }
 .index-row {
-  display: grid; grid-template-columns: 3.25rem minmax(0, 1fr) auto;
-  column-gap: 24px; align-items: center;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 32px; align-items: center;
   padding: 26px 18px 28px;
 }
-.index-ordinal { font-family: var(--font-display); font-size: 18px; font-weight: 850; font-stretch: 130%; color: var(--ink-3); transition: var(--t); }
-.index-row:hover .index-ordinal, .index-row:focus-visible .index-ordinal { color: var(--black); }
 .index-main { display: block; min-width: 0; }
 .index-name {
   display: block;
@@ -369,12 +369,11 @@ ul, ol { list-style: none; }
 }
 .index-summary { display: block; margin-top: 12px; max-width: 40em; color: var(--ink-2); font-size: 18px; line-height: 1.5; transition: var(--t); }
 .index-row:hover .index-summary, .index-row:focus-visible .index-summary { color: var(--black); }
-.index-outcome {
-  max-width: 13rem; padding: 4px 11px; border-radius: 6px;
-  font-size: 15px; font-weight: 700; line-height: 1.35; text-align: right; transition: var(--t);
+.index-outcome { max-width: 13rem; font-size: 16px; font-weight: 700; line-height: 1.4; text-align: right; transition: var(--t); }
+.index-row:hover .tone-win, .index-row:focus-visible .tone-win {
+  text-decoration-color: var(--black); text-decoration-thickness: 3px; text-underline-offset: 3px;
 }
-.index-row:hover .index-outcome.tone-win, .index-row:focus-visible .index-outcome.tone-win { background: var(--black); color: var(--yellow); }
-.index-row:hover .index-outcome.tone-muted, .index-row:focus-visible .index-outcome.tone-muted { border-color: var(--black); color: var(--black); }
+.index-row:hover .tone-muted, .index-row:focus-visible .tone-muted { color: var(--black); }
 
 /* ---------- projects page ---------- */
 .page { padding: 72px 0 var(--section-pad); }
@@ -397,13 +396,13 @@ ul, ol { list-style: none; }
   letter-spacing: -0.02em; line-height: 1.02; text-wrap: balance;
 }
 .entry-featured .entry-name { font-size: clamp(1.75rem, 3.2vw, 2.75rem); }
-.entry-ordinal { display: block; margin-bottom: 12px; color: var(--ink-3); font-family: var(--font-display); font-size: 15px; font-weight: 850; font-stretch: 130%; }
-.entry-result {
-  display: inline-block; margin-top: 18px; padding: 4px 12px; border-radius: 6px;
-  font-size: 16px; font-weight: 700; line-height: 1.35;
+.entry-result { margin-top: 18px; font-size: 17px; font-weight: 700; line-height: 1.4; }
+/* A marker stroke through the lower half of the text; losses and personal work stay plain. */
+.tone-win {
+  color: var(--ink); text-decoration: underline; text-decoration-color: var(--yellow);
+  text-decoration-thickness: 0.32em; text-underline-offset: -0.1em;
 }
-.tone-win { background: var(--yellow); color: var(--black); }
-.tone-muted { border: 2px solid var(--ink-3); color: var(--ink-2); font-weight: 600; }
+.tone-muted { color: var(--ink-3); font-weight: 600; }
 .entry-body { min-width: 0; }
 .entry-desc { font-size: 19px; line-height: 1.65; max-width: 33em; text-wrap: pretty; }
 .entry-body .spec { margin-top: 28px; }
@@ -463,6 +462,12 @@ ul, ol { list-style: none; }
   padding: 6px 30px 10px;
   background: var(--panel); color: var(--panel-ink);
   border: 3px solid var(--ink); border-radius: 16px;
+}
+/* The scoreboard runs off the right edge of the page, the one block that is not column width. */
+.section--record .record-scroll {
+  margin-right: calc(-1 * (max(0px, (100vw - var(--max)) / 2) + var(--gutter)));
+  padding-right: calc(var(--gutter) + 8px);
+  border-right: none; border-radius: 16px 0 0 16px;
 }
 .record-table { width: 100%; border-collapse: collapse; text-align: left; }
 .record-table th {
@@ -571,13 +576,14 @@ a.record-build:hover { color: var(--panel-ink); }
 @media (max-width: 880px) {
   .nav-links { display: none; }
   .nav-toggle { display: block; }
+  .kit { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* The four-column record cannot be read at once on a phone, so rows stack. The
    header row stays in the accessibility tree (clipped, never display:none) and
    the table roles are restated in the markup because display drops them. */
 @media (max-width: 48rem) {
-  .record-scroll { padding: 6px 18px 8px; }
+  .record-scroll, .section--record .record-scroll { padding: 6px 18px 8px; margin-right: 0; border-right: 3px solid var(--ink); border-radius: 16px; }
   .record-table, .record-table tbody, .record-table tr, .record-table td { display: block; }
   .record-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .record-table tr { padding: 20px 0 22px; border-top: 1px solid var(--panel-rule); }
@@ -606,8 +612,8 @@ a.record-build:hover { color: var(--panel-ink); }
   .prose p, .about-prose p, .entry-desc { font-size: 18px; }
   .section-lead { font-size: 18px; }
   .spec-row, .spec-compact .spec-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-  .index-row { grid-template-columns: 2rem minmax(0, 1fr); column-gap: 12px; padding: 22px 6px 24px; }
-  .index-outcome { grid-column: 2; justify-self: start; margin-top: 12px; text-align: left; }
+  .index-row { grid-template-columns: minmax(0, 1fr); padding: 22px 6px 24px; }
+  .index-outcome { justify-self: start; margin-top: 12px; text-align: left; }
   .record-table tbody tr:first-child .record-result { font-size: clamp(1.5rem, 7.6vw, 3rem); }
   .page { padding-top: 40px; }
   .page-head { margin-bottom: 56px; }

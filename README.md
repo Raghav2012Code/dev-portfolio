@@ -39,7 +39,7 @@ the [projects page](https://raghavkrishna-dev.vercel.app/project).
 ## Highlights
 
 - **Two typefaces, one colour.** Anybody, set extra-wide, is the paint on the
-  floor; Instrument Sans does the reading. Hi-vis yellow marks zones and
+  floor; Schibsted Grotesk does the reading. Hi-vis yellow marks zones and
   results, and the robot's red LED appears nowhere else.
 - **Light and dark themes** that follow the operating system, with text at
   WCAG AA contrast in both.

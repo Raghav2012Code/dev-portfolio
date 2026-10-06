@@ -3,11 +3,6 @@ import type { Project, SignalStep, TechMention } from "../data/content";
 import { PROJECT_SPEC_LABELS } from "../data/content";
 import { Tip } from "./ui";
 
-/** Two-digit ordinal for an index position: 01, 02, … */
-export function entryNumber(index: number): string {
-  return String(index + 1).padStart(2, "0");
-}
-
 /**
  * Deliberately returns no motion props.
  *
@@ -52,11 +47,11 @@ function TechLine({ items }: { items: TechMention[] }) {
 }
 
 /**
- * One project as a full-width band: a large ordinal + name header, then the
+ * One project as a full-width band: a name header, then the
  * description, the ruled spec list, the signal chain and the links. The
  * featured project is set larger. The `id` is the deep-link anchor.
  */
-export function ProjectCard({ project, index }: { project: Project; index: number }) {
+export function ProjectCard({ project }: { project: Project }) {
   const labels = PROJECT_SPEC_LABELS;
   return (
     <m.article
@@ -67,9 +62,6 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       {...revealProps()}
     >
       <header className="entry-head">
-        <span className="entry-ordinal" aria-hidden="true">
-          {entryNumber(index)}
-        </span>
         <div className="entry-heading">
           <h2 className="entry-name" id={`${project.slug}-name`}>
             {project.name}

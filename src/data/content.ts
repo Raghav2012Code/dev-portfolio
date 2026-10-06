@@ -83,7 +83,7 @@ export const SECTION_COPY = {
   },
   contact: {
     title: "Contact",
-    lead: "Always happy to talk robotics, hardware, or builds in progress.",
+    lead: "Questions about a build, a competition or the code are welcome.",
   },
 } as const;
 
@@ -287,11 +287,11 @@ export interface StackRow {
 }
 
 export const STACK_ROWS: StackRow[] = [
-  { label: "Hardware and programming", items: ["Arduino", "ESP32", "IoT", "Python"] },
   {
     label: "Web and backend",
     items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Supabase", "MongoDB"],
   },
+  { label: "Hardware and programming", items: ["Arduino", "ESP32", "IoT", "Python"] },
   { label: "Tools", items: ["Git", "GitHub", "Claude Code", "OpenAI Codex"] },
 ];
 
