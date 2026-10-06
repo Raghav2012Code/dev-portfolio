@@ -80,6 +80,8 @@ body {
     linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 96px 96px;
   color: var(--ink);
+  /* Underlines here are painted marker strokes: never break them around g, y, p. */
+  text-decoration-skip-ink: none;
   font-family: var(--font);
   font-size: 17px;
   line-height: 1.6;
@@ -468,7 +470,7 @@ ul, ol { list-style: none; }
 .record-year {
   color: var(--panel-ink-2); font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums;
 }
-.record-year::before { content: ""; display: inline-block; width: 11px; height: 11px; margin-right: 10px; border-radius: 50%; background: var(--yellow); }
+.record-year::before { content: ""; box-sizing: border-box; display: inline-block; width: 11px; height: 11px; margin-right: 10px; border-radius: 50%; background: var(--yellow); }
 .record-event-title { display: block; font-size: 21px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
 .record-build {
   display: block; margin-top: 2px; color: var(--panel-ink-2); font-size: 16px;
