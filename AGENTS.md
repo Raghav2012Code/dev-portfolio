@@ -42,6 +42,7 @@ Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html`
 
 - Pages go through `SiteShell` (skip link, nav, `main`, footer, deep-link hash scroll, motion setup).
 - All copy lives in `src/data/content.ts`; components render it.
+- Stack badges (`StackIcon.tsx`): brand marks are inlined from simple-icons (CC0) in `brandIcons.ts`, keyed by the `STACK_ROWS` label; hardware and concept items have drawn glyphs (yellow on a dark tile) in `StackIcon.tsx`; an item with neither gets a fallback glyph. Only add a mark for a skill that is already in `STACK_ROWS` (see the README content rules).
 - Watermelon UI is ported natively (`Tip` in `components/ui.tsx`, nav, buttons); it is a React + Tailwind + shadcn registry, so it never gets `npm install`ed here.
 - Build UI with React + CSS only. Component and animation libraries (KokonutUI, React Bits, Motion Primitives, 21st.dev) were evaluated and rejected: smallest footprint wins.
 
