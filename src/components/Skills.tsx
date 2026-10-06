@@ -3,10 +3,8 @@ import { StackIcon } from "./StackIcon";
 import { Section } from "./ui";
 
 /**
- * `board` composition: the five tool categories set as display type, with their
- * tools as a small run beneath and a count in tabular figures. The scale
- * contrast between the two is the whole device — a 14px label over 15px items
- * is what made the previous version read as an unstyled form.
+ * `board` composition: each tool category is a labelled drawer, and each tool
+ * in it is a badge (brand mark or drawn glyph, then the name).
  */
 export function Skills() {
   return (
@@ -16,10 +14,6 @@ export function Skills() {
           <div className="kit-group" key={row.label}>
             <div className="kit-head">
               <h3 className="kit-name">{row.label}</h3>
-              {/* Derived from the list below it, so it is presentational. */}
-              <span className="kit-count num" aria-hidden="true">
-                {row.items.length}
-              </span>
             </div>
             <ul className="kit-list">
               {row.items.map((item) => (

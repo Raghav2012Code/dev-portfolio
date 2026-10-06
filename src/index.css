@@ -129,7 +129,6 @@ ul, ol { list-style: none; }
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip-path: inset(50%); white-space: nowrap;
 }
-.num { font-variant-numeric: tabular-nums; }
 
 /* ---------- the tape, stations and robot ---------- */
 .track {
@@ -278,11 +277,6 @@ ul, ol { list-style: none; }
 
 .prose p { font-size: 19px; line-height: 1.65; max-width: 33em; text-wrap: pretty; }
 .prose p + p { margin-top: 18px; }
-.prose .lede {
-  max-width: 20em;
-  font-size: clamp(1.625rem, 3vw, 2.375rem); font-weight: 580;
-  letter-spacing: -0.02em; line-height: 1.18;
-}
 
 /* ---------- about ---------- */
 .about-split { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 56px; }
@@ -309,11 +303,10 @@ ul, ol { list-style: none; }
 .kit { display: grid; gap: 18px; }
 .kit-group { border: 3px solid var(--ink); border-radius: 14px; background: var(--floor); overflow: hidden; }
 .kit-head {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 7px 16px 8px; background: var(--yellow); color: var(--black);
   border-bottom: 3px solid var(--ink);
 }
-.kit-name, .kit-count { font-family: var(--font-display); font-size: 14px; font-weight: 850; font-stretch: 130%; line-height: 1.3; }
+.kit-name { font-family: var(--font-display); font-size: 14px; font-weight: 850; font-stretch: 130%; line-height: 1.3; }
 .kit-list { display: flex; flex-wrap: wrap; gap: 10px; padding: 18px 16px 20px; }
 .kit-list li {
   display: inline-flex; align-items: center; gap: 12px;
@@ -354,7 +347,7 @@ ul, ol { list-style: none; }
 .index-row:hover::before, .index-row:focus-visible::before,
 .closing-link:hover::before, .closing-link:focus-visible::before { transform: scaleX(1); }
 .index-row {
-  display: grid; grid-template-columns: 3.25rem minmax(0, 1fr) auto;
+  display: grid; grid-template-columns: 3.25rem minmax(0, 1fr);
   column-gap: 24px; align-items: center;
   padding: 26px 18px 28px;
 }
@@ -369,12 +362,6 @@ ul, ol { list-style: none; }
 }
 .index-summary { display: block; margin-top: 12px; max-width: 40em; color: var(--ink-2); font-size: 18px; line-height: 1.5; transition: var(--t); }
 .index-row:hover .index-summary, .index-row:focus-visible .index-summary { color: var(--black); }
-.index-outcome {
-  max-width: 13rem; padding: 4px 11px; border-radius: 6px;
-  font-size: 15px; font-weight: 700; line-height: 1.35; text-align: right; transition: var(--t);
-}
-.index-row:hover .index-outcome.tone-win, .index-row:focus-visible .index-outcome.tone-win { background: var(--black); color: var(--yellow); }
-.index-row:hover .index-outcome.tone-muted, .index-row:focus-visible .index-outcome.tone-muted { border-color: var(--black); color: var(--black); }
 
 /* ---------- projects page ---------- */
 .page { padding: 72px 0 var(--section-pad); }
@@ -607,7 +594,6 @@ a.record-build:hover { color: var(--panel-ink); }
   .section-lead { font-size: 18px; }
   .spec-row, .spec-compact .spec-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .index-row { grid-template-columns: 2rem minmax(0, 1fr); column-gap: 12px; padding: 22px 6px 24px; }
-  .index-outcome { grid-column: 2; justify-self: start; margin-top: 12px; text-align: left; }
   .record-table tbody tr:first-child .record-result { font-size: clamp(1.5rem, 7.6vw, 3rem); }
   .page { padding-top: 40px; }
   .page-head { margin-bottom: 56px; }
