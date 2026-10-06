@@ -33,14 +33,12 @@ export function Navbar() {
     const spy = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) continue;
           const href = `#${entry.target.id}`;
-          setActiveHref((current) => (current === href ? null : current));
-        }
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const href = `#${entry.target.id}`;
-          setActiveHref(NAV_HREFS.has(href) ? href : null);
+          if (entry.isIntersecting) {
+            setActiveHref(NAV_HREFS.has(href) ? href : null);
+          } else {
+            setActiveHref((current) => (current === href ? null : current));
+          }
         }
       },
       { rootMargin: "-40% 0px -55% 0px", threshold: 0 },

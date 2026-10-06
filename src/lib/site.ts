@@ -15,10 +15,6 @@ export function resolveHref(hash: string): string {
   return isHomePage() ? hash : `/${hash}`;
 }
 
-function prefersReducedMotion(): boolean {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
 /**
  * `#top` sits on the sticky header, so the native jump does nothing. Scroll in
  * JS (CSS `scroll-behavior` doesn't cover `scrollTo`), then move keyboard
@@ -26,7 +22,8 @@ function prefersReducedMotion(): boolean {
  */
 export function scrollToTop(event: MouseEvent<HTMLAnchorElement>) {
   event.preventDefault();
-  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
   document.querySelector<HTMLElement>(".brand")?.focus({ preventScroll: true });
 }
 

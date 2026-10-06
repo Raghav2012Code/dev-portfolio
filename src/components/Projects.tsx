@@ -1,6 +1,5 @@
-import * as m from "motion/react-m";
 import { PROJECTS, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
-import { ProjectCard, ProjectName, revealProps } from "./ProjectCard";
+import { ProjectCard, ProjectName } from "./ProjectCard";
 import { Section } from "./ui";
 
 /**
@@ -14,7 +13,7 @@ export function ProjectIndex() {
     <Section id="projects" title={copy.title} lead={copy.lead} variant="index">
       <ol className="index-list">
         {PROJECTS.map((project) => (
-          <m.li key={project.slug} className="index-item" {...revealProps()}>
+          <li key={project.slug} className="index-item">
             <a className="index-row" href={`${PROJECTS_PAGE_PATH}#${project.slug}`}>
               <span className="index-main">
                 <span className="index-name">
@@ -24,7 +23,7 @@ export function ProjectIndex() {
               </span>
               <span className={`index-outcome tone-${project.resultTone}`}>{project.result}</span>
             </a>
-          </m.li>
+          </li>
         ))}
       </ol>
       <a className="text-link index-all" href={PROJECTS_PAGE_PATH}>

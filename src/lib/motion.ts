@@ -10,32 +10,20 @@ import type { Transition } from "motion/react";
 
 export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const RISE_PX = 8;
-const REVEAL_DURATION = 0.4;
-const STAGGER_STEP = 0.05;
 export const INTERACTION_DURATION = 0.25;
 export const PRESS_DURATION = 0.12;
 /** The arena robot closes this share of the gap to the scroll position each frame. */
 export const ROBOT_FOLLOW = 0.14;
 
-function revealTransition(index = 0, baseDelay = 0): Transition {
-  return {
-    duration: REVEAL_DURATION,
-    ease: EASE,
-    delay: baseDelay + index * STAGGER_STEP,
-  };
-}
-
-interface EntranceMotionProps {
-  initial: { opacity: number; y: number };
-  animate: { opacity: number; y: number };
-  transition: Transition;
-}
-
 /** Spread onto a motion element for the hero entrance (plays on mount). */
-export function entrance(index = 0, baseDelay = 0.05): EntranceMotionProps {
+export function entrance(index = 0, baseDelay = 0.05) {
   return {
     initial: { opacity: 0, y: RISE_PX },
     animate: { opacity: 1, y: 0 },
-    transition: revealTransition(index, baseDelay),
+    transition: {
+      duration: 0.4,
+      ease: EASE,
+      delay: baseDelay + index * 0.05,
+    } satisfies Transition,
   };
 }
