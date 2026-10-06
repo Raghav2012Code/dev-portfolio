@@ -1,4 +1,3 @@
-import * as m from "motion/react-m";
 import type { Project, SignalStep, TechMention } from "../data/content";
 import { PROJECT_SPEC_LABELS } from "../data/content";
 import { Tip } from "./ui";
@@ -6,20 +5,6 @@ import { Tip } from "./ui";
 /** Two-digit ordinal for an index position: 01, 02, … */
 export function entryNumber(index: number): string {
   return String(index + 1).padStart(2, "0");
-}
-
-/**
- * Deliberately returns no motion props.
- *
- * A `whileInView` reveal leaves inline `opacity: 0` on the element until it
- * intersects, so everything below the fold is invisible on first paint — and
- * stays invisible in print and in any capture. Most of the project index was
- * hidden this way. This design's sections are static and readable on arrival,
- * so nothing here depends on a reveal to become visible. If motion is added
- * back, it must not gate visibility.
- */
-export function revealProps() {
-  return {};
 }
 
 /** Signal chain as a row of parts joined by traces (drawn in CSS). */
@@ -59,11 +44,10 @@ function TechLine({ items }: { items: TechMention[] }) {
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const labels = PROJECT_SPEC_LABELS;
   return (
-    <m.article
+    <article
       className={project.featured ? "entry entry-featured" : "entry"}
       id={project.slug}
       aria-labelledby={`${project.slug}-name`}
-      {...revealProps()}
     >
       <header className="entry-head">
         <span className="entry-ordinal" aria-hidden="true">
@@ -117,6 +101,6 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           </p>
         ) : null}
       </div>
-    </m.article>
+    </article>
   );
 }
