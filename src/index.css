@@ -379,16 +379,16 @@ ul, ol { list-style: none; }
 .page-lead { margin-top: 28px; color: var(--ink-2); font-size: 22px; line-height: 1.4; text-wrap: pretty; }
 
 .entry {
-  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: 48px;
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 48px;
   padding: 36px 0 80px; border-top: 3px solid var(--ink);
 }
 .entry-head { align-self: start; position: sticky; top: calc(var(--nav-h) + 28px); }
 .entry-name {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.6vw, 2.25rem); font-weight: 860; font-stretch: 135%;
-  letter-spacing: -0.02em; line-height: 1.02; text-wrap: balance;
+  font-size: clamp(1.375rem, 2.3vw, 2.125rem); font-weight: 860; font-stretch: 125%;
+  letter-spacing: -0.02em; line-height: 1.05; text-wrap: balance;
 }
-.entry-featured .entry-name { font-size: clamp(1.75rem, 3.2vw, 2.75rem); }
+.entry-featured .entry-name { font-size: clamp(1.625rem, 2.9vw, 2.5rem); }
 .entry-result { margin-top: 18px; font-size: 17px; font-weight: 700; line-height: 1.4; }
 /* A marker stroke through the lower half of the text; losses and personal work stay plain. */
 .tone-win {
@@ -433,7 +433,7 @@ ul, ol { list-style: none; }
 .contribution-total { font-family: var(--font-display); font-weight: 860; font-stretch: 130%; font-variant-numeric: tabular-nums; }
 .contribution-figure { margin-top: 24px; }
 /* The chart keeps its natural width and scrolls inside its own region. */
-.contribution-chart-scroll { overflow-x: auto; padding-bottom: 6px; }
+.contribution-chart-scroll { overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; scrollbar-color: var(--ink-3) transparent; }
 .contribution-chart { display: block; max-width: none; height: auto; overflow: visible; }
 .contribution-axis-label { fill: var(--ink-3); font-family: var(--font); font-size: 9px; }
 .contribution-cell { fill: var(--cal-0); }
@@ -462,6 +462,7 @@ ul, ol { list-style: none; }
   padding-right: calc(var(--gutter) + 8px);
   border-right: none; border-radius: 16px 0 0 16px;
 }
+.record-scroll :focus-visible { outline-color: var(--yellow); }
 .record-table { width: 100%; border-collapse: collapse; text-align: left; }
 .record-table th {
   padding: 16px 16px 12px 0; border-bottom: 1px solid var(--panel-rule);
