@@ -1,10 +1,10 @@
 import { PROJECTS, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
-import { ProjectCard, entryNumber } from "./ProjectCard";
+import { ProjectCard, ProjectName } from "./ProjectCard";
 import { Section } from "./ui";
 
 /**
- * Home page: every project as one full-width index row — a large ordinal, the
- * name at display size with its summary beneath, and the outcome at the right.
+ * Home page: every project as one full-width index row — the name at display
+ * size with its summary beneath, and the outcome at the right.
  * The whole row links to the project's deep link.
  */
 export function ProjectIndex() {
@@ -12,14 +12,13 @@ export function ProjectIndex() {
   return (
     <Section id="projects" title={copy.title} lead={copy.lead} variant="index">
       <ol className="index-list">
-        {PROJECTS.map((project, i) => (
+        {PROJECTS.map((project) => (
           <li key={project.slug} className="index-item">
             <a className="index-row" href={`${PROJECTS_PAGE_PATH}#${project.slug}`}>
-              <span className="index-ordinal" aria-hidden="true">
-                {entryNumber(i)}
-              </span>
               <span className="index-main">
-                <span className="index-name">{project.name}</span>
+                <span className="index-name">
+                  <ProjectName name={project.name} />
+                </span>
                 <span className="index-summary">{project.summary}</span>
               </span>
               <span className={`index-outcome tone-${project.resultTone}`}>{project.result}</span>
@@ -39,13 +38,15 @@ export function ProjectList() {
   const copy = SECTION_COPY.projectsPage;
   return (
     <section className="page" id="projects" aria-labelledby="projects-title">
-      <div className="container">
+      <div className="container lane-pad">
         <header className="page-head">
-          <h1 id="projects-title">{copy.title}</h1>
+          <h1 id="projects-title" data-start>
+            {copy.title}
+          </h1>
           <p className="page-lead">{copy.lead}</p>
         </header>
-        {PROJECTS.map((project, i) => (
-          <ProjectCard key={project.slug} project={project} index={i} />
+        {PROJECTS.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
     </section>

@@ -17,7 +17,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const GITHUB_USERNAME = "Raghav2012Code";
 export const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
-export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png`;
+export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png?size=160`;
 export const CONTACT_EMAIL = "raghavgamerz670@gmail.com";
 export const PROFILE_NAME = "Raghav Krishna";
 export const NAV_GITHUB_LABEL = "GitHub";
@@ -29,6 +29,12 @@ export const HERO_COPY = {
   statement: "I build hardware and software for robotics competitions.",
   avatarAlt: `Profile image of ${PROFILE_NAME}`,
   projectsLink: "View projects",
+} as const;
+
+/** The arena floor: a decorative robot rides the tape as the page scrolls. */
+export const ARENA_COPY = {
+  start: "Start",
+  hint: "Scroll and the robot follows the tape.",
 } as const;
 
 /**
@@ -77,7 +83,7 @@ export const SECTION_COPY = {
   },
   contact: {
     title: "Contact",
-    lead: "Always happy to talk robotics, hardware, or builds in progress.",
+    lead: "Questions about a build, a competition or the code are welcome.",
   },
 } as const;
 
@@ -282,23 +288,10 @@ export interface StackRow {
 
 export const STACK_ROWS: StackRow[] = [
   {
-    label: "Robotics and hardware",
-    items: [
-      "Arduino",
-      "ESP32",
-      "DHT22",
-      "IR sensors",
-      "Laser sensors",
-      "Servos",
-      "Solenoids",
-      "LCDs",
-      "Sensors",
-      "Actuators",
-    ],
+    label: "Web and backend",
+    items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Supabase", "MongoDB"],
   },
-  { label: "Web", items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js"] },
-  { label: "Backend and data", items: ["Supabase", "REST APIs", "SHA-256"] },
-  { label: "Programming", items: ["Python"] },
+  { label: "Hardware and programming", items: ["Arduino", "ESP32", "IoT", "Python"] },
   { label: "Tools", items: ["Git", "GitHub", "Claude Code", "OpenAI Codex"] },
 ];
 

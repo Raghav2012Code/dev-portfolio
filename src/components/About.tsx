@@ -2,7 +2,7 @@ import { CURRENTLY, SECTION_COPY } from "../data/content";
 import { Section } from "./ui";
 
 /**
- * `prose` composition: a two-column split. The prose runs in the left column
+ * Two-column split. The prose runs in the left column
  * and the "right now" list forms a rail on the right, so this is the only
  * section on the page that sets text side by side. It keeps its accessible name
  * without showing a heading.
@@ -13,7 +13,7 @@ export function About() {
   return (
     <Section id="about" title={copy.title} variant="prose">
       <div className="about-split">
-        <div className="prose about-prose">
+        <div className="about-prose">
           {copy.paragraphs.map((paragraph, index) => (
             <p className={index === 0 ? "about-lede" : undefined} key={paragraph}>
               {paragraph}

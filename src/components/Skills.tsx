@@ -1,4 +1,5 @@
 import { SECTION_COPY, STACK_ROWS } from "../data/content";
+import { StackIcon } from "./StackIcon";
 import { Section } from "./ui";
 
 /**
@@ -22,7 +23,10 @@ export function Skills() {
             </div>
             <ul className="kit-list">
               {row.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}>
+                  <StackIcon label={item} />
+                  <span>{item}</span>
+                </li>
               ))}
             </ul>
           </div>

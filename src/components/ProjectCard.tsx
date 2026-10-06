@@ -2,9 +2,20 @@ import type { Project, SignalStep, TechMention } from "../data/content";
 import { PROJECT_SPEC_LABELS } from "../data/content";
 import { Tip } from "./ui";
 
-/** Two-digit ordinal for an index position: 01, 02, … */
-export function entryNumber(index: number): string {
-  return String(index + 1).padStart(2, "0");
+/**
+ * A name with an aside, "CRASH (Chennai Road Accident Safety Hub)", sets the
+ * short name large and the aside small beneath it. The text still reads as one
+ * name to a screen reader.
+ */
+export function ProjectName({ name }: { name: string }) {
+  const at = name.indexOf(" (");
+  if (at < 0) return <>{name}</>;
+  return (
+    <>
+      <span className="name-main">{name.slice(0, at)}</span>{" "}
+      <span className="name-aside">{name.slice(at + 1)}</span>
+    </>
+  );
 }
 
 /** Signal chain as a row of parts joined by traces (drawn in CSS). */
@@ -37,25 +48,23 @@ function TechLine({ items }: { items: TechMention[] }) {
 }
 
 /**
- * One project as a full-width band: a large ordinal + name header, then the
+ * One project as a full-width band: a name header, then the
  * description, the ruled spec list, the signal chain and the links. The
  * featured project is set larger. The `id` is the deep-link anchor.
  */
-export function ProjectCard({ project, index }: { project: Project; index: number }) {
+export function ProjectCard({ project }: { project: Project }) {
   const labels = PROJECT_SPEC_LABELS;
   return (
     <article
       className={project.featured ? "entry entry-featured" : "entry"}
       id={project.slug}
+      data-station="top"
       aria-labelledby={`${project.slug}-name`}
     >
       <header className="entry-head">
-        <span className="entry-ordinal" aria-hidden="true">
-          {entryNumber(index)}
-        </span>
         <div className="entry-heading">
           <h2 className="entry-name" id={`${project.slug}-name`}>
-            {project.name}
+            <ProjectName name={project.name} />
           </h2>
           <p className={`entry-result tone-${project.resultTone}`}>{project.result}</p>
         </div>

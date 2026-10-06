@@ -19,9 +19,9 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string | null>(null);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
-  // Matches the CSS nav breakpoint (index.css): below 720px the hamburger is
+  // Matches the CSS nav breakpoint (index.css): below 880px the hamburger is
   // shown and the horizontal links are hidden.
-  const mobile = useMediaQuery("(max-width: 720px)");
+  const mobile = useMediaQuery("(max-width: 880px)");
   const home = isHomePage();
 
   // Scroll-spy (home only): highlight the section crossing the middle band.
@@ -82,6 +82,13 @@ export function Navbar() {
           aria-label={`${PROFILE_NAME} home`}
           onClick={home ? scrollToTop : undefined}
         >
+          <svg className="brand-mark" viewBox="0 0 100 100" width="28" height="28" aria-hidden="true" focusable="false">
+            <rect className="mark-board" width="100" height="100" rx="22" />
+            <path className="mark-trace" d="M50 -4V30Q50 50 50 62" />
+            <rect className="mark-pad" x="30" y="38" width="40" height="52" rx="12" />
+            <circle className="mark-led" cx="40" cy="74" r="5" />
+            <circle className="mark-led" cx="60" cy="74" r="5" />
+          </svg>
           <span className="brand-text">{PROFILE_NAME}</span>
         </a>
         <nav className="nav-links" aria-label="Primary">

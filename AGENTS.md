@@ -26,22 +26,24 @@ Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html`
 - `SiteShell` wraps every page in `LazyMotion features={domAnimation} strict` and `MotionConfig reducedMotion="user"`. Animate with `m.*` from `motion/react-m`; under `strict` a `motion.*` component throws and pulls the full bundle back in, so keep new motion on `m.*`.
 - Accessibility is the one hard requirement, not a budget item. Anything you animate must respect reduced motion — `MotionConfig` drops transforms while opacity fades remain, and the CSS query covers the rest. Never make motion the only way information is conveyed.
 - Performance is the other one: prefer transform/opacity, and make scroll-linked work cheap (avoid layout thrash and per-frame `setState` on large subtrees).
+- The arena robot (`components/Track.tsx`) answers the scroll: it eases toward the scroll position with `ROBOT_FOLLOW`, writes its `transform` straight to the SVG (no React state per frame), and stops its rAF loop once it settles. Under reduced motion it parks at the start and every station is lit.
 - What ships today is restrained — a hero entrance, action feedback, and sections that are static on arrival. That is the current design, not a rule. Changing it is allowed.
 
 ## Design system
 
-- Datasheet on drafting paper: tokens on `:root` in `src/index.css` (paper, ink, ink-2/3, rule, `--frame`, one PCB-green `--trace`), dark variant via `prefers-color-scheme`. Text contrast stays at WCAG AA.
-- Two families, split by role, not by whim. `--font` is Archivo (Google Fonts, `wdth` + `wght`) and sets everything structural: the sheet title, headings, nav, buttons, labels, ordinals, spec rows, and the contribution graph axis. `--font-prose` is Newsreader and is for running prose only — About paragraphs, `.page-lead`, `.entry-desc`. Never put prose in Archivo or a label in Newsreader; the split is the point, since one family doing both jobs is what made the prose read as a form field.
-- Serif prose needs different settings from the grotesque it replaced: no negative letter-spacing, weight 400 (not 500) at display sizes, body leading 1.7 rather than 1.65, and a measure capped in the serif's own ems. Copying grotesque values onto Newsreader is what makes a swapped-in serif look amateur.
-- Sections use `Section` (`components/ui.tsx`): heading in the margin column, body on the right, heading text matching its nav label. Facts go in `dl.spec` rows.
-- Green means connected or achieved: traces, links, awarded/qualified results.
-- The hero is the name, one statement, and a drafting title block (square, ruled) holding the avatar photo and the facts. The real signal chain lives on the Door Hinge entry.
+- The arena: the page is a robotics arena floor. Tokens on `:root` in `src/index.css`: `--floor` (faint mat grid in light, foam-tile checker on black in dark), `--ink` (true black tape; white on the dark floor), `--yellow` (zones, results, the robot), `--red` (the robot's LED only). `--panel` stays black in both themes for the scoreboard. Text contrast stays at WCAG AA.
+- Two families, split by role. Anybody, set extra-wide (`font-stretch` 130 to 150%) and black, is the paint on the floor: names, headings, the headline result. Schibsted Grotesk (`--font`) does all the reading. Sentence case, no caps labels, no mono.
+- The tape lane: `.lane-pad` keeps content right of the tape. `Track` (`components/Track.tsx`) draws a serpentine tape from `[data-start]` to `[data-finish]` (hero start box or the projects `h1`, and the footer finish line) with a station at each `[data-station]` heading. Elements that stick (project entries) use `data-station="top"` so scrolling cannot move their station. A new page needs one `data-start` and the shared footer.
+- Sections use `Section` (`components/ui.tsx`): the heading sits at a station and matches its nav label. `variant` only adds a `section--<variant>` class for per-section styling. Facts go in `dl.spec` rows. Competitions is a real `<table>` styled as the black scoreboard (rows stack below 48rem); Stack is a parts organiser (`.kit`).
+- The hero is the name, one statement, the start box, and the avatar photo with the facts. The robot is decoration: keep it free of copy, labels or claims, and hidden from assistive tech. The real signal chain lives on the Door Hinge entry.
+- Responsive floor: 280px up to 2560px with no horizontal overflow; stand-alone controls are 44px minimum below 1024px; the nav becomes a menu below 880px; on phones a tooltip is pinned to the bottom of the screen so it can never be clipped at an edge. Check the browser matrix at 280, 320, 390, 768, 1024 and 1440 widths.
 - Each result appears once on the home page, in Competitions. The home project index shows name + `summary`.
 
 ## Components
 
 - Pages go through `SiteShell` (skip link, nav, `main`, footer, deep-link hash scroll, motion setup).
 - All copy lives in `src/data/content.ts`; components render it.
+- Stack badges (`StackIcon.tsx`): brand marks are inlined from simple-icons (CC0) in `brandIcons.ts`, keyed by the `STACK_ROWS` label; marks only published as images (the Blynk sign for `IoT`) are inlined as data URIs in the same file; an item with neither gets a drawn fallback glyph (yellow on a dark tile) in `StackIcon.tsx`. Only add a mark for a skill that is already in `STACK_ROWS` (see the README content rules).
 - Watermelon UI is ported natively (`Tip` in `components/ui.tsx`, nav, buttons); it is a React + Tailwind + shadcn registry, so it never gets `npm install`ed here.
 - Build UI with React + CSS only. Component and animation libraries (KokonutUI, React Bits, Motion Primitives, 21st.dev) were evaluated and rejected: smallest footprint wins.
 

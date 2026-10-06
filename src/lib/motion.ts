@@ -1,8 +1,8 @@
 // Shared motion language (motion/react v13).
 // One orchestrated moment: the hero settles in on load (name, statement,
-// actions, title block). Nothing else animates on its own; sections are
+// actions). Nothing else animates on its own; sections are
 // static so content is readable the instant it scrolls into view.
-// Interaction motion (menu, button press) answers the user's action.
+// Interaction motion (menu, button press, the arena robot following the scroll) answers the user's action.
 // Transform/opacity only. Reduced motion is handled globally via
 // MotionConfig reducedMotion="user" in SiteShell, which also wraps pages in
 // LazyMotion: animate with `m.*` from "motion/react-m", never `motion.*`.
@@ -12,6 +12,8 @@ export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const RISE_PX = 8;
 export const INTERACTION_DURATION = 0.25;
 export const PRESS_DURATION = 0.12;
+/** The arena robot closes this share of the gap to the scroll position each frame. */
+export const ROBOT_FOLLOW = 0.14;
 
 /** Spread onto a motion element for the hero entrance (plays on mount). */
 export function entrance(index = 0, baseDelay = 0.05) {
