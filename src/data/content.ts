@@ -17,7 +17,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const GITHUB_USERNAME = "Raghav2012Code";
 export const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
-export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png`;
+export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png?size=160`;
 export const CONTACT_EMAIL = "raghavgamerz670@gmail.com";
 export const PROFILE_NAME = "Raghav Krishna";
 export const NAV_GITHUB_LABEL = "GitHub";

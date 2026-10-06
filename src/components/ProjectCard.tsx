@@ -4,6 +4,22 @@ import { PROJECT_SPEC_LABELS } from "../data/content";
 import { Tip } from "./ui";
 
 /**
+ * A name with an aside, "CRASH (Chennai Road Accident Safety Hub)", sets the
+ * short name large and the aside small beneath it. The text still reads as one
+ * name to a screen reader.
+ */
+export function ProjectName({ name }: { name: string }) {
+  const at = name.indexOf(" (");
+  if (at < 0) return <>{name}</>;
+  return (
+    <>
+      <span className="name-main">{name.slice(0, at)}</span>{" "}
+      <span className="name-aside">{name.slice(at + 1)}</span>
+    </>
+  );
+}
+
+/**
  * Deliberately returns no motion props.
  *
  * A `whileInView` reveal leaves inline `opacity: 0` on the element until it
@@ -64,7 +80,7 @@ export function ProjectCard({ project }: { project: Project }) {
       <header className="entry-head">
         <div className="entry-heading">
           <h2 className="entry-name" id={`${project.slug}-name`}>
-            {project.name}
+            <ProjectName name={project.name} />
           </h2>
           <p className={`entry-result tone-${project.resultTone}`}>{project.result}</p>
         </div>

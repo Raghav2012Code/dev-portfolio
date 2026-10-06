@@ -36,6 +36,7 @@ Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html`
 - The tape lane: `.lane-pad` keeps content right of the tape. `Track` (`components/Track.tsx`) draws a serpentine tape from `[data-start]` to `[data-finish]` (hero start box or the projects `h1`, and the footer finish line) with a station at each `[data-station]` heading. Elements that stick (project entries) use `data-station="top"` so scrolling cannot move their station. A new page needs one `data-start` and the shared footer.
 - Sections use `Section` (`components/ui.tsx`): the heading sits at a station and matches its nav label. `variant` only adds a `section--<variant>` class for per-section styling. Facts go in `dl.spec` rows. Competitions is a real `<table>` styled as the black scoreboard (rows stack below 48rem); Stack is a parts organiser (`.kit`).
 - The hero is the name, one statement, the start box, and the avatar photo with the facts. The robot is decoration: keep it free of copy, labels or claims, and hidden from assistive tech. The real signal chain lives on the Door Hinge entry.
+- Responsive floor: 280px up to 2560px with no horizontal overflow; stand-alone controls are 44px minimum below 1024px; the nav becomes a menu below 880px; on phones a tooltip is pinned to the bottom of the screen so it can never be clipped at an edge. Check the browser matrix at 280, 320, 390, 768, 1024 and 1440 widths.
 - Each result appears once on the home page, in Competitions. The home project index shows name + `summary`.
 
 ## Components
