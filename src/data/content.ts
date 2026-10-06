@@ -287,24 +287,9 @@ export interface StackRow {
 }
 
 export const STACK_ROWS: StackRow[] = [
-  {
-    label: "Robotics and hardware",
-    items: [
-      "Arduino",
-      "ESP32",
-      "DHT22",
-      "IR sensors",
-      "Laser sensors",
-      "Servos",
-      "Solenoids",
-      "LCDs",
-      "Sensors",
-      "Actuators",
-    ],
-  },
+  { label: "Hardware and programming", items: ["Arduino", "ESP32", "IoT", "Python"] },
   { label: "Web", items: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js"] },
   { label: "Backend and data", items: ["Supabase", "REST APIs", "SHA-256"] },
-  { label: "Programming", items: ["Python"] },
   { label: "Tools", items: ["Git", "GitHub", "Claude Code", "OpenAI Codex"] },
 ];
 
