@@ -75,7 +75,6 @@ npm install
 npm run dev        # dev server on http://localhost:5173
 npm run build      # typecheck, then production build to dist/
 npm run preview    # serve the production build locally
-npm run typecheck  # typecheck only
 ```
 
 The projects page is served at `/project.html` by the dev server and at

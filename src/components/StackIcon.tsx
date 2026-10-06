@@ -1,17 +1,8 @@
-import type { ReactNode } from "react";
 import { BRAND_ICONS, RASTER_ICONS } from "./brandIcons";
 
-/** Drawn for any label without a mark, so a new stack item still gets a badge. */
-const FALLBACK: ReactNode = (
-  <>
-    <rect x="5" y="5" width="14" height="14" rx="3" />
-    <path d="M9 9h6v6H9z" />
-  </>
-);
-
 /**
- * A square badge for one stack item: the brand mark where one exists, a
- * drawn glyph otherwise. Decorative; the label beside it names the item.
+ * A square badge for one stack item, from its brand mark. Decorative; the
+ * label beside it names the item. A label with no mark gets no badge.
  */
 export function StackIcon({ label }: { label: string }) {
   const raster = RASTER_ICONS[label];
@@ -39,19 +30,5 @@ export function StackIcon({ label }: { label: string }) {
       </svg>
     );
   }
-  return (
-    <svg className="stack-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-      <rect width="32" height="32" fill="#22252D" />
-      <g
-        transform="translate(6 6) scale(0.8333)"
-        fill="none"
-        stroke="#FFD60A"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        {FALLBACK}
-      </g>
-    </svg>
-  );
+  return null;
 }
