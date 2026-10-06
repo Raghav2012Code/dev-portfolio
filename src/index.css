@@ -55,15 +55,15 @@
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --floor: #0e1830;
-    --floor-2: #182650;
+    --floor: #0c0d0f;
+    --floor-2: #17191d;
     --tile: rgba(255, 255, 255, 0.032);
     --seam: rgba(255, 255, 255, 0.14);
     --ink: #f3f3ef;
-    --ink-2: #c6cde0;
-    --ink-3: #9ca7c4;
-    --rule: #2b3b66;
-    --cal-0: #1c2b52;
+    --ink-2: #c3c6cd;
+    --ink-3: #9a9fab;
+    --rule: #2c2f36;
+    --cal-0: #1a1c21;
     --cal-1: #4d4300;
     --cal-2: #8c7a00;
     --cal-3: #d4b800;
