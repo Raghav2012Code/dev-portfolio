@@ -18,9 +18,11 @@ actuators, and write the software that ties it together.
 
 ## What's inside
 
-The site is designed as a **builder's datasheet on drafting paper**: the name
-set as the sheet title, facts in a drafting title block, and every project
-written up like a component spec.
+The site is designed as **a robotics arena floor**: a strip of black tape runs
+down the page with a station at every heading, and a small line-following robot
+rides it as you scroll, from the start box under the name to the chequered
+finish line at the bottom. Competitions is a black scoreboard, the stack is a
+parts organiser, and project names are painted on the floor in extra-wide type.
 
 | Project | What it is | Links |
 | --- | --- | --- |
@@ -36,15 +38,14 @@ the [projects page](https://raghavkrishna-dev.vercel.app/project).
 
 ## Highlights
 
-- **Two voices, one accent.** Archivo carries every structural job — display
-  type, headings, labels, data — and its width axis does the display work;
-  Newsreader is reserved for running prose, so the person writing is
-  typographically distinct from the sheet describing them. A single PCB green
-  marks what is connected or achieved.
+- **Two typefaces, one colour.** Anybody, set extra-wide, is the paint on the
+  floor; Instrument Sans does the reading. Hi-vis yellow marks zones and
+  results, and the robot's red LED appears nowhere else.
 - **Light and dark themes** that follow the operating system, with text at
   WCAG AA contrast in both.
-- **Calm motion.** One entrance on load, then the page stays still. Reduced
-  motion is respected everywhere.
+- **One moving part.** A short entrance on load, then only the robot moves,
+  easing along the tape as you scroll. Under reduced motion it parks at the
+  start and every station stays lit.
 - **Accessible by default.** Skip link, keyboard-friendly menu (Escape closes
   it), a nav that tracks the current section, and tooltips that work with
   screen readers, keyboards and touch.
@@ -101,9 +102,10 @@ browser console is clean, and the page has been checked on desktop and a
     ├── pages/ProjectPage.tsx   # Projects page
     ├── components/
     │   ├── SiteShell.tsx       # Shared frame: skip link, nav, footer, motion setup
-    │   ├── Hero.tsx            # Name, statement, drafting title block
+    │   ├── Track.tsx           # Tape, stations and the scroll-riding robot
+    │   ├── Hero.tsx            # Start box, name, statement, facts
     │   ├── Projects.tsx        # Home project index and projects page list
-    │   ├── ProjectCard.tsx     # One project as a datasheet entry
+    │   ├── ProjectCard.tsx     # One project as a spec entry
     │   ├── Contributions.tsx   # GitHub contribution calendar
     │   ├── ui.tsx              # Section layout, Tip tooltip, brand icons
     │   └── ...                 # About, Timeline, Skills, Contact, Navbar, Footer

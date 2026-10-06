@@ -31,6 +31,12 @@ export const HERO_COPY = {
   projectsLink: "View projects",
 } as const;
 
+/** The arena floor: a decorative robot rides the tape as the page scrolls. */
+export const ARENA_COPY = {
+  start: "Start",
+  hint: "Scroll and the robot follows the tape.",
+} as const;
+
 /**
  * Hero title block: the fact box in the corner of a drawing sheet.
  * Order is reading order and is deliberate — loudest fact first, school last.

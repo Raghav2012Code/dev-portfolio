@@ -1,5 +1,5 @@
 // Shared primitives: section shell, tooltip gloss, brand icons.
-// Watermelon UI's Tooltip and Button are ported natively in index.css.
+// The tooltip and button styles live in index.css.
 import type { ReactNode } from "react";
 import { useId } from "react";
 
@@ -8,26 +8,26 @@ interface SectionProps {
   title: string;
   lead?: string;
   /**
-   * Composition. Each variant places the head and body differently so no two
-   * sections share bones; the markup stays identical and only the CSS differs.
-   * See src/styles/sections/.
+   * Composition hook. Each variant gets its own `section--<variant>` class so a
+   * section can be styled on its own; the markup stays identical.
    */
   variant?: "default" | "index" | "record" | "prose" | "board" | "closing" | "activity";
   children: ReactNode;
 }
 
 /**
- * Section shell: a rule, a heading block, a body. Where those three sit is
- * decided per variant in CSS — not by a single shared grid.
+ * Section shell: a heading block and a body, to the right of the tape lane.
+ * The heading carries `data-station`, so the tape gets a station beside it.
  */
 export function Section({ id, title, lead, variant = "default", children }: SectionProps) {
   const headingId = `${id}-title`;
   return (
     <section className={`section section--${variant}`} id={id} aria-labelledby={headingId}>
-      <div className="container">
-        <hr className="section-rule" />
+      <div className="container lane-pad">
         <header className="section-head">
-          <h2 id={headingId}>{title}</h2>
+          <h2 id={headingId} data-station>
+            {title}
+          </h2>
           {lead ? <p className="section-lead">{lead}</p> : null}
         </header>
         <div className="section-body">{children}</div>

@@ -62,6 +62,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
     <m.article
       className={project.featured ? "entry entry-featured" : "entry"}
       id={project.slug}
+      data-station="top"
       aria-labelledby={`${project.slug}-name`}
       {...revealProps()}
     >
