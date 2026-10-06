@@ -4,15 +4,14 @@ import { ProjectCard, entryNumber, revealProps } from "./ProjectCard";
 import { Section } from "./ui";
 
 /**
- * Home page: every project as one full-width index row — a large ordinal and the
- * name at display size with its summary beneath. Results live in Competitions,
- * so each one appears once on the page. The whole row links to the project's
- * deep link.
+ * Home page: every project as one full-width index row — a large ordinal, the
+ * name at display size with its summary beneath, and the outcome at the right.
+ * The whole row links to the project's deep link.
  */
 export function ProjectIndex() {
   const copy = SECTION_COPY.projects;
   return (
-    <Section id="projects" title={copy.title} variant="index">
+    <Section id="projects" title={copy.title} lead={copy.lead} variant="index">
       <ol className="index-list">
         {PROJECTS.map((project, i) => (
           <m.li key={project.slug} className="index-item" {...revealProps()}>
@@ -24,6 +23,7 @@ export function ProjectIndex() {
                 <span className="index-name">{project.name}</span>
                 <span className="index-summary">{project.summary}</span>
               </span>
+              <span className={`index-outcome tone-${project.resultTone}`}>{project.result}</span>
             </a>
           </m.li>
         ))}

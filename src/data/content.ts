@@ -60,6 +60,7 @@ export const SECTION_COPY = {
   },
   projects: {
     title: "Projects",
+    lead: "Hardware-first projects, built for real competitions.",
     viewAll: "Read every project in full",
   },
   projectsPage: {
@@ -170,6 +171,13 @@ export const PROJECTS: Project[] = [
       { strong: "Sense", text: { label: "Laser + IR sensor", tip: "Detects a hand near the hinge" } },
       { strong: "Process", text: { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" } },
       { strong: "Actuate", text: { label: "Servo + Solenoid" } },
+    ],
+    techline: [
+      { label: "ESP32" },
+      { label: "Laser sensor" },
+      { label: "IR sensor" },
+      { label: "Servo" },
+      { label: "Solenoid" },
     ],
   },
   {
