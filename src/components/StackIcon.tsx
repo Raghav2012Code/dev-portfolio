@@ -1,22 +1,7 @@
 import type { ReactNode } from "react";
 import { BRAND_ICONS, RASTER_ICONS } from "./brandIcons";
 
-/**
- * Concept glyphs, drawn on a 24px grid, for items with no brand mark. They
- * share one look: yellow strokes on a dark tile, the arena's "wired" colour.
- * Keyed by the label used in STACK_ROWS.
- */
-const GLYPHS: Record<string, ReactNode> = {
-  "REST APIs": (
-    <>
-      <path d="M9 4C6.5 4 6 5.5 6 7v2c0 1.5-1 3-3 3 2 0 3 1.5 3 3v2c0 1.5.5 3 3 3" />
-      <path d="M15 4c2.5 0 3 1.5 3 3v2c0 1.5 1 3 3 3-2 0-3 1.5-3 3v2c0 1.5-.5 3-3 3" />
-    </>
-  ),
-  "SHA-256": <path d="M9.5 3.5l-2 17M16.5 3.5l-2 17M4 9h16.5M3.5 15H20" />,
-};
-
-/** Used for any label without a mark, so a new stack item still gets a badge. */
+/** Drawn for any label without a mark, so a new stack item still gets a badge. */
 const FALLBACK: ReactNode = (
   <>
     <rect x="5" y="5" width="14" height="14" rx="3" />
@@ -65,7 +50,7 @@ export function StackIcon({ label }: { label: string }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        {GLYPHS[label] ?? FALLBACK}
+        {FALLBACK}
       </g>
     </svg>
   );
