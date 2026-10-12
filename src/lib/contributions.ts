@@ -38,6 +38,8 @@ function isContributionCalendar(value: unknown): value is ContributionCalendar {
 
   if (calendar.available !== true) return false;
   const weeks = calendar.weeks as unknown[];
+  // No weeks at all means no calendar to show; both consumers hide together.
+  if (weeks.length === 0) return false;
   if (
     !weeks.every(
       (week: unknown) =>

@@ -3,7 +3,7 @@ import * as m from "motion/react-m";
 import { useEffect, useRef, useState } from "react";
 import { GITHUB_URL, NAV_GITHUB_LABEL, NAV_LINKS, PROFILE_NAME, PROJECTS_PAGE_PATH } from "../data/content";
 import { EASE, INTERACTION_DURATION, RISE_PX } from "../lib/motion";
-import { isHomePage, resolveHref, scrollToTop } from "../lib/site";
+import { isHomePage, focusHashTarget, resolveHref, scrollToTop } from "../lib/site";
 import { useMediaQuery } from "../lib/useMediaQuery";
 import { LinkIcon } from "./ui";
 
@@ -64,9 +64,16 @@ export function Navbar() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const closeAndRefocus = () => {
+  const closeAndRefocus = (href: string) => {
     setOpen(false);
-    toggleRef.current?.focus();
+    // The browser blurs anything focused synchronously in a link click while it
+    // processes the fragment jump, so focus lands on the next frame: the
+    // destination section carries the keyboard position on home, and a
+    // cross-page link falls back to the menu button.
+    requestAnimationFrame(() => {
+      if (href.startsWith("#")) focusHashTarget(href);
+      else toggleRef.current?.focus();
+    });
   };
 
   const links = NAV_LINKS.map((link) => {
@@ -140,7 +147,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 aria-current={link.current}
-                onClick={closeAndRefocus}
+                onClick={() => closeAndRefocus(link.href)}
               >
                 {link.label}
               </a>

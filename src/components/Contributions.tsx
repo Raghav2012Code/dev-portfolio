@@ -61,7 +61,6 @@ export function Contributions() {
   }, [calendar, compact]);
 
   if (!calendar) return null;
-  if (calendar.weeks.length === 0) return null;
 
   // Small screens show the most recent ~6 months so the cells stay legible;
   // larger screens show the full year. The chart keeps its natural width and
