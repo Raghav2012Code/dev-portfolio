@@ -1,4 +1,7 @@
+import * as m from "motion/react-m";
+import { useReducedMotion } from "motion/react";
 import { PROJECTS, PROJECTS_PAGE_PATH, SECTION_COPY } from "../data/content";
+import { rowFeedback } from "../lib/motion";
 import { ProjectCard, ProjectName } from "./ProjectCard";
 import { Section } from "./ui";
 
@@ -9,12 +12,20 @@ import { Section } from "./ui";
  */
 export function ProjectIndex() {
   const copy = SECTION_COPY.projects;
+  // The hover lift is a transform; under reduced motion the CSS swipe alone
+  // answers the pointer.
+  const reduce = useReducedMotion();
+  const feedback = reduce ? {} : rowFeedback;
   return (
     <Section id="projects" title={copy.title} lead={copy.lead} variant="index">
       <ol className="index-list">
         {PROJECTS.map((project) => (
           <li key={project.slug} className="index-item">
-            <a className="index-row" href={`${PROJECTS_PAGE_PATH}#${project.slug}`}>
+            <m.a
+              className="index-row"
+              href={`${PROJECTS_PAGE_PATH}#${project.slug}`}
+              {...feedback}
+            >
               <span className="index-main">
                 <span className="index-name">
                   <ProjectName name={project.name} />
@@ -22,7 +33,7 @@ export function ProjectIndex() {
                 <span className="index-summary">{project.summary}</span>
               </span>
               <span className={`index-outcome tone-${project.resultTone}`}>{project.result}</span>
-            </a>
+            </m.a>
           </li>
         ))}
       </ol>

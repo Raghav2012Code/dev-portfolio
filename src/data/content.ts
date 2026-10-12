@@ -34,7 +34,6 @@ export const HERO_COPY = {
 /** The arena floor: a decorative robot rides the tape as the page scrolls. */
 export const ARENA_COPY = {
   start: "Start",
-  hint: "Scroll and the robot follows the tape.",
 } as const;
 
 /**
@@ -196,7 +195,10 @@ export const PROJECTS: Project[] = [
       { label: "Python" },
       { label: "Public accident data" },
     ],
-    links: [{ label: "View repository", href: "https://github.com/abivan100-stack/C.R.A.S.H" }],
+    links: [
+      { label: "View repository", href: "https://github.com/abivan100-stack/C.R.A.S.H" },
+      { label: "Open live site", href: "https://crash-chennai.vercel.app" },
+    ],
   },
   {
     slug: "vaccine-cold-chain-ledger",
@@ -260,23 +262,26 @@ export const PROJECTS: Project[] = [
     result: "Work in progress",
     resultTone: "muted",
     description:
-      "A personal project using historical English football data and XGBoost to explore match-outcome prediction. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn’t).",
+      "A personal project predicting English football match outcomes from historical data: an XGBoost, Poisson and Elo pipeline with pre-kickoff bookmaker signals, served in a React dashboard. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn’t).",
     techline: [
       { label: "Python" },
       { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
       { label: "Historical match data" },
     ],
-    links: [{ label: "View repository", href: "https://github.com/Raghav2012Code/epl-predictor" }],
+    links: [
+      { label: "View repository", href: "https://github.com/Raghav2012Code/epl-predictor" },
+      { label: "Open live site", href: "https://epl-predictor-beta-roan.vercel.app" },
+    ],
   },
   {
     slug: "urbania",
     name: "Urbania",
-    summary: "A 2D city simulation for exploring how simulated systems behave.",
+    summary: "A 2D top-down city simulator: lay roads, zone districts, and watch a simulated city run.",
     event: "Personal project",
     result: "Experimental",
     resultTone: "muted",
     description:
-      "A personal experimental project: a 2D city simulation I’m building to explore how simulated systems behave.",
+      "A personal experimental project: a 2D top-down city simulation. Build roads, zone residential, commercial and industrial districts and parks, and watch citizens move in, find jobs and commute by car or bus, with land value, pollution and the city budget to manage.",
     links: [{ label: "View repository", href: "https://github.com/Raghav2012Code/urbania" }],
   },
 ];

@@ -1,7 +1,10 @@
 // Shared primitives: section shell, tooltip gloss, brand icons.
 // The tooltip and button styles live in index.css.
+import * as m from "motion/react-m";
+import { useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { useId } from "react";
+import { fade, reveal } from "../lib/motion";
 
 interface SectionProps {
   id: string;
@@ -11,26 +14,30 @@ interface SectionProps {
    * Composition hook. Each variant gets its own `section--<variant>` class so a
    * section can be styled on its own; the markup stays identical.
    */
-  variant?: "default" | "index" | "record" | "prose" | "board" | "closing" | "activity";
+  variant?: "default" | "index" | "record" | "prose" | "board" | "contact" | "activity";
   children: ReactNode;
 }
 
 /**
  * Section shell: a heading block and a body, to the right of the tape lane.
  * The heading carries `data-station`, so the tape gets a station beside it.
+ * Both arrive on scroll: the heading fades (it is measured by the tape, so it
+ * must not translate), the body fades with a small rise.
  */
 export function Section({ id, title, lead, variant = "default", children }: SectionProps) {
   const headingId = `${id}-title`;
+  // Under reduced motion nothing translates: the body fades where it stands.
+  const reduce = useReducedMotion();
   return (
     <section className={`section section--${variant}`} id={id} aria-labelledby={headingId}>
       <div className="container lane-pad">
-        <header className="section-head">
+        <m.header className="section-head" {...fade(0)}>
           <h2 id={headingId} data-station>
             {title}
           </h2>
           {lead ? <p className="section-lead">{lead}</p> : null}
-        </header>
-        <div className="section-body">{children}</div>
+        </m.header>
+        <m.div className="section-body" {...(reduce ? fade(1) : reveal(1))}>{children}</m.div>
       </div>
     </section>
   );

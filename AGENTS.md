@@ -27,7 +27,8 @@ Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html`
 - Accessibility is the one hard requirement, not a budget item. Anything you animate must respect reduced motion — `MotionConfig` drops transforms while opacity fades remain, and the CSS query covers the rest. Never make motion the only way information is conveyed.
 - Performance is the other one: prefer transform/opacity, and make scroll-linked work cheap (avoid layout thrash and per-frame `setState` on large subtrees).
 - The arena robot (`components/Track.tsx`) answers the scroll: it eases toward the scroll position with `ROBOT_FOLLOW`, writes its `transform` straight to the SVG (no React state per frame), and stops its rAF loop once it settles. Under reduced motion it parks at the start and every station is lit.
-- What ships today is restrained — a hero entrance, action feedback, and sections that are static on arrival. That is the current design, not a rule. Changing it is allowed.
+- What ships today: a hero entrance (name, statement, actions, start box), section heads and bodies that settle in once on scroll, per-entry reveals on the projects page, row hover and press feedback, and the animated mobile menu. Each plays once; nothing animates on its own afterwards. That is the current design, not a rule. Changing it is allowed.
+- Measured boxes never translate: `Track` measures `[data-start]`, `[data-finish]` and `[data-station]` by rect, so anything inside a measured subtree animates opacity only — use `fade()`; `reveal()` (which rises by `RISE_PX`) is for everything else. Keep that split when adding motion.
 
 ## Design system
 

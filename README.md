@@ -164,6 +164,7 @@ triggers a production deploy.
 - No LinkedIn (not provided)
 - EPL Predictor is a technical project card only. No football-interest section.
 - Urbania is a personal experimental 2D city simulation. No stack focus.
+- Project links point at real, verified URLs only (no placeholders); a project without a live site shows no site link.
 - Reduced motion is respected globally (`MotionConfig reducedMotion="user"` + CSS media query)
 
 ### Photos

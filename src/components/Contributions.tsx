@@ -1,7 +1,9 @@
+import * as m from "motion/react-m";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { SECTION_COPY } from "../data/content";
 import type { ContributionCalendar } from "../lib/contributions";
 import { getContributions } from "../lib/contributions";
+import { entrance } from "../lib/motion";
 import { useMediaQuery } from "../lib/useMediaQuery";
 import { Section } from "./ui";
 
@@ -88,7 +90,7 @@ export function Contributions() {
       <p className="contribution-summary">
         <span className="contribution-total">{total}</span> public contributions in {rangeLabel}.
       </p>
-      <figure className="contribution-figure">
+      <m.figure className="contribution-figure" {...entrance(0)}>
         <div
           ref={scrollRef}
           className="contribution-chart-scroll"
@@ -162,7 +164,7 @@ export function Contributions() {
             <li className="contribution-legend-cap">{copy.more}</li>
           </ul>
         </figcaption>
-      </figure>
+      </m.figure>
     </Section>
   );
 }
