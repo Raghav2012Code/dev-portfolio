@@ -57,8 +57,7 @@
     color-scheme: dark;
     --floor: #0c0d0f;
     --floor-2: #17191d;
-    --tile: rgba(255, 255, 255, 0.032);
-    --seam: rgba(255, 255, 255, 0.14);
+    --dots: rgba(255, 255, 255, 0.07);
     --ink: #f3f3ef;
     --ink-2: #c3c6cd;
     --ink-3: #9a9fab;
@@ -89,14 +88,12 @@ body {
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
-/* Dark floor: foam mat tiles, not grid lines. Alternating 128px tiles with a
-   dot where four tiles meet, like the interlocking mats in a robot arena. */
+/* Dark floor: the same mat at night. A faint dot grid on flat black —
+   no checkerboard tiles, so the pattern never competes with content. */
 @media (prefers-color-scheme: dark) {
   body {
-    background-image:
-      radial-gradient(circle at 0 0, var(--seam) 0 2px, transparent 2.5px),
-      repeating-conic-gradient(var(--tile) 0 25%, transparent 0 50%);
-    background-size: 128px 128px, 256px 256px;
+    background-image: radial-gradient(var(--dots) 1.5px, transparent 1.6px);
+    background-size: 32px 32px;
   }
 }
 /* Hidden tooltips near the right edge must not widen the page. clip, unlike

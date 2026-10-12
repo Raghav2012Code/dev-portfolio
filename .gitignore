@@ -1,16 +1,13 @@
 # Playwright test artifacts (local only, never commit)
 .playwright-mcp/
-
 # Dependencies + build output
 node_modules/
 dist/
 *.local
-
 .vercel
-
 # Secrets (GITHUB_CONTRIBUTIONS_TOKEN lives in Vercel, never in the repo)
 .env
 .env.*
-
 # Stray QA screenshots
 qa-*.png
+.openchamber/
