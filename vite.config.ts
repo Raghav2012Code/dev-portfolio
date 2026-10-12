@@ -33,6 +33,7 @@ const contributionApiDevPlugin: Plugin = {
 
 export default defineConfig({
   plugins: [react(), contributionApiDevPlugin],
+  server: { port: 5173, strictPort: true },
   build: {
     rollupOptions: {
       input: {

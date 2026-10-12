@@ -15,7 +15,7 @@ export function About() {
       <div className="about-split">
         <div className="about-prose">
           {copy.paragraphs.map((paragraph, index) => (
-            <p className={index === 0 ? "about-lede" : undefined} key={paragraph}>
+            <p className={index === 0 ? "about-lede" : undefined} key={index}>
               {paragraph}
             </p>
           ))}
@@ -23,8 +23,8 @@ export function About() {
         <aside className="about-now">
           <h3 className="about-now-title">{now.title}</h3>
           <ul className="about-now-list">
-            {CURRENTLY.map((item) => (
-              <li className="about-now-item" key={item.title}>
+            {CURRENTLY.map((item, index) => (
+              <li className="about-now-item" key={`${item.title}-${index}`}>
                 <span className="about-now-name">{item.title}</span>
                 <span className="about-now-sub">{item.sub}</span>
               </li>

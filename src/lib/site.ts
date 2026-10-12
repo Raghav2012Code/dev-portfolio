@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export function isHomePage(): boolean {
   const path = window.location.pathname;
-  return path === "/" || path.endsWith("index.html");
+  return path === "/" || path.endsWith("/index.html");
 }
 
 /** Resolve a `#section` hash for the current page. */
@@ -28,8 +28,25 @@ export function scrollToTop(event: MouseEvent<HTMLAnchorElement>) {
 }
 
 /**
+ * Move focus to a same-document `#fragment` target, making it focusable first.
+ * Best-effort: a missing target or a hostile focus() is not an error.
+ */
+export function focusHashTarget(href: string) {
+  if (!href.startsWith("#")) return;
+  const el = document.getElementById(href.slice(1));
+  if (!el) return;
+  try {
+    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+    el.focus({ preventScroll: true });
+  } catch {
+    /* focus is best-effort */
+  }
+}
+
+/**
  * The page renders after load, so the browser's own jump to a `#fragment`
- * finds nothing and stays at the top. Repeat it once the content is mounted.
+ * finds nothing and stays at the top. Repeat it once the content is mounted,
+ * and land keyboard focus on the target so the next Tab starts there.
  */
 export function useInitialHashScroll() {
   useEffect(() => {
@@ -40,6 +57,9 @@ export function useInitialHashScroll() {
       return;
     }
     // "instant" overrides the CSS smooth scroll: a deep link should land, not glide.
-    if (id) document.getElementById(id)?.scrollIntoView({ block: "start", behavior: "instant" });
+    if (id) {
+      document.getElementById(id)?.scrollIntoView({ block: "start", behavior: "instant" });
+      focusHashTarget(window.location.hash);
+    }
   }, []);
 }

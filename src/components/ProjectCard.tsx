@@ -108,7 +108,7 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.links ? (
           <p className="entry-links">
             {project.links.map((link) => (
-              <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noopener">
+              <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`${link.label} (opens in new tab)`}>
                 {link.label}
               </a>
             ))}

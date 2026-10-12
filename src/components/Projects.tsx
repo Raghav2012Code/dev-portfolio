@@ -7,7 +7,7 @@ import { Section } from "./ui";
 
 /**
  * Home page: every project as one full-width index row — the name at display
- * size with its summary beneath, and the outcome at the right.
+ * size with its summary beneath.
  * The whole row links to the project's deep link.
  */
 export function ProjectIndex() {
@@ -32,7 +32,6 @@ export function ProjectIndex() {
                 </span>
                 <span className="index-summary">{project.summary}</span>
               </span>
-              <span className={`index-outcome tone-${project.resultTone}`}>{project.result}</span>
             </m.a>
           </li>
         ))}

@@ -4,8 +4,8 @@
    tape down the left, a station at every heading, and a small line-follower
    that rides the tape as you scroll (src/components/Track.tsx). Start box
    at the top, chequered finish line at the bottom.
-   Anybody, set extra-wide and black, is the paint on the floor; Instrument
-   Sans does the reading. One hi-vis yellow marks zones and results; the
+   Anybody, set extra-wide and black, is the paint on the floor; Schibsted
+   Grotesk does the reading. One hi-vis yellow marks zones and results; the
    robot's LED red appears nowhere else. Light floor by default, dark follows
    the OS (white tape on a black floor). The scoreboard is always black.
    ============================================================ */
@@ -231,7 +231,6 @@ ul, ol { list-style: none; }
 }
 .mobile-menu a:last-child { border-bottom: none; }
 .mobile-menu a:hover, .mobile-menu a[aria-current] { color: var(--ink); }
-@media (min-width: 641px) { .mobile-menu { display: none; } }
 
 /* ---------- hero: the start of the arena ---------- */
 .hero { padding: 64px 0 0; }
@@ -265,6 +264,12 @@ ul, ol { list-style: none; }
 .profile-img {
   flex: none; width: 72px; height: 72px; object-fit: cover;
   border: 3px solid var(--ink); border-radius: 50%;
+}
+/* Shown instead of the photo when the avatar fails to load. */
+.profile-fallback {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--floor-2); color: var(--ink);
+  font-family: var(--font-display); font-size: 20px; font-weight: 850; font-stretch: 130%;
 }
 .hero-facts { display: flex; flex-wrap: wrap; gap: 14px 40px; min-width: 0; }
 .hero-facts div { min-width: 0; }
@@ -334,6 +339,12 @@ ul, ol { list-style: none; }
   flex: none; width: 40px; height: 40px; border-radius: 3px;
   outline: 1.5px solid rgba(128, 128, 128, 0.3); outline-offset: -1.5px;
 }
+/* A stack item with no brand mark gets its initial on a dark tile. */
+.stack-icon-fallback {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #22252d; color: var(--yellow);
+  font-weight: 850; font-size: 20px;
+}
 
 /* ---------- spec rows (project entries) ---------- */
 .spec { border-bottom: 1px solid var(--rule); }
@@ -361,8 +372,7 @@ ul, ol { list-style: none; }
 .index-row:hover, .index-row:focus-visible { color: var(--black); }
 .index-row:hover::before, .index-row:focus-visible::before { transform: scaleX(1); }
 .index-row {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: 32px; align-items: center;
+  display: block;
   padding: 26px 18px 28px;
 }
 .index-main { display: block; min-width: 0; }
@@ -374,11 +384,6 @@ ul, ol { list-style: none; }
 }
 .index-summary { display: block; margin-top: 12px; max-width: 40em; color: var(--ink-2); font-size: 18px; line-height: 1.5; transition: var(--t); }
 .index-row:hover .index-summary, .index-row:focus-visible .index-summary { color: var(--black); }
-.index-outcome { max-width: 13rem; font-size: 16px; font-weight: 700; line-height: 1.4; text-align: right; transition: var(--t); }
-.index-row:hover .tone-win, .index-row:focus-visible .tone-win {
-  text-decoration-color: var(--black); text-decoration-thickness: var(--marker-thickness); text-underline-offset: var(--marker-offset);
-}
-.index-row:hover .tone-muted, .index-row:focus-visible .tone-muted { color: var(--black); }
 
 /* ---------- projects page ---------- */
 .page { padding: 72px 0 var(--section-pad); }
@@ -582,7 +587,7 @@ a.record-build:hover { color: var(--panel-ink); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .tip-bubble, .index-row::before, .btn, .station { transition: none; }
+  .tip-bubble, .index-row::before, .btn, .station, .text-link, .nav-links a, .footer-top, .hero-teaser, .index-summary, .contact-value { transition: none; }
 }
 
 /* ---------- responsive ---------- */
@@ -647,8 +652,7 @@ a.record-build:hover { color: var(--panel-ink); }
   .about-prose p, .entry-desc { font-size: 18px; }
   .section-lead { font-size: 18px; }
   .spec-row, .spec-compact .spec-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-  .index-row { grid-template-columns: minmax(0, 1fr); padding: 22px 6px 24px; }
-  .index-outcome { justify-self: start; margin-top: 12px; text-align: left; }
+  .index-row { padding: 22px 6px 24px; }
   .record-table tbody tr:first-child .record-result { font-size: clamp(1.5rem, 7.6vw, 3rem); }
   .page { padding-top: 40px; }
   .page-head { margin-bottom: 56px; }

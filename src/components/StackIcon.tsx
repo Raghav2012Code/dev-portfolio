@@ -2,14 +2,14 @@ import { BRAND_ICONS, RASTER_ICONS } from "./brandIcons";
 
 /**
  * A square badge for one stack item, from its brand mark. Decorative; the
- * label beside it names the item. A label with no mark gets no badge.
+ * label beside it names the item. A label with no mark gets an initial tile.
  */
 export function StackIcon({ label }: { label: string }) {
   const raster = RASTER_ICONS[label];
   if (raster) {
     return (
       <svg className="stack-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-        <image href={raster} width="32" height="32" />
+        <image href={raster} xlinkHref={raster} width="32" height="32" />
       </svg>
     );
   }
@@ -30,5 +30,9 @@ export function StackIcon({ label }: { label: string }) {
       </svg>
     );
   }
-  return null;
+  return (
+    <span className="stack-icon stack-icon-fallback" aria-hidden="true">
+      {label.charAt(0)}
+    </span>
+  );
 }

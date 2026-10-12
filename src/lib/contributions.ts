@@ -36,22 +36,35 @@ function isContributionCalendar(value: unknown): value is ContributionCalendar {
     return false;
   }
 
-  return calendar.available === true && calendar.weeks.every(
-    (week: unknown) =>
-      Array.isArray(week) &&
-      week.every(
-        (day: unknown) =>
-          typeof day === "object" &&
-          day !== null &&
-          typeof (day as Record<string, unknown>).date === "string" &&
-          // A malformed date would make Intl.DateTimeFormat throw mid-render.
-          ISO_DAY.test((day as Record<string, unknown>).date as string) &&
-          typeof (day as Record<string, unknown>).count === "number" &&
-          Number.isInteger((day as Record<string, unknown>).count) &&
-          ((day as Record<string, unknown>).count as number) >= 0 &&
-          isContributionLevel((day as Record<string, unknown>).level),
-      ),
+  if (calendar.available !== true) return false;
+  const weeks = calendar.weeks as unknown[];
+  // No weeks at all means no calendar to show; both consumers hide together.
+  if (weeks.length === 0) return false;
+  if (
+    !weeks.every(
+      (week: unknown) =>
+        Array.isArray(week) &&
+        week.every(
+          (day: unknown) =>
+            typeof day === "object" &&
+            day !== null &&
+            typeof (day as Record<string, unknown>).date === "string" &&
+            // A malformed date would make Intl.DateTimeFormat throw mid-render.
+            ISO_DAY.test((day as Record<string, unknown>).date as string) &&
+            typeof (day as Record<string, unknown>).count === "number" &&
+            Number.isInteger((day as Record<string, unknown>).count) &&
+            ((day as Record<string, unknown>).count as number) >= 0 &&
+            isContributionLevel((day as Record<string, unknown>).level),
+        ),
+    )
+  ) {
+    return false;
+  }
+  // Duplicate dates would collide as React keys (`key={day.date}`).
+  const dates = weeks.flatMap((week) =>
+    (week as ContributionDay[]).map((day) => day.date),
   );
+  return new Set(dates).size === dates.length;
 }
 
 async function loadCalendar(): Promise<ContributionCalendar | null> {

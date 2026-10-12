@@ -204,7 +204,7 @@ export const PROJECTS: Project[] = [
     slug: "vaccine-cold-chain-ledger",
     name: "Vaccine Cold Chain Ledger",
     summary: "A DHT22 sensor tracks vaccine storage temperature, with SHA-256-hashed records in a web app.",
-    event: "PEC Hacks 4.0, High School Track, Panimalar Engineering College",
+    event: "PEC Hacks 4.0, Panimalar Engineering College, High School Track",
     result: "Consolation Prize",
     resultTone: "win",
     description:
@@ -218,7 +218,7 @@ export const PROJECTS: Project[] = [
       { text: { label: "Web app" } },
     ],
     contrib:
-      "Complete full-stack software implementation, including hardware/software integration.",
+      "Completed full-stack software implementation, including hardware/software integration.",
     techline: [
       { label: "Arduino" },
       { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" },
@@ -315,7 +315,7 @@ export const TIMELINE: TimelineItem[] = [
     title: "Robowunder International Robotics Championship",
     place: "Malaysia",
     project: "Door Hinge Safety System",
-    result: "Overall Winner",
+    result: "Overall Winner, Gold",
   },
   {
     year: "2026",
@@ -336,7 +336,7 @@ export const TIMELINE: TimelineItem[] = [
     title: "Shark Tank Challenge",
     place: "Velammal",
     project: "Volt Ledger",
-    result: "Participated",
+    result: "Participated, 2026",
     minor: true,
   },
   {

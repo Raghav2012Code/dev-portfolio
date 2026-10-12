@@ -1,5 +1,4 @@
 import * as m from "motion/react-m";
-import type { ReactEventHandler } from "react";
 import { useEffect, useState } from "react";
 import {
   ARENA_COPY,
@@ -12,10 +11,6 @@ import {
 import { getContributions } from "../lib/contributions";
 import { EASE, entrance, popIn, PRESS_DURATION } from "../lib/motion";
 
-const hideOnError: ReactEventHandler<HTMLImageElement> = (event) => {
-  event.currentTarget.style.display = "none";
-};
-
 const press = { whileTap: { scale: 0.97 }, transition: { duration: PRESS_DURATION, ease: EASE } };
 
 /**
@@ -24,6 +19,7 @@ const press = { whileTap: { scale: 0.97 }, transition: { duration: PRESS_DURATIO
  */
 export function Hero() {
   const [contributionTotal, setContributionTotal] = useState<number | null>(null);
+  const [avatarFailed, setAvatarFailed] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -53,22 +49,28 @@ export function Hero() {
           </m.a>
           {contributionTotal !== null ? (
             <a className="hero-teaser" href="#contributions">
-              <span className="hero-teaser-count">{contributionTotal.toLocaleString()}</span>{" "}
+              <span className="hero-teaser-count">{contributionTotal.toLocaleString("en-US")}</span>{" "}
               {CONTRIBUTION_TEASER.lead}
             </a>
           ) : null}
         </m.div>
         <m.div {...entrance(3)} className="hero-person">
           {/* PROFILE PHOTO: swap src for assets/profile.jpg to use a real photograph. */}
-          <img
-            className="profile-img"
-            src={GITHUB_AVATAR_URL}
-            alt={HERO_COPY.avatarAlt}
-            width={72}
-            height={72}
-            decoding="async"
-            onError={hideOnError}
-          />
+          {avatarFailed ? (
+            <span className="profile-img profile-fallback" aria-hidden="true">
+              RK
+            </span>
+          ) : (
+            <img
+              className="profile-img"
+              src={GITHUB_AVATAR_URL}
+              alt={HERO_COPY.avatarAlt}
+              width={72}
+              height={72}
+              decoding="async"
+              onError={() => setAvatarFailed(true)}
+            />
+          )}
           <dl className="hero-facts">
             {TITLE_BLOCK.map((fact) => (
               <div key={fact.label}>
