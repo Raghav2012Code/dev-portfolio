@@ -74,7 +74,7 @@ export function Navbar() {
     return {
       label: link.label,
       href: target.href,
-      current: target.current ?? (activeHref === link.href ? ("page" as const) : undefined),
+      current: target.current ?? (activeHref === link.href ? ("true" as const) : undefined),
     };
   });
 
@@ -114,7 +114,7 @@ export function Navbar() {
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            aria-controls="mobileMenu"
+            aria-controls={open ? "mobileMenu" : undefined}
             onClick={() => setOpen((value) => !value)}
           >
             <span aria-hidden="true" />

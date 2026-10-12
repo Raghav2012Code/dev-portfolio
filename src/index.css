@@ -44,6 +44,12 @@
   --section-pad: 120px;
   --nav-h: 68px;
   --tape-w: 12px;
+  /* Marker strokes (links, results, footer affordances). The offset keeps the
+     stroke below the descender line of the reading font, so a "g", "y", "p"
+     or "j" never collides with the highlight. Shared by every underlined
+     element: one rule, no one-offs. */
+  --marker-thickness: 5px;
+  --marker-offset: 5px;
   /* Mirrors src/lib/motion.ts: 150ms for colour, 300ms for the zone swipe. */
   --dur: 0.15s;
   --dur-swipe: 0.3s;
@@ -57,8 +63,7 @@
     color-scheme: dark;
     --floor: #0c0d0f;
     --floor-2: #17191d;
-    --tile: rgba(255, 255, 255, 0.032);
-    --seam: rgba(255, 255, 255, 0.14);
+    --dots: rgba(255, 255, 255, 0.07);
     --ink: #f3f3ef;
     --ink-2: #c3c6cd;
     --ink-3: #9a9fab;
@@ -68,6 +73,10 @@
     --cal-2: #8c7a00;
     --cal-3: #d4b800;
     --cal-4: #ffd60a;
+    /* The scoreboard is always black; on a dark floor its secondary text and
+       row rules need more light to stay comfortably readable. */
+    --panel-ink-2: #c9cdd6;
+    --panel-rule: rgba(255, 255, 255, 0.32);
   }
 }
 
@@ -89,14 +98,12 @@ body {
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
-/* Dark floor: foam mat tiles, not grid lines. Alternating 128px tiles with a
-   dot where four tiles meet, like the interlocking mats in a robot arena. */
+/* Dark floor: the same mat at night. A faint dot grid on flat black —
+   no checkerboard tiles, so the pattern never competes with content. */
 @media (prefers-color-scheme: dark) {
   body {
-    background-image:
-      radial-gradient(circle at 0 0, var(--seam) 0 2px, transparent 2.5px),
-      repeating-conic-gradient(var(--tile) 0 25%, transparent 0 50%);
-    background-size: 128px 128px, 256px 256px;
+    background-image: radial-gradient(var(--dots) 1.5px, transparent 1.6px);
+    background-size: 32px 32px;
   }
 }
 /* Hidden tooltips near the right edge must not widen the page. clip, unlike
@@ -152,7 +159,7 @@ ul, ol { list-style: none; }
   display: inline-block;
   color: var(--ink); font-weight: 650; font-size: 17px;
   text-decoration: underline; text-decoration-color: var(--yellow);
-  text-decoration-thickness: 6px; text-underline-offset: 1px; text-decoration-skip-ink: none;
+  text-decoration-thickness: var(--marker-thickness); text-underline-offset: var(--marker-offset); text-decoration-skip-ink: none;
   transition: var(--t);
 }
 .text-link:hover { background: var(--yellow); color: var(--black); }
@@ -249,7 +256,7 @@ ul, ol { list-style: none; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 36px; }
 .hero-teaser {
   color: var(--ink-2); font-size: 16px; text-decoration: underline;
-  text-decoration-color: var(--yellow); text-decoration-thickness: 4px; text-underline-offset: 2px; transition: var(--t);
+  text-decoration-color: var(--yellow); text-decoration-thickness: var(--marker-thickness); text-underline-offset: var(--marker-offset); transition: var(--t);
 }
 .hero-teaser:hover { color: var(--ink); }
 .hero-teaser-count { color: var(--ink); font-weight: 750; font-variant-numeric: tabular-nums; }
@@ -258,12 +265,16 @@ ul, ol { list-style: none; }
   flex: none; width: 72px; height: 72px; object-fit: cover;
   border: 3px solid var(--ink); border-radius: 50%;
 }
+/* Shown instead of the photo when the avatar fails to load. */
+.profile-fallback {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--floor-2); color: var(--ink);
+  font-family: var(--font-display); font-size: 20px; font-weight: 850; font-stretch: 130%;
+}
 .hero-facts { display: flex; flex-wrap: wrap; gap: 14px 40px; min-width: 0; }
 .hero-facts div { min-width: 0; }
 .hero-facts dt { color: var(--ink-3); font-size: 15px; font-weight: 600; }
 .hero-facts dd { font-size: 18px; font-weight: 700; line-height: 1.3; }
-.hero-hint { display: flex; align-items: center; gap: 12px; margin-top: 40px; color: var(--ink-3); font-size: 15px; }
-.hero-hint::before { content: ""; flex: none; width: 34px; height: 6px; border-radius: 3px; background: var(--ink); }
 
 /* ---------- sections ---------- */
 .section { padding: var(--section-pad) 0 0; }
@@ -298,11 +309,15 @@ ul, ol { list-style: none; }
 .about-now-sub { display: block; color: var(--ink-2); font-size: 17px; line-height: 1.5; }
 
 /* ---------- stack: a parts organiser ---------- */
-.kit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+/* Panels in a row share a height (`stretch`) and every header reserves two
+   name lines, so the badge rows of side-by-side panels start together. The
+   count sits on the first baseline of the name even when the name wraps. */
+.kit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .kit-group:first-child { grid-column: 1 / -1; }
 .kit-group { border: 3px solid var(--ink); border-radius: 14px; background: var(--floor); overflow: hidden; }
 .kit-head {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; align-content: center;
+  column-gap: 16px; min-height: 54px;
   padding: 7px 16px 8px; background: var(--yellow); color: var(--black);
   border-bottom: 3px solid var(--ink);
 }
@@ -324,6 +339,12 @@ ul, ol { list-style: none; }
   flex: none; width: 40px; height: 40px; border-radius: 3px;
   outline: 1.5px solid rgba(128, 128, 128, 0.3); outline-offset: -1.5px;
 }
+/* A stack item with no brand mark gets its initial on a dark tile. */
+.stack-icon-fallback {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #22252d; color: var(--yellow);
+  font-weight: 850; font-size: 20px;
+}
 
 /* ---------- spec rows (project entries) ---------- */
 .spec { border-bottom: 1px solid var(--rule); }
@@ -339,21 +360,19 @@ ul, ol { list-style: none; }
 /* ---------- project index (home): names painted on the floor ---------- */
 .index-list { border-top: 3px solid var(--ink); margin-bottom: 36px; }
 .index-item { border-bottom: 3px solid var(--ink); }
-.index-row, .closing-link {
+.index-row {
   position: relative; isolation: isolate; text-decoration: none; transition: var(--t);
 }
-.index-row::before, .closing-link::before {
+.index-row::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background: var(--yellow);
   transform: scaleX(0); transform-origin: left;
   transition: transform var(--dur-swipe) var(--ease);
 }
-.index-row:hover, .index-row:focus-visible, .closing-link:hover, .closing-link:focus-visible { color: var(--black); }
-.index-row:hover::before, .index-row:focus-visible::before,
-.closing-link:hover::before, .closing-link:focus-visible::before { transform: scaleX(1); }
+.index-row:hover, .index-row:focus-visible { color: var(--black); }
+.index-row:hover::before, .index-row:focus-visible::before { transform: scaleX(1); }
 .index-row {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: 32px; align-items: center;
+  display: block;
   padding: 26px 18px 28px;
 }
 .index-main { display: block; min-width: 0; }
@@ -365,11 +384,6 @@ ul, ol { list-style: none; }
 }
 .index-summary { display: block; margin-top: 12px; max-width: 40em; color: var(--ink-2); font-size: 18px; line-height: 1.5; transition: var(--t); }
 .index-row:hover .index-summary, .index-row:focus-visible .index-summary { color: var(--black); }
-.index-outcome { max-width: 13rem; font-size: 16px; font-weight: 700; line-height: 1.4; text-align: right; transition: var(--t); }
-.index-row:hover .tone-win, .index-row:focus-visible .tone-win {
-  text-decoration-color: var(--black); text-decoration-thickness: 3px; text-underline-offset: 3px;
-}
-.index-row:hover .tone-muted, .index-row:focus-visible .tone-muted { color: var(--black); }
 
 /* ---------- projects page ---------- */
 .page { padding: 72px 0 var(--section-pad); }
@@ -378,6 +392,7 @@ ul, ol { list-style: none; }
   font-family: var(--font-display);
   font-size: clamp(3rem, 9vw, 7.25rem); font-weight: 880; font-stretch: 150%;
   letter-spacing: -0.025em; line-height: 0.9;
+  overflow-wrap: anywhere;
 }
 .page-lead { margin-top: 28px; color: var(--ink-2); font-size: 22px; line-height: 1.4; text-wrap: pretty; }
 
@@ -390,6 +405,7 @@ ul, ol { list-style: none; }
   font-family: var(--font-display);
   font-size: clamp(1.375rem, 2.3vw, 2.125rem); font-weight: 860; font-stretch: 125%;
   letter-spacing: -0.02em; line-height: 1.05; text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 /* the aside of a long name ("CRASH (Chennai Road ...)") drops to a small line under the short name */
 .name-aside {
@@ -399,10 +415,10 @@ ul, ol { list-style: none; }
 }
 .entry-featured .entry-name { font-size: clamp(1.625rem, 2.9vw, 2.5rem); }
 .entry-result { margin-top: 18px; font-size: 17px; font-weight: 700; line-height: 1.4; }
-/* A marker stroke through the lower half of the text; losses and personal work stay plain. */
+/* A marker stroke below the text; losses and personal work stay plain. */
 .tone-win {
   color: var(--ink); text-decoration: underline; text-decoration-color: var(--yellow);
-  text-decoration-thickness: 0.32em; text-underline-offset: -0.1em;
+  text-decoration-thickness: var(--marker-thickness); text-underline-offset: var(--marker-offset);
 }
 .tone-muted { color: var(--ink-3); font-weight: 600; }
 .entry-body { min-width: 0; }
@@ -410,10 +426,12 @@ ul, ol { list-style: none; }
 .entry-body .spec { margin-top: 28px; }
 .entry-links { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 24px; }
 
-/* signal chain: parts joined by short strips of tape */
+/* signal chain: parts joined by short strips of tape.
+   A strip trails its step, so a wrapped chain starts a line with a part and
+   the break falls between steps -- never a strip orphaned at the line start. */
 .chain { display: flex; flex-wrap: wrap; align-items: center; row-gap: 6px; }
 .chain li { display: inline-flex; align-items: center; }
-.chain li + li::before {
+.chain li:not(:last-child)::after {
   content: ""; width: 22px; height: 6px; margin: 0 8px;
   background: var(--ink); border-radius: 3px;
 }
@@ -488,7 +506,7 @@ ul, ol { list-style: none; }
 .record-event-title { display: block; font-size: 21px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
 .record-build {
   display: block; margin-top: 2px; color: var(--panel-ink-2); font-size: 16px;
-  text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 3px; text-underline-offset: 3px;
+  text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 3px; text-underline-offset: var(--marker-offset);
   width: fit-content;
 }
 a.record-build:hover { color: var(--panel-ink); }
@@ -503,17 +521,30 @@ a.record-build:hover { color: var(--panel-ink); }
 .record-table tbody tr:not(:has(.record-result-earned)) .record-year::before { background: none; border: 2px solid var(--panel-ink-2); }
 .record-table tbody tr:not(:has(.record-result-earned)) .record-event-title { color: var(--panel-ink-2); font-weight: 600; }
 
-/* ---------- contact: addresses set large ---------- */
-.closing-list { border-top: 3px solid var(--ink); }
-.closing-item { border-bottom: 3px solid var(--ink); }
-.closing-link { display: flex; align-items: center; gap: 18px; padding: 22px 18px; }
-.closing-link-icon { flex: none; display: inline-flex; }
-.closing-link-value {
-  font-family: var(--font-display);
-  font-size: clamp(1.0625rem, 2vw, 1.625rem); font-weight: 860; font-stretch: 135%;
-  letter-spacing: -0.01em; line-height: 1.15; overflow-wrap: anywhere;
+/* ---------- contact: a plate of addresses ----------
+   Calm type: a small display-face label names each channel, the address is a
+   reading-size marker link. No oversized display rows. */
+.contact-list { border: 3px solid var(--ink); border-radius: 16px; background: var(--floor); overflow: hidden; }
+.contact-row {
+  display: grid; grid-template-columns: auto minmax(0, 8rem) minmax(0, 1fr);
+  align-items: baseline; column-gap: 18px;
+  padding: 16px 20px 17px;
+  border-top: 1px solid var(--rule);
 }
-.closing-item:first-child .closing-link-value { font-size: clamp(1.0625rem, 2.4vw, 2rem); }
+.contact-row:first-child { border-top: none; }
+.contact-icon { align-self: center; display: inline-flex; color: var(--ink-3); }
+.contact-label {
+  font-family: var(--font-display); font-size: 13px; font-weight: 850; font-stretch: 130%;
+  line-height: 1.5; color: var(--ink-3);
+}
+.contact-value {
+  min-width: 0; overflow-wrap: anywhere;
+  font-size: 18px; font-weight: 650; line-height: 1.5;
+  text-decoration: underline; text-decoration-color: var(--yellow);
+  text-decoration-thickness: var(--marker-thickness); text-underline-offset: var(--marker-offset);
+  transition: var(--t);
+}
+.contact-value:hover { background: var(--yellow); color: var(--black); }
 
 /* ---------- footer: the finish line ---------- */
 .footer { margin-top: 96px; padding: 0 0 44px; }
@@ -527,7 +558,7 @@ a.record-build:hover { color: var(--panel-ink); }
 .footer-meta { color: var(--ink-3); font-size: 15px; }
 .footer-top {
   margin-left: auto; color: var(--ink-2); font-size: 15px; font-weight: 650; text-decoration: underline;
-  text-decoration-color: var(--yellow); text-decoration-thickness: 4px; text-underline-offset: 2px; transition: var(--t);
+  text-decoration-color: var(--yellow); text-decoration-thickness: var(--marker-thickness); text-underline-offset: var(--marker-offset); transition: var(--t);
 }
 .footer-top:hover { color: var(--ink); }
 
@@ -556,7 +587,7 @@ a.record-build:hover { color: var(--panel-ink); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .tip-bubble, .index-row::before, .closing-link::before, .btn, .station, .text-link, .nav-links a, .footer-top, .hero-teaser, .index-summary { transition: none; }
+  .tip-bubble, .index-row::before, .btn, .station, .text-link, .nav-links a, .footer-top, .hero-teaser, .index-summary, .contact-value { transition: none; }
 }
 
 /* ---------- responsive ---------- */
@@ -621,8 +652,7 @@ a.record-build:hover { color: var(--panel-ink); }
   .about-prose p, .entry-desc { font-size: 18px; }
   .section-lead { font-size: 18px; }
   .spec-row, .spec-compact .spec-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-  .index-row { grid-template-columns: minmax(0, 1fr); padding: 22px 6px 24px; }
-  .index-outcome { justify-self: start; margin-top: 12px; text-align: left; }
+  .index-row { padding: 22px 6px 24px; }
   .record-table tbody tr:first-child .record-result { font-size: clamp(1.5rem, 7.6vw, 3rem); }
   .page { padding-top: 40px; }
   .page-head { margin-bottom: 56px; }
@@ -635,11 +665,19 @@ a.record-build:hover { color: var(--panel-ink); }
   .kit-list { gap: 8px; padding: 14px 12px 16px; }
   .kit-list li { gap: 9px; padding: 4px 12px 4px 4px; font-size: 15px; }
   .stack-icon { width: 32px; height: 32px; }
-  .closing-link { gap: 12px; padding: 20px 6px; }
-  .closing-link-value, .closing-item:first-child .closing-link-value { font-size: 1.0625rem; font-stretch: 120%; }
+  .contact-row { grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 6px; padding: 15px 14px 16px; }
+  .contact-label { grid-column: 2; }
+  .contact-value { grid-column: 1 / -1; font-size: 17px; }
   .footer { margin-top: 72px; }
   .tip-bubble, .tip:focus .tip-bubble, .tip:hover .tip-bubble {
     position: fixed; left: var(--gutter); right: var(--gutter); bottom: 16px;
     width: auto; max-width: none; transform: none; font-size: 16px;
   }
+}
+
+/* Below 360px the widest display words ("System", "Projects") no longer fit
+   their column; one step down keeps the whole title rendered unclipped. */
+@media (max-width: 360px) {
+  .page-head h1 { font-size: 1.375rem; }
+  .entry-name, .entry-featured .entry-name { font-size: 1.25rem; font-stretch: 120%; }
 }

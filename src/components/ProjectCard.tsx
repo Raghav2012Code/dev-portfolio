@@ -1,5 +1,8 @@
+import * as m from "motion/react-m";
+import { useReducedMotion } from "motion/react";
 import type { Project, SignalStep, TechMention } from "../data/content";
 import { PROJECT_SPEC_LABELS } from "../data/content";
+import { fade, reveal } from "../lib/motion";
 import { Tip } from "./ui";
 
 /**
@@ -22,8 +25,8 @@ export function ProjectName({ name }: { name: string }) {
 function SignalChain({ steps, staged = false }: { steps: SignalStep[]; staged?: boolean }) {
   return (
     <ol className={staged ? "chain chain-staged" : "chain"}>
-      {steps.map((step) => (
-        <li key={step.text.label}>
+      {steps.map((step, i) => (
+        <li key={`${step.text.label}-${i}`}>
           {step.strong ? <span className="chain-stage">{step.strong}</span> : null}
           <span className="chain-part">
             <Tip label={step.text.label} tip={step.text.tip} />
@@ -38,7 +41,7 @@ function TechLine({ items }: { items: TechMention[] }) {
   return (
     <>
       {items.map((item, i) => (
-        <span key={item.label}>
+        <span key={`${item.label}-${i}`}>
           <Tip label={item.label} tip={item.tip} />
           {i < items.length - 1 ? ", " : ""}
         </span>
@@ -54,6 +57,8 @@ function TechLine({ items }: { items: TechMention[] }) {
  */
 export function ProjectCard({ project }: { project: Project }) {
   const labels = PROJECT_SPEC_LABELS;
+  // Under reduced motion the entry fades in place instead of rising.
+  const reduce = useReducedMotion();
   return (
     <article
       className={project.featured ? "entry entry-featured" : "entry"}
@@ -62,14 +67,14 @@ export function ProjectCard({ project }: { project: Project }) {
       aria-labelledby={`${project.slug}-name`}
     >
       <header className="entry-head">
-        <div className="entry-heading">
+        <m.div className="entry-heading" {...(reduce ? fade(0) : reveal(0))}>
           <h2 className="entry-name" id={`${project.slug}-name`}>
             <ProjectName name={project.name} />
           </h2>
           <p className={`entry-result tone-${project.resultTone}`}>{project.result}</p>
-        </div>
+        </m.div>
       </header>
-      <div className="entry-body">
+      <m.div className="entry-body" {...(reduce ? fade(1) : reveal(1))}>
         <p className="entry-desc">{project.description}</p>
         {project.featured && project.sysline ? <SignalChain steps={project.sysline} staged /> : null}
         <dl className="spec spec-compact entry-spec">
@@ -109,7 +114,7 @@ export function ProjectCard({ project }: { project: Project }) {
             ))}
           </p>
         ) : null}
-      </div>
+      </m.div>
     </article>
   );
 }

@@ -31,19 +31,7 @@ export function StackIcon({ label }: { label: string }) {
     );
   }
   return (
-    <span
-      className="stack-icon"
-      aria-hidden="true"
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#22252D",
-        color: "var(--yellow)",
-        fontWeight: 850,
-        fontSize: 20,
-      }}
-    >
+    <span className="stack-icon stack-icon-fallback" aria-hidden="true">
       {label.charAt(0)}
     </span>
   );

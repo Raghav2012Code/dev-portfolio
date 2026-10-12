@@ -9,8 +9,7 @@ import {
   TITLE_BLOCK,
 } from "../data/content";
 import { getContributions } from "../lib/contributions";
-import { EASE, entrance, PRESS_DURATION } from "../lib/motion";
-import { useMediaQuery } from "../lib/useMediaQuery";
+import { EASE, entrance, popIn, PRESS_DURATION } from "../lib/motion";
 
 const press = { whileTap: { scale: 0.97 }, transition: { duration: PRESS_DURATION, ease: EASE } };
 
@@ -21,7 +20,6 @@ const press = { whileTap: { scale: 0.97 }, transition: { duration: PRESS_DURATIO
 export function Hero() {
   const [contributionTotal, setContributionTotal] = useState<number | null>(null);
   const [avatarFailed, setAvatarFailed] = useState(false);
-  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   useEffect(() => {
     let active = true;
@@ -36,9 +34,9 @@ export function Hero() {
   return (
     <section className="hero" id="intro" aria-labelledby="hero-name">
       <div className="container lane-pad">
-        <div className="start-box" data-start aria-hidden="true">
+        <m.div {...popIn} className="start-box" data-start aria-hidden="true">
           <span>{ARENA_COPY.start}</span>
-        </div>
+        </m.div>
         <m.h1 {...entrance(0)} className="hero-name" id="hero-name">
           {HERO_COPY.name}
         </m.h1>
@@ -59,12 +57,14 @@ export function Hero() {
         <m.div {...entrance(3)} className="hero-person">
           {/* PROFILE PHOTO: swap src for assets/profile.jpg to use a real photograph. */}
           {avatarFailed ? (
-            <span className="profile-img" aria-hidden="true" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", fontWeight: 800 }}>RK</span>
+            <span className="profile-img profile-fallback" aria-hidden="true">
+              RK
+            </span>
           ) : (
             <img
               className="profile-img"
               src={GITHUB_AVATAR_URL}
-              alt="Raghav Krishna"
+              alt={HERO_COPY.avatarAlt}
               width={72}
               height={72}
               decoding="async"
@@ -80,7 +80,6 @@ export function Hero() {
             ))}
           </dl>
         </m.div>
-        <p className="hero-hint">{reduceMotion ? "Scroll along the tape." : ARENA_COPY.hint}</p>
       </div>
     </section>
   );

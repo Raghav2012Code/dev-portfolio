@@ -43,9 +43,10 @@ the [projects page](https://raghavkrishna-dev.vercel.app/project).
   results, and the robot's red LED appears nowhere else.
 - **Light and dark themes** that follow the operating system, with text at
   WCAG AA contrast in both.
-- **One moving part currently.** A short entrance on load, then only the robot moves,
-  easing along the tape as you scroll. Under reduced motion it parks at the
-  start and every station stays lit.
+- **Motion that respects you.** A short entrance on load, then sections settle
+  in once as they scroll into view, and the robot eases along the tape. Under
+  reduced motion everything is a plain fade: the robot parks at the start and
+  every station stays lit.
 - **Accessible by default.** Skip link, keyboard-friendly menu (Escape closes
   it), a nav that tracks the current section, and tooltips that work with
   screen readers, keyboards and touch.
@@ -168,6 +169,7 @@ triggers a production deploy.
 - No LinkedIn (not provided)
 - EPL Predictor is a technical project card only. No football-interest section.
 - Urbania is a personal experimental 2D city simulation. No stack focus.
+- Project links point at real, verified URLs only (no placeholders); a project without a live site shows no site link.
 - Reduced motion is respected globally (`MotionConfig reducedMotion="user"` + CSS media query)
 
 ### Photos
