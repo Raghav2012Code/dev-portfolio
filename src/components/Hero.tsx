@@ -10,7 +10,7 @@ import {
   TITLE_BLOCK,
 } from "../data/content";
 import { getContributions } from "../lib/contributions";
-import { EASE, entrance, PRESS_DURATION } from "../lib/motion";
+import { EASE, entrance, popIn, PRESS_DURATION } from "../lib/motion";
 
 const hideOnError: ReactEventHandler<HTMLImageElement> = (event) => {
   event.currentTarget.style.display = "none";
@@ -38,9 +38,9 @@ export function Hero() {
   return (
     <section className="hero" id="intro" aria-labelledby="hero-name">
       <div className="container lane-pad">
-        <div className="start-box" data-start aria-hidden="true">
+        <m.div {...popIn} className="start-box" data-start aria-hidden="true">
           <span>{ARENA_COPY.start}</span>
-        </div>
+        </m.div>
         <m.h1 {...entrance(0)} className="hero-name" id="hero-name">
           {HERO_COPY.name}
         </m.h1>
@@ -78,7 +78,6 @@ export function Hero() {
             ))}
           </dl>
         </m.div>
-        <p className="hero-hint">{ARENA_COPY.hint}</p>
       </div>
     </section>
   );
