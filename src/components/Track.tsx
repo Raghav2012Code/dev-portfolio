@@ -45,6 +45,7 @@ const sameLayout = (a: Layout | null, b: Layout | null) => JSON.stringify(a) ===
  */
 export function Track() {
   const compact = useMediaQuery("(max-width: 640px)");
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const { lane, amp, wave, scale } = compact ? COMPACT : DESKTOP;
   const rootRef = useRef<HTMLDivElement | null>(null);
   const robotRef = useRef<SVGGElement | null>(null);
@@ -61,8 +62,14 @@ export function Track() {
     update();
     const observer = new ResizeObserver(update);
     observer.observe(arena);
-    void document.fonts.ready.then(update);
-    return () => observer.disconnect();
+    let alive = true;
+    void document.fonts.ready.then(() => {
+      if (alive) update();
+    });
+    return () => {
+      alive = false;
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -78,7 +85,7 @@ export function Track() {
       stationRefs.current.forEach((el, i) => el?.classList.toggle("is-passed", y >= (stations[i] ?? Infinity) - 2));
     };
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (reduceMotion) {
       place(startY, false);
       stationRefs.current.forEach((el) => el?.classList.add("is-passed"));
       return;
@@ -109,7 +116,7 @@ export function Track() {
       window.removeEventListener("resize", wake);
       cancelAnimationFrame(frame);
     };
-  }, [layout, lane, amp, wave, scale]);
+  }, [layout, lane, amp, wave, scale, reduceMotion]);
 
   let tape = "";
   if (layout) {
@@ -132,7 +139,7 @@ export function Track() {
           <path className="tape" d={tape} />
           {layout.stations.map((y, i) => (
             <rect
-              key={`${i}-${y}`}
+              key={i}
               ref={(el) => {
                 stationRefs.current[i] = el;
               }}

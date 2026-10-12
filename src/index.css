@@ -4,8 +4,8 @@
    tape down the left, a station at every heading, and a small line-follower
    that rides the tape as you scroll (src/components/Track.tsx). Start box
    at the top, chequered finish line at the bottom.
-   Anybody, set extra-wide and black, is the paint on the floor; Instrument
-   Sans does the reading. One hi-vis yellow marks zones and results; the
+   Anybody, set extra-wide and black, is the paint on the floor; Schibsted
+   Grotesk does the reading. One hi-vis yellow marks zones and results; the
    robot's LED red appears nowhere else. Light floor by default, dark follows
    the OS (white tape on a black floor). The scoreboard is always black.
    ============================================================ */
@@ -224,7 +224,6 @@ ul, ol { list-style: none; }
 }
 .mobile-menu a:last-child { border-bottom: none; }
 .mobile-menu a:hover, .mobile-menu a[aria-current] { color: var(--ink); }
-@media (min-width: 641px) { .mobile-menu { display: none; } }
 
 /* ---------- hero: the start of the arena ---------- */
 .hero { padding: 64px 0 0; }
@@ -557,7 +556,7 @@ a.record-build:hover { color: var(--panel-ink); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .tip-bubble, .index-row::before, .closing-link::before, .btn, .station { transition: none; }
+  .tip-bubble, .index-row::before, .closing-link::before, .btn, .station, .text-link, .nav-links a, .footer-top, .hero-teaser, .index-summary { transition: none; }
 }
 
 /* ---------- responsive ---------- */

@@ -4,6 +4,7 @@ import { Section } from "./ui";
 // TIMELINE names a build in its short form ("CRASH"), while a project name may
 // carry a parenthetical aside ("CRASH (Chennai Road Accident Safety Hub)").
 // Match on the short form so a year's build links to its project-page entry.
+// Note: relies on the "Name (aside)" naming convention in project names.
 const BUILD_SLUGS = new Map(
   PROJECTS.map((project) => [project.name.split(" (")[0], project.slug] as const),
 );
@@ -13,7 +14,7 @@ const BUILD_SLUGS = new Map(
  * display scale and tabular; participated-only rows still read "Participated"
  * in text, so colour is never the only signal.
  *
- * Below 40rem the four columns cannot all be read at once, so the rows stack
+ * Below 48rem the four columns cannot all be read at once, so the rows stack
  * instead of scrolling sideways. The explicit ARIA roles are load-bearing:
  * changing `display` on table elements drops their implicit roles, so the
  * semantics have to be restated.

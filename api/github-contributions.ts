@@ -106,7 +106,7 @@ export default async function handler(
     return;
   }
 
-  const token = env.GITHUB_CONTRIBUTIONS_TOKEN;
+  const token = env.GITHUB_CONTRIBUTIONS_TOKEN ?? process.env.GITHUB_CONTRIBUTIONS_TOKEN;
   if (!token) {
     unavailableResponse(response);
     return;
@@ -147,7 +147,7 @@ export default async function handler(
       week.contributionDays.map((day) => ({
         date: day.date,
         count: day.contributionCount,
-        level: LEVELS[day.contributionLevel],
+        level: LEVELS[day.contributionLevel] ?? 0,
       })),
     );
 

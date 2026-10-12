@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 
 /** Live `matchMedia` result; re-renders when the query flips. */
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
+  const [matches, setMatches] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(query).matches,
+  );
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const list = window.matchMedia(query);
     const onChange = (event: MediaQueryListEvent) => setMatches(event.matches);
     setMatches(list.matches);

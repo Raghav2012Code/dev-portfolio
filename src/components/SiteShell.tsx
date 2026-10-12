@@ -23,7 +23,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <Navbar />
         <div className="arena">
           <Track />
-          <main id="main">{children}</main>
+          <main id="main" tabIndex={-1}>{children}</main>
           <Footer />
         </div>
       </MotionConfig>

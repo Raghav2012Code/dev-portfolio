@@ -22,8 +22,8 @@ export function ProjectName({ name }: { name: string }) {
 function SignalChain({ steps, staged = false }: { steps: SignalStep[]; staged?: boolean }) {
   return (
     <ol className={staged ? "chain chain-staged" : "chain"}>
-      {steps.map((step, i) => (
-        <li key={`${step.text.label}-${i}`}>
+      {steps.map((step) => (
+        <li key={step.text.label}>
           {step.strong ? <span className="chain-stage">{step.strong}</span> : null}
           <span className="chain-part">
             <Tip label={step.text.label} tip={step.text.tip} />
@@ -38,7 +38,7 @@ function TechLine({ items }: { items: TechMention[] }) {
   return (
     <>
       {items.map((item, i) => (
-        <span key={`${item.label}-${i}`}>
+        <span key={item.label}>
           <Tip label={item.label} tip={item.tip} />
           {i < items.length - 1 ? ", " : ""}
         </span>
@@ -103,7 +103,7 @@ export function ProjectCard({ project }: { project: Project }) {
         {project.links ? (
           <p className="entry-links">
             {project.links.map((link) => (
-              <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noopener">
+              <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`${link.label} (opens in new tab)`}>
                 {link.label}
               </a>
             ))}

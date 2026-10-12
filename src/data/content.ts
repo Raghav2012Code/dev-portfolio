@@ -17,7 +17,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const GITHUB_USERNAME = "Raghav2012Code";
 export const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
-export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png?size=160`;
+export const GITHUB_AVATAR_URL = `${GITHUB_URL}.png?s=160`;
 export const CONTACT_EMAIL = "raghavgamerz670@gmail.com";
 export const PROFILE_NAME = "Raghav Krishna";
 export const NAV_GITHUB_LABEL = "GitHub";
@@ -202,7 +202,7 @@ export const PROJECTS: Project[] = [
     slug: "vaccine-cold-chain-ledger",
     name: "Vaccine Cold Chain Ledger",
     summary: "A DHT22 sensor tracks vaccine storage temperature, with SHA-256-hashed records in a web app.",
-    event: "PEC Hacks 4.0, High School Track, Panimalar Engineering College",
+    event: "PEC Hacks 4.0, Panimalar Engineering College, High School Track",
     result: "Consolation Prize",
     resultTone: "win",
     description:
@@ -216,7 +216,7 @@ export const PROJECTS: Project[] = [
       { text: { label: "Web app" } },
     ],
     contrib:
-      "Complete full-stack software implementation, including hardware/software integration.",
+      "Completed full-stack software implementation, including hardware/software integration.",
     techline: [
       { label: "Arduino" },
       { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" },
@@ -310,7 +310,7 @@ export const TIMELINE: TimelineItem[] = [
     title: "Robowunder International Robotics Championship",
     place: "Malaysia",
     project: "Door Hinge Safety System",
-    result: "Overall Winner",
+    result: "Overall Winner, Gold",
   },
   {
     year: "2026",
@@ -331,7 +331,7 @@ export const TIMELINE: TimelineItem[] = [
     title: "Shark Tank Challenge",
     place: "Velammal",
     project: "Volt Ledger",
-    result: "Participated",
+    result: "Participated, 2026",
     minor: true,
   },
   {

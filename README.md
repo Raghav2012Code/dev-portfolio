@@ -43,7 +43,7 @@ the [projects page](https://raghavkrishna-dev.vercel.app/project).
   results, and the robot's red LED appears nowhere else.
 - **Light and dark themes** that follow the operating system, with text at
   WCAG AA contrast in both.
-- **One moving part.** A short entrance on load, then only the robot moves,
+- **One moving part currently.** A short entrance on load, then only the robot moves,
   easing along the tape as you scroll. Under reduced motion it parks at the
   start and every station stays lit.
 - **Accessible by default.** Skip link, keyboard-friendly menu (Escape closes
@@ -82,7 +82,8 @@ The projects page is served at `/project.html` by the dev server and at
 
 There is no test suite. A change is ready when `npm run build` passes, the
 browser console is clean, and the page has been checked on desktop and a
-390px-wide phone, in both themes.
+390px-wide phone, in both themes. Full browser matrix (widths, overflow,
+menu+Escape, reduced motion) is in AGENTS.md.
 
 ## Project structure
 
@@ -106,7 +107,9 @@ browser console is clean, and the page has been checked on desktop and a
     │   ├── Projects.tsx        # Home project index and projects page list
     │   ├── ProjectCard.tsx     # One project as a spec entry
     │   ├── Contributions.tsx   # GitHub contribution calendar
-    │   ├── ui.tsx              # Section layout, Tip tooltip, brand icons
+    │   ├── ui.tsx              # Section layout, Tip tooltip
+    │   ├── brandIcons.ts       # Inlined brand marks (simple-icons / data URIs)
+    │   ├── StackIcon.tsx       # Stack badge with drawn fallback glyph
     │   └── ...                 # About, Timeline, Skills, Contact, Navbar, Footer
     ├── data/content.ts         # All site copy and project data
     ├── lib/                    # Motion timing, contributions client, helpers
@@ -149,7 +152,8 @@ triggers a production deploy.
   every page has one address.
 - The canonical URL `https://raghavkrishna-dev.vercel.app` is set in both HTML
   entries (canonical and `og:url`), `public/robots.txt` and
-  `public/sitemap.xml`. Change all four together.
+  `public/sitemap.xml`. Change all four together: 2 HTML files × (canonical
+  + og:url) + robots.txt Sitemap line + sitemap.xml URLs.
 
 ## Maintaining
 

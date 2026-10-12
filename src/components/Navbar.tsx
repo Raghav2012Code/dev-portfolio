@@ -64,12 +64,17 @@ export function Navbar() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const closeAndRefocus = () => {
+    setOpen(false);
+    toggleRef.current?.focus();
+  };
+
   const links = NAV_LINKS.map((link) => {
     const target = navTarget(link.href);
     return {
       label: link.label,
       href: target.href,
-      current: target.current ?? (activeHref === link.href ? ("true" as const) : undefined),
+      current: target.current ?? (activeHref === link.href ? ("page" as const) : undefined),
     };
   });
 
@@ -109,12 +114,12 @@ export function Navbar() {
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            aria-controls={open ? "mobileMenu" : undefined}
+            aria-controls="mobileMenu"
             onClick={() => setOpen((value) => !value)}
           >
-            <span />
-            <span />
-            <span />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -135,7 +140,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 aria-current={link.current}
-                onClick={() => setOpen(false)}
+                onClick={closeAndRefocus}
               >
                 {link.label}
               </a>

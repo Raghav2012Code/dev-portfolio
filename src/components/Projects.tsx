@@ -4,24 +4,28 @@ import { Section } from "./ui";
 
 /**
  * Home page: every project as one full-width index row — the name at display
- * size with its summary beneath, and the outcome at the right.
+ * size with its summary beneath.
  * The whole row links to the project's deep link.
  */
 export function ProjectIndex() {
   const copy = SECTION_COPY.projects;
+  // Dev serves /project.html, prod serves /project.
+  const pagePath =
+    typeof window !== "undefined" && window.location.pathname.includes(".html")
+      ? "/project.html"
+      : PROJECTS_PAGE_PATH;
   return (
     <Section id="projects" title={copy.title} lead={copy.lead} variant="index">
       <ol className="index-list">
         {PROJECTS.map((project) => (
           <li key={project.slug} className="index-item">
-            <a className="index-row" href={`${PROJECTS_PAGE_PATH}#${project.slug}`}>
+            <a className="index-row" href={`${pagePath}#${project.slug}`}>
               <span className="index-main">
                 <span className="index-name">
                   <ProjectName name={project.name} />
                 </span>
                 <span className="index-summary">{project.summary}</span>
               </span>
-              <span className={`index-outcome tone-${project.resultTone}`}>{project.result}</span>
             </a>
           </li>
         ))}

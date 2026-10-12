@@ -32,7 +32,7 @@ Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html`
 ## Design system
 
 - The arena: the page is a robotics arena floor. Tokens on `:root` in `src/index.css`: `--floor` (faint mat grid in light, foam-tile checker on black in dark), `--ink` (true black tape; white on the dark floor), `--yellow` (zones, results, the robot), `--red` (the robot's LED only). `--panel` stays black in both themes for the scoreboard. Text contrast stays at WCAG AA.
-- Two families, split by role. Anybody, set extra-wide (`font-stretch` 130 to 150%) and black, is the paint on the floor: names, headings, the headline result. Schibsted Grotesk (`--font`) does all the reading. Sentence case, no caps labels, no mono.
+- Two families, split by role. Anybody, set extra-wide (`font-stretch` 130 to 150%) and black, is the paint on the floor: names, headings, the headline result. Below 640px the band narrows to 118–125% so display type fits without overflow. Schibsted Grotesk (`--font`) does all the reading. Sentence case, no caps labels, no mono.
 - The tape lane: `.lane-pad` keeps content right of the tape. `Track` (`components/Track.tsx`) draws a serpentine tape from `[data-start]` to `[data-finish]` (hero start box or the projects `h1`, and the footer finish line) with a station at each `[data-station]` heading. Elements that stick (project entries) use `data-station="top"` so scrolling cannot move their station. A new page needs one `data-start` and the shared footer.
 - Sections use `Section` (`components/ui.tsx`): the heading sits at a station and matches its nav label. `variant` only adds a `section--<variant>` class for per-section styling. Facts go in `dl.spec` rows. Competitions is a real `<table>` styled as the black scoreboard (rows stack below 48rem); Stack is a parts organiser (`.kit`).
 - The hero is the name, one statement, the start box, and the avatar photo with the facts. The robot is decoration: keep it free of copy, labels or claims, and hidden from assistive tech. The real signal chain lives on the Door Hinge entry.
@@ -55,7 +55,7 @@ Vite + React 19 + strict TypeScript portfolio with two pages: home (`index.html`
 ## Deploy
 
 - Vercel project `van-89de/dev-portfolio`, live at `https://raghavkrishna-dev.vercel.app` (the `raghav-dev` and `raghavdev` aliases were taken). Merges to upstream `main` auto-deploy; the CLI is logged in for the rare manual deploy.
-- `.vercelignore` keeps `.playwright-mcp/` and `dist/` out of uploads; including them aborts deploys on slow networks.
+- `.vercelignore` keeps `node_modules/`, `.env` + `.env.*`, `.playwright-mcp/`, `dist/`, and `qa-*.png` out of uploads; including them aborts deploys on slow networks.
 - The canonical URL (`https://raghavkrishna-dev.vercel.app`, projects at `/project`, no trailing slash) stays in sync across `index.html` and `project.html` (canonical + `og:url`), `public/robots.txt`, and `public/sitemap.xml`. `vercel.json` sets `trailingSlash: false`.
 
 ## Git

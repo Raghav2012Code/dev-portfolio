@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export function isHomePage(): boolean {
   const path = window.location.pathname;
-  return path === "/" || path.endsWith("index.html");
+  return path === "/" || path.endsWith("/index.html");
 }
 
 /** Resolve a `#section` hash for the current page. */
@@ -40,6 +40,17 @@ export function useInitialHashScroll() {
       return;
     }
     // "instant" overrides the CSS smooth scroll: a deep link should land, not glide.
-    if (id) document.getElementById(id)?.scrollIntoView({ block: "start", behavior: "instant" });
+    if (id) {
+      const el = document.getElementById(id);
+      el?.scrollIntoView({ block: "start", behavior: "instant" });
+      if (el) {
+        try {
+          if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+          el.focus({ preventScroll: true });
+        } catch {
+          /* focus is best-effort */
+        }
+      }
+    }
   }, []);
 }
