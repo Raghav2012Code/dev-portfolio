@@ -165,7 +165,7 @@ export const PROJECTS: Project[] = [
     result: "Overall Winner, Gold",
     resultTone: "win",
     description:
-      "A hardware safety system designed to help prevent finger injuries around door hinges. Laser and IR sensors watch the hinge danger zone, and when something is detected inside it, the servo and solenoid actuators respond.",
+      "A hardware safety system that helps prevent finger injuries around door hinges. Laser and IR sensors watch the hinge danger zone, and a servo and solenoid respond when something is detected inside it.",
     sysline: [
       { strong: "Sense", text: { label: "Laser + IR sensor", tip: "Detects a hand near the hinge" } },
       { strong: "Process", text: { label: "ESP32", tip: "Wi-Fi + Bluetooth microcontroller" } },
@@ -187,7 +187,7 @@ export const PROJECTS: Project[] = [
     result: "Qualified for NRC Technoxian",
     resultTone: "win",
     description:
-      "A robotics competition project that uses public accident data and XGBoost to predict where accidents may occur. It looks at parameters like time, day, junction information, and other relevant public-data parameters.",
+      "A robotics competition project that predicts where road accidents may occur. It uses public accident data and XGBoost, and considers parameters such as time, day and junction information, along with other public-data parameters.",
     contrib:
       "Built the full frontend using Claude Code and integrated it with the backend. The team handled testing.",
     techline: [
@@ -208,7 +208,7 @@ export const PROJECTS: Project[] = [
     result: "Consolation Prize",
     resultTone: "win",
     description:
-      "A hardware-integrated cold-chain monitoring system: a DHT22 sensor tracks vaccine storage temperature via Arduino/ESP32, shows readings on an LCD, and records SHA-256-hashed data to Supabase for display in a web application.",
+      "A hardware-integrated cold-chain monitor for vaccine storage. A DHT22 sensor reads temperature through an Arduino/ESP32, shows the reading on an LCD, and stores SHA-256-hashed records in Supabase for display in a web app.",
     sysline: [
       { text: { label: "DHT22 sensor" } },
       { text: { label: "Arduino / ESP32" } },
@@ -241,7 +241,7 @@ export const PROJECTS: Project[] = [
     result: "Participated, 2026",
     resultTone: "muted",
     description:
-      "A transparent, tamper-evident ledger for peer-to-peer rooftop solar energy trading. Neighbours trade surplus at a community rate, and every trade is sealed into a SHA-256 hash chain computed in the browser. All data simulated.",
+      "A transparent, tamper-evident ledger for peer-to-peer rooftop solar energy trading. Neighbours trade surplus energy at a community rate, and every trade is sealed into a SHA-256 hash chain computed in the browser. All data is simulated.",
     contrib: "Frontend development and the competition pitch.",
     techline: [
       { label: "React" },
@@ -262,7 +262,7 @@ export const PROJECTS: Project[] = [
     result: "Work in progress",
     resultTone: "muted",
     description:
-      "A personal project predicting English football match outcomes from historical data: an XGBoost, Poisson and Elo pipeline with pre-kickoff bookmaker signals, served in a React dashboard. An exercise in working with real datasets, testing simple prediction ideas, and learning what works (and what doesn’t).",
+      "A personal project that predicts English football match outcomes from historical data. It combines an XGBoost, Poisson and Elo pipeline with pre-kickoff bookmaker signals, served in a React dashboard. It is an exercise in working with real datasets and testing simple prediction ideas, to learn what works (and what doesn’t).",
     techline: [
       { label: "Python" },
       { label: "XGBoost", tip: "Gradient-boosted trees library for tabular data" },
@@ -281,7 +281,7 @@ export const PROJECTS: Project[] = [
     result: "Experimental",
     resultTone: "muted",
     description:
-      "A personal experimental project: a 2D top-down city simulation. Build roads, zone residential, commercial and industrial districts and parks, and watch citizens move in, find jobs and commute by car or bus, with land value, pollution and the city budget to manage.",
+      "A personal experimental project: a 2D top-down city simulation. It covers roads, zoned residential, commercial and industrial districts, and parks, with citizens who move in, find jobs and commute by car or bus. Land value, pollution and the city budget all need managing.",
     links: [{ label: "View repository", href: "https://github.com/Raghav2012Code/urbania" }],
   },
 ];
