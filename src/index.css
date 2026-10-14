@@ -115,7 +115,7 @@ a { color: inherit; }
 ::selection { background: var(--yellow); color: var(--black); }
 ul, ol { list-style: none; }
 
-:where(a, button, [tabindex]):focus-visible {
+:where(a, button, [tabindex="0"]):focus-visible {
   outline: 3px solid var(--ink);
   outline-offset: 3px;
   border-radius: 4px;
@@ -387,7 +387,7 @@ ul, ol { list-style: none; }
 
 /* ---------- projects page ---------- */
 .page { padding: 72px 0 var(--section-pad); }
-.page-head { max-width: 46rem; margin-bottom: 80px; }
+.page-head { max-width: 56rem; margin-bottom: 80px; }
 .page-head h1 {
   font-family: var(--font-display);
   font-size: clamp(3rem, 9vw, 7.25rem); font-weight: 880; font-stretch: 150%;
