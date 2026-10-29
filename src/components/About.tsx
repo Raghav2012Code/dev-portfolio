@@ -20,7 +20,8 @@ export function About() {
             </p>
           ))}
         </div>
-        <aside className="about-now">
+        {/* Part of About, not a page-level complementary landmark. */}
+        <div className="about-now">
           <h3 className="about-now-title">{now.title}</h3>
           <ul className="about-now-list">
             {CURRENTLY.map((item, index) => (
@@ -30,7 +31,7 @@ export function About() {
               </li>
             ))}
           </ul>
-        </aside>
+        </div>
       </div>
     </Section>
   );

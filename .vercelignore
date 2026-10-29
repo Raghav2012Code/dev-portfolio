@@ -1,5 +1,6 @@
 # Local-only artifacts: never upload to Vercel.
 .playwright-mcp/
+.openchamber/
 dist/
 node_modules/
 .env
