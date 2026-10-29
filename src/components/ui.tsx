@@ -2,8 +2,8 @@
 // The tooltip and button styles live in index.css.
 import * as m from "motion/react-m";
 import { useReducedMotion } from "motion/react";
-import type { ReactNode } from "react";
-import { useId } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import { useId, useRef, useState } from "react";
 import { fade, reveal } from "../lib/motion";
 
 interface SectionProps {
@@ -55,18 +55,40 @@ interface TipProps {
  */
 export function Tip({ label, tip }: TipProps) {
   const id = useId();
+  const bubbleRef = useRef<HTMLSpanElement | null>(null);
+  const [shift, setShift] = useState(0);
+
+  // The bubble is centred on its term, so near an edge it can run past the
+  // viewport and be clipped. Nudge it back inside when it is shown (focus or
+  // hover); nothing runs per frame.
+  const clampBubble = (term: HTMLElement) => {
+    const bubble = bubbleRef.current;
+    if (!bubble) return;
+    const box = term.getBoundingClientRect();
+    const half = bubble.offsetWidth / 2;
+    const center = box.left + box.width / 2;
+    const margin = 12;
+    const left = center - half;
+    const right = center + half;
+    const max = window.innerWidth - margin;
+    setShift(right > max ? max - right : left < margin ? margin - left : 0);
+  };
+
   if (!tip) return <>{label}</>;
   return (
     <span
       className="tip"
       tabIndex={0}
       aria-describedby={id}
+      style={{ "--tip-shift": `${shift}px` } as CSSProperties}
+      onFocus={(event) => clampBubble(event.currentTarget)}
+      onMouseEnter={(event) => clampBubble(event.currentTarget)}
       onKeyDown={(event) => {
         if (event.key === "Escape") event.currentTarget.blur();
       }}
     >
       {label}
-      <span className="tip-bubble" role="tooltip" id={id}>
+      <span className="tip-bubble" role="tooltip" id={id} ref={bubbleRef}>
         {tip}
       </span>
     </span>

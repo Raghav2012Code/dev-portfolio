@@ -20,6 +20,17 @@ export interface ContributionCalendar {
 
 const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
 
+/**
+ * A real calendar day. The pattern alone accepts `2026-13-01`, which reaches
+ * Intl.DateTimeFormat mid-render and throws (blank page). Require the parsed
+ * date to round-trip, so 2026-02-30 is rejected too.
+ */
+function isIsoDay(value: string): boolean {
+  if (!ISO_DAY.test(value)) return false;
+  const date = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
+
 function isContributionLevel(value: unknown): value is ContributionLevel {
   return value === 0 || value === 1 || value === 2 || value === 3 || value === 4;
 }
@@ -50,7 +61,7 @@ function isContributionCalendar(value: unknown): value is ContributionCalendar {
             day !== null &&
             typeof (day as Record<string, unknown>).date === "string" &&
             // A malformed date would make Intl.DateTimeFormat throw mid-render.
-            ISO_DAY.test((day as Record<string, unknown>).date as string) &&
+            isIsoDay((day as Record<string, unknown>).date as string) &&
             typeof (day as Record<string, unknown>).count === "number" &&
             Number.isInteger((day as Record<string, unknown>).count) &&
             ((day as Record<string, unknown>).count as number) >= 0 &&
